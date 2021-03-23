@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.*?>
+
+<GridPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.company.gui.Controller"
+            prefHeight="400.0" prefWidth="600.0"
+            stylesheets="@Style.css">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES"/>
+        <ColumnConstraints hgrow="SOMETIMES"/>
+        <ColumnConstraints hgrow="SOMETIMES"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints vgrow="SOMETIMES"/>
+        <RowConstraints vgrow="SOMETIMES"/>
+        <RowConstraints vgrow="SOMETIMES"/>
+    </rowConstraints>
+    <children>
+        <TextField promptText="Введите имя..." GridPane.rowIndex="0" GridPane.columnIndex="1" maxWidth="Infinity"
+        fx:id="userNameField"/>
+        <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <rowConstraints>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <columnConstraints><ColumnConstraints hgrow="SOMETIMES"/></columnConstraints>
+            <children>
+                <Button maxWidth="Infinity" text="Начать" GridPane.rowIndex="0"
+                        fx:id="startBtn" onAction="#clickStartBtn"/>
+                <Button maxWidth="Infinity" text="Начать онлайн" GridPane.rowIndex="1"
+                        fx:id="startOnlineBtn" onAction="#clickStartOnlineBtn"/>
+                <Button maxWidth="Infinity" text="Выход" GridPane.rowIndex="2"
+                        fx:id="exitBtn" onAction="#clickExitBtn"/>
+            </children>
+        </GridPane>
+    </children>
+</GridPane>
