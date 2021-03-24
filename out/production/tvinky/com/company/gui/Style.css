@@ -1,11 +1,23 @@
 .button {
     -fx-font-size: 30px;
     -fx-background-color: #b0b5b5;
-    -fx-border-radius: 10px;
-    -fx-background-radius: 10px;
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
 }
 
 .text-field {
 	-fx-border-radius: 0px;
     -fx-background-radius: 0px;
+}
+
+.label {
+    -fx-background-color: #b0b5b5;
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+    -fx-padding: 10px
+}
+
+.slider {
+    -fx-minor-tick-count: 100;
+    -fx-background-color: #b0b5b5;
 }
