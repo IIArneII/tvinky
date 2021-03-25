@@ -19,9 +19,8 @@ public class OptionController {
     @FXML
     private void clickBackBtn(ActionEvent event) throws Exception{
         System.out.println("gui.OptionController.clickBackBtn()");
-        Stage theStage = (Stage)backBtn.getScene().getWindow();
+        Scene theScene = backBtn.getScene();
         Parent theRoot = FXMLLoader.load(getClass().getResource("View.fxml"));
-        Scene theScene = new Scene(theRoot);
-        theStage.setScene(theScene);
+        theScene.setRoot(theRoot);
     }
 }

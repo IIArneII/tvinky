@@ -53,9 +53,9 @@ public class Controller {
     @FXML
     private void clickOptionsBtn(ActionEvent event) throws Exception{
         System.out.println("gui.Controller.clickOptionsBtn()");
-        Stage theStage = (Stage)exitBtn.getScene().getWindow();
+        Scene theScene = optionsBtn.getScene();
         Parent theRoot = FXMLLoader.load(getClass().getResource("OptionView.fxml"));
-        theStage.setScene(new Scene(theRoot));
+        theScene.setRoot(theRoot);
     }
 
     @FXML
