@@ -1,7 +1,6 @@
-package com.company.gui;
+package com.company.gui.main;
 
 import javafx.fxml.FXML;
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -54,7 +53,7 @@ public class Controller {
     private void clickOptionsBtn(ActionEvent event) throws Exception{
         System.out.println("gui.Controller.clickOptionsBtn()");
         Scene theScene = optionsBtn.getScene();
-        Parent theRoot = FXMLLoader.load(getClass().getResource("OptionView.fxml"));
+        Parent theRoot = FXMLLoader.load(getClass().getResource("../option/OptionView.fxml"));
         theScene.setRoot(theRoot);
     }
 

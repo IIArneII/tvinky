@@ -18,6 +18,23 @@
 }
 
 .slider {
-    -fx-minor-tick-count: 100;
-    -fx-background-color: #b0b5b5;
+
+}
+
+.slider .thumb {
+    -fx-pref-height:20;
+    -fx-background-color: #55DD;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+}
+
+.slider .track {
+    -fx-pref-height:20;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+    -fx-background-color: #078FEB;
+}
+
+.slider .track:hover {
+    -fx-background-color: #8BDE04;
 }

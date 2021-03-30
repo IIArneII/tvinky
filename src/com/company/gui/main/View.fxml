@@ -9,8 +9,8 @@
 
 <GridPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.company.gui.Controller"
-            stylesheets="@Style.css">
+            fx:controller="com.company.gui.main.Controller"
+            stylesheets="@../Style.css">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES"/>
         <ColumnConstraints hgrow="SOMETIMES"/>

@@ -1,4 +1,4 @@
-package com.company.gui;
+package com.company.gui.option;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +20,7 @@ public class OptionController {
     private void clickBackBtn(ActionEvent event) throws Exception{
         System.out.println("gui.OptionController.clickBackBtn()");
         Scene theScene = backBtn.getScene();
-        Parent theRoot = FXMLLoader.load(getClass().getResource("View.fxml"));
+        Parent theRoot = FXMLLoader.load(getClass().getResource("../main/View.fxml"));
         theScene.setRoot(theRoot);
     }
 }
