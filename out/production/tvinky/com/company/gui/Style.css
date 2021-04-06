@@ -1,13 +1,20 @@
 .button {
     -fx-font-size: 30px;
-    -fx-background-color: #b0b5b5;
-    -fx-border-radius: 0px;
+    -fx-background-color: #96C9FF;
     -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+    -fx-border-width: 5px;
+    -fx-border-color: #96C9FF;
+}
+
+.button:hover {
+    -fx-border-color: #F08F52;
 }
 
 .text-field {
 	-fx-border-radius: 0px;
     -fx-background-radius: 0px;
+    -fx-background-color: #3AF094;
 }
 
 .label {
@@ -15,10 +22,6 @@
     -fx-border-radius: 0px;
     -fx-background-radius: 0px;
     -fx-padding: 10px
-}
-
-.slider {
-
 }
 
 .slider .thumb {
@@ -33,8 +36,4 @@
     -fx-background-radius: 0px;
     -fx-border-radius: 0px;
     -fx-background-color: #078FEB;
-}
-
-.slider .track:hover {
-    -fx-background-color: #8BDE04;
 }
