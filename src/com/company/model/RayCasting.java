@@ -1,4 +1,4 @@
-package com.company;
+package com.company.model;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
