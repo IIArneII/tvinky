@@ -1,4 +1,4 @@
-package com.company.gui.main;
+package com.company.view.main;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,14 +9,14 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class Controller {
+public class MainController {
     private String userNameFieldText;
 
     @FXML
     private Button startBtn;
 
     @FXML
-    private Button startOnlineBtn;
+    private Button onlineBtn;
 
     @FXML
     private Button optionsBtn;
@@ -39,14 +39,11 @@ public class Controller {
     }
 
     @FXML
-    private void clickStartOnlineBtn(ActionEvent event) {
+    private void clickStartOnlineBtn(ActionEvent event) throws Exception{
         System.out.println("gui.Controller.clickStartOnlineBtn()");
-        if(userNameField.getText() != "") {
-
-        }
-        else {
-            userNameField.setStyle("-fx-background-color: #FAC1BF");
-        }
+        Scene theScene = onlineBtn.getScene();
+        Parent theRoot = FXMLLoader.load(getClass().getResource("../online/OnlineView.fxml"));
+        theScene.setRoot(theRoot);
     }
 
     @FXML

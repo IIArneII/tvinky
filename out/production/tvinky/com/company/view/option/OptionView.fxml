@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Text?>
 <GridPane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="com.company.gui.option.OptionController"
+          fx:controller="com.company.view.option.OptionController"
           stylesheets="@../Style.css">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES"/>

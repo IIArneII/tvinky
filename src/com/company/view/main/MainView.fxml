@@ -7,10 +7,11 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.geometry.Insets?>
 <GridPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.company.gui.main.Controller"
-            stylesheets="@../Style.css">
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="com.company.view.main.MainController"
+          stylesheets="@../Style.css">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES"/>
         <ColumnConstraints hgrow="SOMETIMES"/>
@@ -22,8 +23,6 @@
         <RowConstraints vgrow="SOMETIMES"/>
     </rowConstraints>
     <children>
-        <TextField promptText="Введите имя..." GridPane.rowIndex="0" GridPane.columnIndex="1" maxWidth="Infinity"
-        fx:id="userNameField" onAction="#clickUserNameField"/>
         <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
             <rowConstraints>
                 <RowConstraints vgrow="SOMETIMES"/>
@@ -36,7 +35,7 @@
                 <Button maxWidth="Infinity" text="Начать" GridPane.rowIndex="0"
                         fx:id="startBtn" onAction="#clickStartBtn"/>
                 <Button maxWidth="Infinity" text="Начать онлайн" GridPane.rowIndex="1"
-                        fx:id="startOnlineBtn" onAction="#clickStartOnlineBtn"/>
+                        fx:id="onlineBtn" onAction="#clickStartOnlineBtn"/>
                 <Button maxWidth="Infinity" text="Настроки" GridPane.rowIndex="2"
                         fx:id="optionsBtn" onAction="#clickOptionsBtn"/>
                 <Button maxWidth="Infinity" text="Выход" GridPane.rowIndex="3"
