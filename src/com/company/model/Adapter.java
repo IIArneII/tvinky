@@ -1,48 +1,61 @@
 package com.company.model;
 
 public class Adapter {
-    public static void run(){
+
+    private RayCasting rc;
+
+    public Adapter(){
+        rc = new RayCasting();
+    }
+
+    public void run(){
+        rc.run();
         System.out.println("com.company.model.Adapter.run()");
     }
 
-    public static double[][] getWindow(){
+    public double[][] getWindow(){
         System.out.println("com.company.model.Adapter.getWindow()");
-        return new double[0][0];
+
+        return rc.getScreen();
     }
 
-    public static void pressW(){
+    public void pressW(){
         System.out.println("com.company.model.Adapter.pressW()");
+        rc.setEventCharacter(1);
     }
 
-    public static void pressS(){
+    public void pressS(){
         System.out.println("com.company.model.Adapter.pressS()");
+        rc.setEventCharacter(2);
     }
 
-    public static void pressD(){
+    public void pressD(){
         System.out.println("com.company.model.Adapter.pressD()");
     }
 
-    public static void pressA(){
+    public void pressA(){
         System.out.println("com.company.model.Adapter.pressA()");
     }
 
-    public static void pressRight(){
+    public void pressRight(){
         System.out.println("com.company.model.Adapter.pressRight()");
+        rc.setEventCharacter(4);
     }
 
-    public static void pressLeft(){
+    public void pressLeft(){
         System.out.println("com.company.model.Adapter.pressLeft()");
+        rc.setEventCharacter(3);
     }
 
-    public static void pressShot(){
+    public void pressShot(){
         System.out.println("com.company.model.Adapter.pressShot()");
     }
 
-    public static void setName(String name){
+    public void setName(String name){
         System.out.println("com.company.model.Adapter.setName()");
     }
 
-    public static void setMode(boolean mode){
+    public void setMode(boolean mode){
         System.out.println("com.company.model.Adapter.setMode()");
     }
 }

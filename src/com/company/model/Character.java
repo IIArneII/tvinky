@@ -18,13 +18,13 @@ public class Character {
     public double getPosCharacterY(){return this.posCharacterY;}
     public double getAngCharacter(){return this.angCharacter;}
     public double getSpeed(){return this.speed;}
-    public void PosCharacterXRedefinition(double n){this.posCharacterX = n;}
-    public void PosCharacterYRedefinition(double n){this.posCharacterY = n;}
-    public void PosCharacterXPlus(double n){this.posCharacterX += n;}
-    public void PosCharacterYPlus(double n){this.posCharacterY += n;}
-    public void PosCharacterXMinus(double n){this.posCharacterX -= n;}
-    public void PosCharacterYMinus(double n){this.posCharacterY -= n;}
-    public void AngCharacterPlus(double n){this.angCharacter += n;}
-    public void AngCharacterMinus(double n){this.angCharacter -= n;}
+    public void setPosCharacterXRedefinition(double n){this.posCharacterX = n;}
+    public void setPosCharacterYRedefinition(double n){this.posCharacterY = n;}
+    public void setPosCharacterXPlus(double n){this.posCharacterX += n;}
+    public void setPosCharacterYPlus(double n){this.posCharacterY += n;}
+    public void setPosCharacterXMinus(double n){this.posCharacterX -= n;}
+    public void setPosCharacterYMinus(double n){this.posCharacterY -= n;}
+    public void setAngCharacterPlus(double n){this.angCharacter += n;}
+    public void setAngCharacterMinus(double n){this.angCharacter -= n;}
 
 }
