@@ -1,10 +1,12 @@
 package com.company.model;
 
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
+
 
 public class RayCasting extends JFrame implements Runnable, KeyListener{
 
@@ -13,13 +15,6 @@ public class RayCasting extends JFrame implements Runnable, KeyListener{
     public static final int Height  = 600;
     public static final int Width_Center = Width/2;
     public static final int Height_Center = Height/2;
-
-    //Константы - углы
-    public static final int Ang360 = 4800;
-    public static final int Ang180 = 2400;
-    public static final int Ang60 = 800;
-    public static final int Ang30 = 400;
-    public static final int Ang6 = 80;
 
     //Константы - действия
     public static final int STOP = -1;
@@ -32,7 +27,9 @@ public class RayCasting extends JFrame implements Runnable, KeyListener{
     private BufferedImage image;
     private Graphics graphics;
     private Color[] clr_palette;
-    private int[][] map;
+    private Map map;
+
+    private Character charcter = new Character();
 
     //Атрибуты - действия
     private int eventCharacter = STOP;
@@ -42,17 +39,7 @@ public class RayCasting extends JFrame implements Runnable, KeyListener{
         this.graphics = this.image.getGraphics();
 
         this.clr_palette = new Color[]{Color.GREEN, Color.red, Color.blue, Color.orange, Color.WHITE, Color.YELLOW};
-        this.map = new int[][]{ {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-                                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                                {5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                                {5, 0, 0, 0, 0, 4, 2, 3, 0, 0, 0, 0, 1},
-                                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                                {1, 0, 0, 0, 0, 3, 3, 3, 0, 4, 0, 0, 1},
-                                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-        };
+        this.map = new Map();
 
         this.setTitle("Ray_Casting");
         this.setSize(Width, Height);
@@ -64,36 +51,31 @@ public class RayCasting extends JFrame implements Runnable, KeyListener{
         new Thread(this).start();
     }
 
-    public double converte_DegreeToRadian(int angle){
-        return angle * (Math.PI / Ang180);
-    }
-
     @Override
     public void run(){
-        double posCharacterX = 5, posCharacterY = 5, radX, radY, stepX, stepY;
-        int angCharacter = 0, angRad;
+        double radX, radY, stepX, stepY, angRad;
 
         while(true){
 
+            System.out.println(Thread.currentThread().getName());
+            angRad = (charcter.getAngCharacter() -  Angles.Ang30);
 
-            angRad = (angCharacter -  Ang30);
-
-            for(int rad = 0; rad<Ang60; rad++){
-                radX = posCharacterX;
-                radY = posCharacterY;
-                stepX = Math.cos(this.converte_DegreeToRadian(angRad)) / 80;
-                stepY = Math.sin(this.converte_DegreeToRadian(angRad)) / 80;
+            for(int rad = 0; rad<Angles.Ang60; rad++){
+                radX = charcter.getPosCharacterX();
+                radY = charcter.getPosCharacterY();
+                stepX = Math.cos(Angles.converte_DegreeToRadian(angRad)) / 80;
+                stepY = Math.sin(Angles.converte_DegreeToRadian(angRad)) / 80;
 
                 int wall = 0;
                 int distant = 1;
                 while (wall == 0){
                     radX += stepX;
                     radY += stepY;
-                    wall = this.map[(int)radX][(int)radY];
+                    wall = this.map.getMap()[(int)radX][(int)radY];
                     distant++;
                 }
 
-                int heightWall = (2000/distant);
+                int heightWall = (20000/distant);
 
                 //Sky
                 this.graphics.setColor(Color.CYAN);
@@ -116,33 +98,33 @@ public class RayCasting extends JFrame implements Runnable, KeyListener{
             double posCharacterYPrev;
             switch (this.eventCharacter){
                 case UP:
-                    posCharacterXPrev = posCharacterX;
-                    posCharacterYPrev = posCharacterY;
-                    posCharacterX += Math.cos(this.converte_DegreeToRadian(angCharacter)) /1000;
-                    posCharacterY += Math.sin(this.converte_DegreeToRadian(angCharacter)) /1000;
-                    if(this.map[(int) posCharacterX][(int) posCharacterY] > 0){
-                        posCharacterX = posCharacterXPrev;
-                        posCharacterY = posCharacterYPrev;
+                    posCharacterXPrev = charcter.getPosCharacterX();
+                    posCharacterYPrev = charcter.getPosCharacterY();
+                    charcter.PosCharacterXPlus(Math.cos(Angles.converte_DegreeToRadian(charcter.getAngCharacter())) /100);
+                    charcter.PosCharacterYPlus(Math.sin(Angles.converte_DegreeToRadian(charcter.getAngCharacter())) /100);
+                    if(this.map.getMap()[(int) charcter.getPosCharacterX()][(int) charcter.getPosCharacterY()] > 0){
+                        charcter.PosCharacterXRedefinition(posCharacterXPrev);
+                        charcter.PosCharacterYRedefinition(posCharacterYPrev);
                     }
                     break;
 
                 case DOWN:
-                    posCharacterXPrev = posCharacterX;
-                    posCharacterYPrev = posCharacterY;
-                    posCharacterX -= Math.cos(this.converte_DegreeToRadian(angCharacter)) /1000;
-                    posCharacterY -= Math.sin(this.converte_DegreeToRadian(angCharacter)) /1000;
-                    if(this.map[(int) posCharacterX][(int) posCharacterY] > 0){
-                        posCharacterX = posCharacterXPrev;
-                        posCharacterY = posCharacterYPrev;
+                    posCharacterXPrev = charcter.getPosCharacterX();
+                    posCharacterYPrev = charcter.getPosCharacterY();
+                    charcter.PosCharacterXMinus(Math.cos(Angles.converte_DegreeToRadian(charcter.getAngCharacter())) /100);
+                    charcter.PosCharacterYMinus(Math.sin(Angles.converte_DegreeToRadian(charcter.getAngCharacter())) /100);
+                    if(this.map.getMap()[(int) charcter.getPosCharacterX()][(int) charcter.getPosCharacterY()] > 0){
+                        charcter.PosCharacterXRedefinition(posCharacterXPrev);
+                        charcter.PosCharacterYRedefinition(posCharacterYPrev);
                     }
                     break;
 
                 case LEFT:
-                    angCharacter -= 0.1 * (Ang6/6);
+                    charcter.AngCharacterMinus(0.1 * (Angles.Ang6/6));
                     break;
 
                 case RIGHT:
-                    angCharacter += 0.1 * (Ang6/6);
+                    charcter.AngCharacterPlus(0.1 * (Angles.Ang6/6));
                     break;
             }
         }
