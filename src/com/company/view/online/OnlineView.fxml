@@ -60,12 +60,12 @@
                 <Button GridPane.rowIndex="0" GridPane.columnIndex="0" maxWidth="Infinity"
                         text="Назад" fx:id="backBtn" onAction="#clickBackBtn"/>
                 <Button GridPane.rowIndex="0" GridPane.columnIndex="1" maxWidth="Infinity"
-                        text="Поиск"/>
+                        text="Поиск" fx:id="searchBtn" onAction="#clickSearchBtn"/>
                 <Button GridPane.rowIndex="0" GridPane.columnIndex="2" maxWidth="Infinity"
                         text="Присоединиться"/>
             </children>
         </GridPane>
         <ProgressIndicator GridPane.rowIndex="4" GridPane.columnIndex="1" maxWidth="Infinity" minHeight="-Infinity"
-                           visible="false"/>
+                           visible="false" fx:id="progressSearch"/>
     </children>
 </GridPane>

@@ -9,7 +9,10 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class MainController {
+import com.company.view.Controller;
+
+public class MainController extends Controller{
+
     private String userNameFieldText;
 
     @FXML
@@ -34,8 +37,12 @@ public class MainController {
     }
 
     @FXML
-    private void clickStartBtn(ActionEvent event) {
+    private void clickStartBtn(ActionEvent event) throws Exception{
         System.out.println("gui.Controller.clickStartBtn()");
+        new Start("Game", this);
+        Scene theScene = startBtn.getScene();
+        Parent theRoot = FXMLLoader.load(getClass().getResource("../game/GameView.fxml"));
+        theScene.setRoot(theRoot);
     }
 
     @FXML
@@ -59,5 +66,22 @@ public class MainController {
         System.out.println("gui.Controller.clickExitBtn()");
         Stage theStage = (Stage)exitBtn.getScene().getWindow();
         theStage.close();
+    }
+}
+
+class Start implements Runnable{
+
+    private Thread t;
+    private Controller controller;
+
+    public Start(String nameThread, Controller controller){
+        t = new Thread(this, nameThread);
+        this.controller = controller;
+        t.start();
+    }
+
+    public void run(){
+        System.out.println("Start thread: " + t.getName());
+        controller.getAdapter().run();
     }
 }

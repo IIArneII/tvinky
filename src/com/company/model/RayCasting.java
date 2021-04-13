@@ -1,14 +1,6 @@
 package com.company.model;
 
-
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
-import javax.swing.JFrame;
-
-
-public class RayCasting extends JFrame implements Runnable, KeyListener{
+public class RayCasting implements Runnable{
 
     //Констатнты - размеры
     public static final int Width = 800;
@@ -24,9 +16,6 @@ public class RayCasting extends JFrame implements Runnable, KeyListener{
     public static final int RIGHT = 4;
 
     //Атрибуты - Графика
-    private BufferedImage image;
-    private Graphics graphics;
-    private Color[] clr_palette;
     private Map map;
 
     //Атрибуты - действия
@@ -36,20 +25,9 @@ public class RayCasting extends JFrame implements Runnable, KeyListener{
     private double[][] screen;
 
     public RayCasting(){
-        this.image = new BufferedImage(Width, Height, BufferedImage.TYPE_INT_RGB);
-        this.graphics = this.image.getGraphics();
-
-        this.clr_palette = new Color[]{Color.GREEN, Color.red, Color.blue, Color.orange, Color.WHITE, Color.YELLOW};
         this.map = new Map();
 
         this.screen = new double[800][5];
-
-        this.setTitle("Ray_Casting");
-        this.setSize(Width, Height);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null);
-        this.addKeyListener(this);
-        this.setVisible(true);
 
         new Thread(this).start();
     }
@@ -85,22 +63,8 @@ public class RayCasting extends JFrame implements Runnable, KeyListener{
                 this.screen[rad][3] = Height;
                 this.screen[rad][4] = wall-1;
 
-                //Sky
-                this.graphics.setColor(Color.CYAN);
-                this.graphics.drawLine(rad, 0, rad, Height_Center - heightWall);
-
-                //Wall
-                this.graphics.setColor(this.clr_palette[wall - 1]);
-                this.graphics.drawLine(rad, Height_Center - heightWall, rad, Height_Center + heightWall);
-
-                //Floor
-                this.graphics.setColor(Color.GRAY);
-                this.graphics.drawLine(rad, Height_Center + heightWall, rad, Height);
-
                 angRad++;
             }
-
-            this.repaint();
 
             double posCharacterXPrev = charcter.getPosCharacterX();
             double posCharacterYPrev = charcter.getPosCharacterY();
@@ -122,34 +86,6 @@ public class RayCasting extends JFrame implements Runnable, KeyListener{
                     break;
             }
         }
-
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e){
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e){
-        switch (e.getKeyCode()){
-            case KeyEvent.VK_UP: this.eventCharacter = UP; break;
-            case KeyEvent.VK_DOWN: this.eventCharacter = DOWN; break;
-            case KeyEvent.VK_LEFT: this.eventCharacter = LEFT; break;
-            case KeyEvent.VK_RIGHT: this.eventCharacter = RIGHT; break;
-        }
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e){
-        switch (e.getKeyCode()){
-            case KeyEvent.VK_UP: this.eventCharacter = STOP; break;
-            case KeyEvent.VK_DOWN: this.eventCharacter = STOP; break;
-            case KeyEvent.VK_LEFT: this.eventCharacter = STOP; break;
-            case KeyEvent.VK_RIGHT: this.eventCharacter = STOP; break;
-        }
-
 
     }
 
@@ -188,15 +124,4 @@ public class RayCasting extends JFrame implements Runnable, KeyListener{
     public void setEventCharacter(int n){this.eventCharacter = n;}
 
     public double[][] getScreen(){return this.screen;}
-
-    @Override
-    public void paint(Graphics g){
-        g.drawImage(this.image, 0, 0, this);
-
-    }
-
-    public static void main(String[] args){
-        new RayCasting();
-
-    }
 }

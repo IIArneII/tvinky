@@ -1,5 +1,6 @@
 package com.company.view.option;
 
+import com.company.view.Controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 
-public class OptionController {
+public class OptionController extends Controller{
 
     @FXML
     private Button backBtn;
