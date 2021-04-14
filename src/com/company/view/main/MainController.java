@@ -39,7 +39,6 @@ public class MainController extends Controller{
     @FXML
     private void clickStartBtn(ActionEvent event) throws Exception{
         System.out.println("gui.Controller.clickStartBtn()");
-        new Start("Game", this);
         Scene theScene = startBtn.getScene();
         Parent theRoot = FXMLLoader.load(getClass().getResource("../game/GameView.fxml"));
         theScene.setRoot(theRoot);
@@ -66,22 +65,5 @@ public class MainController extends Controller{
         System.out.println("gui.Controller.clickExitBtn()");
         Stage theStage = (Stage)exitBtn.getScene().getWindow();
         theStage.close();
-    }
-}
-
-class Start implements Runnable{
-
-    private Thread t;
-    private Controller controller;
-
-    public Start(String nameThread, Controller controller){
-        t = new Thread(this, nameThread);
-        this.controller = controller;
-        t.start();
-    }
-
-    public void run(){
-        System.out.println("Start thread: " + t.getName());
-        controller.getAdapter().run();
     }
 }

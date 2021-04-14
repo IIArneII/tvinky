@@ -7,8 +7,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Line?>
 
-<GridPane xmlns="http://javafx.com/javafx"
+<Pane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.company.view.game.GameController" fx:id="pane">
-    <Line startX="1" startY="1" endX="200" endY="200"/>
-</GridPane>
+    <Button fx:id="btn" onKeyPressed="#BtnOnKeyPressed" focusTraversable="true"/>
+</Pane>

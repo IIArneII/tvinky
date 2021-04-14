@@ -14,7 +14,7 @@ public class Adapter {
     }
 
     public double[][] getWindow(){
-        System.out.println("com.company.model.Adapter.getWindow()");
+        //System.out.println("com.company.model.Adapter.getWindow()");
 
         return rc.getScreen();
     }
