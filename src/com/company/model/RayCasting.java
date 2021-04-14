@@ -68,7 +68,6 @@ public class RayCasting{
             switch (this.eventCharacter){
                 case UP:
                     this.caseUp(posCharacterXPrev, posCharacterYPrev);
-                    System.out.println(posCharacterXPrev + "\t" + posCharacterYPrev);
                     break;
 
                 case DOWN:
@@ -120,7 +119,6 @@ public class RayCasting{
     public int getEventCharacter(){return this.eventCharacter;}
 
     public void setEventCharacter(int n){
-        System.out.println("setEventCharacter" + n);
         this.eventCharacter = n;
     }
 

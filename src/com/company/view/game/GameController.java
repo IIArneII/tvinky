@@ -3,14 +3,8 @@ package com.company.view.game;
 import com.company.view.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -42,7 +36,7 @@ public class GameController extends Controller {
             lineWall[i] = new Line();
             lineLand[i] = new Line();
             lineSky[i].setStroke(Color.CYAN);
-            lineLand[i].setStroke(Color.GREEN);
+            lineLand[i].setStroke(Color.GREY);
             lineSky[i].setStrokeWidth(0.01);
             lineWall[i].setStrokeWidth(0.01);
             lineLand[i].setStrokeWidth(0.01);
@@ -77,6 +71,18 @@ public class GameController extends Controller {
         if(event.getCode() == KeyCode.W){
             System.out.println("W");
             getAdapter().pressW();
+        }
+        if(event.getCode() == KeyCode.S){
+            System.out.println("S");
+            getAdapter().pressS();
+        }
+        if(event.getCode() == KeyCode.D){
+            System.out.println("D");
+            getAdapter().pressRight();
+        }
+        if(event.getCode() == KeyCode.A){
+            System.out.println("A");
+            getAdapter().pressLeft();
         }
     }
 
@@ -128,24 +134,35 @@ class Rendering implements Runnable{
         while (true){
             screen = controller.getAdapter().getWindow();
             for (int i = 0; i < 800; i++){
-                controller.getLineSky()[i].setStartX(screen[i][0]);
+                controller.getLineSky()[i].setStartX((int)screen[i][0]);
                 controller.getLineSky()[i].setStartY(0);
-                controller.getLineSky()[i].setEndX(screen[i][0]);
-                controller.getLineSky()[i].setEndY(screen[i][1]);
+                controller.getLineSky()[i].setEndX((int)screen[i][0]);
+                controller.getLineSky()[i].setEndY((int)screen[i][1]);
 
-                controller.getLineWall()[i].setStartX(screen[i][0]);
-                controller.getLineWall()[i].setStartY(screen[i][1]);
-                controller.getLineWall()[i].setEndX(screen[i][0]);
-                controller.getLineWall()[i].setEndY(screen[i][2]);
+                controller.getLineWall()[i].setStroke(Palette.getColor((int)screen[i][4]));
+                controller.getLineWall()[i].setStartX((int)screen[i][0]);
+                controller.getLineWall()[i].setStartY((int)screen[i][1]);
+                controller.getLineWall()[i].setEndX((int)screen[i][0]);
+                controller.getLineWall()[i].setEndY((int)screen[i][2]);
 
-                controller.getLineLand()[i].setStartX(screen[i][0]);
-                controller.getLineLand()[i].setStartY(screen[i][2]);
-                controller.getLineLand()[i].setEndX(screen[i][0]);
-                controller.getLineLand()[i].setEndY(screen[i][3]);
+                controller.getLineLand()[i].setStartX((int)screen[i][0]);
+                controller.getLineLand()[i].setStartY((int)screen[i][2]);
+                controller.getLineLand()[i].setEndX((int)screen[i][0]);
+                controller.getLineLand()[i].setEndY((int)screen[i][3]);
             }
-            //try { t.sleep(2); } catch (Exception e){}
         }
 
         //controller.getLine()[0].setEndX(800);
+    }
+}
+
+class Palette{
+    public static Color getColor(int n) {
+        if (n == 0) return Color.RED;
+        if (n == 1) return Color.GREEN;
+        if (n == 2) return Color.BLUE;
+        if (n == 3) return Color.BLUEVIOLET;
+        if (n == 4) return Color.CORAL;
+        return Color.RED;
     }
 }
