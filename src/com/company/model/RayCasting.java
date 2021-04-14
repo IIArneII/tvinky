@@ -1,6 +1,6 @@
 package com.company.model;
 
-public class RayCasting implements Runnable{
+public class RayCasting{
 
     //Констатнты - размеры
     public static final int Width = 800;
@@ -28,11 +28,8 @@ public class RayCasting implements Runnable{
         this.map = new Map();
 
         this.screen = new double[800][5];
-
-        new Thread(this).start();
     }
 
-    @Override
     public void run(){
         double radX, radY, stepX, stepY, angRad;
 

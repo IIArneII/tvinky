@@ -7,11 +7,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Line?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<GridPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.company.view.game.GameController"
-            prefHeight="400.0" prefWidth="600.0">
-    <Line startX="1" startY="1" endX="200" endY="200"
-          fx:id="line"/>
-    <CheckBox fx:id="btn" onAction="#clickBtn" selected="true"/>
-</AnchorPane>
+            fx:controller="com.company.view.game.GameController" fx:id="pane">
+    <Line startX="1" startY="1" endX="200" endY="200"/>
+</GridPane>

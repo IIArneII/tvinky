@@ -20,7 +20,7 @@ public class Main extends Application{
 
         stage.setTitle("Tvinky");
         stage.setWidth(800);
-        stage.setHeight(500);
+        stage.setHeight(600);
 
         stage.show();
     }
