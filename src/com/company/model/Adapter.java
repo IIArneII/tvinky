@@ -47,6 +47,11 @@ public class Adapter {
         rc.setEventCharacter(3);
     }
 
+    public void keyReleased(){
+        System.out.println("com.company.model.Adapter.keyReleased()");
+        rc.setEventCharacter(-1);
+    }
+
     public void pressShot(){
         System.out.println("com.company.model.Adapter.pressShot()");
     }
