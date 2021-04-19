@@ -34,6 +34,7 @@ public class RayCasting{
         double radX, radY, stepX, stepY, angRad;
 
         while(true){
+            double [][]temp = new double[800][5];
 
             angRad = (charcter.getAngCharacter() -  Angles.Ang30);
 
@@ -54,14 +55,15 @@ public class RayCasting{
 
                 int heightWall = (30000/distant);
 
-                this.screen[rad][0] = rad;
-                this.screen[rad][1] = Height_Center - heightWall;
-                this.screen[rad][2] = Height_Center + heightWall;
-                this.screen[rad][3] = Height;
-                this.screen[rad][4] = wall-1;
+                temp[rad][0] = rad;
+                temp[rad][1] = Height_Center - heightWall;
+                temp[rad][2] = Height_Center + heightWall;
+                temp[rad][3] = Height;
+                temp[rad][4] = wall-1;
 
                 angRad++;
             }
+            this.screen = temp;
 
             double posCharacterXPrev = charcter.getPosCharacterX();
             double posCharacterYPrev = charcter.getPosCharacterY();

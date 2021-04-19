@@ -37,9 +37,9 @@ public class GameController extends Controller {
             lineLand[i] = new Line();
             lineSky[i].setStroke(Color.CYAN);
             lineLand[i].setStroke(Color.GREY);
-            lineSky[i].setStrokeWidth(0.01);
-            lineWall[i].setStrokeWidth(0.01);
-            lineLand[i].setStrokeWidth(0.01);
+            lineSky[i].setStrokeWidth(1);
+            lineWall[i].setStrokeWidth(1);
+            lineLand[i].setStrokeWidth(1);
 
             lineSky[i].setStrokeWidth(1);
             lineSky[i].setStartX(1);
@@ -132,6 +132,10 @@ class Rendering implements Runnable{
         double [][]screen;
 
         while (true){
+            try {
+                t.sleep(20);
+            }
+            catch (Exception e){}
             screen = controller.getAdapter().getWindow();
             for (int i = 0; i < 800; i++){
                 controller.getLineSky()[i].setStartX((int)screen[i][0]);
