@@ -67,12 +67,10 @@ public class RayCasting{
                 temp[rad][2] = Height_Center + heightWall;
                 temp[rad][3] = Height;
                 temp[rad][4] = wall-1;
+                temp[rad][5] = 0;
 
                 if(this.eventCharacter == SHOOT){
                     temp[rad][5] = 1;
-                }
-                else {
-                    temp[rad][5] = 0;
                 }
 
                 angRad++;
