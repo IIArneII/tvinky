@@ -87,15 +87,15 @@ public class RayCasting extends JFrame implements Runnable, KeyListener{
 
                 //Sky
                 this.graphics.setColor(Color.CYAN);
-                this.graphics.drawLine(rad, 0, rad, Height_Center - heightWall);
+                this.graphics.drawLine((int)this.screen[rad][0], 0, (int)this.screen[rad][0], (int)this.screen[rad][1]);
 
                 //Wall
-                this.graphics.setColor(this.clr_palette[wall - 1]);
-                this.graphics.drawLine(rad, Height_Center - heightWall, rad, Height_Center + heightWall);
+                this.graphics.setColor(this.clr_palette[(int)this.screen[rad][4]]);
+                this.graphics.drawLine((int)this.screen[rad][0], (int)this.screen[rad][1], (int)this.screen[rad][0], (int)this.screen[rad][2]);
 
                 //Floor
                 this.graphics.setColor(Color.GRAY);
-                this.graphics.drawLine(rad, Height_Center + heightWall, rad, Height);
+                this.graphics.drawLine((int)this.screen[rad][0], (int)this.screen[rad][2], (int)this.screen[rad][0], (int)this.screen[rad][3]);
 
                 angRad++;
             }
