@@ -67,7 +67,7 @@ public class GameController extends Controller {
     }
 
     @FXML
-    void BtnOnKeyPressed(KeyEvent event){
+    void btnOnKeyPressed(KeyEvent event){
         if(event.getCode() == KeyCode.W){
             System.out.println("W");
             getAdapter().pressW();
@@ -84,6 +84,11 @@ public class GameController extends Controller {
             System.out.println("A");
             getAdapter().pressLeft();
         }
+    }
+
+    @FXML
+    void btnOnKeyReleased(KeyEvent event){
+        getAdapter().keyReleased();
     }
 
     public Line[] getLineSky(){

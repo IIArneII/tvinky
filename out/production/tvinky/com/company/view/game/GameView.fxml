@@ -10,5 +10,5 @@
 <Pane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.company.view.game.GameController" fx:id="pane">
-    <Button fx:id="btn" onKeyPressed="#BtnOnKeyPressed" focusTraversable="true"/>
+    <Button fx:id="btn" onKeyPressed="#btnOnKeyPressed" focusTraversable="true" onKeyReleased="#btnOnKeyReleased"/>
 </Pane>
