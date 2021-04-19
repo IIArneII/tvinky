@@ -138,7 +138,7 @@ class Rendering implements Runnable{
 
         while (true){
             try {
-                t.sleep(20);
+                t.sleep(100);
             }
             catch (Exception e){}
             screen = controller.getAdapter().getWindow();

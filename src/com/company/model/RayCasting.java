@@ -1,5 +1,8 @@
 package com.company.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RayCasting{
 
     //Констатнты - размеры
@@ -14,6 +17,7 @@ public class RayCasting{
     public static final int DOWN = 2;
     public static final int LEFT = 3;
     public static final int RIGHT = 4;
+    public static final int SHOOT = 5;
 
     //Атрибуты - Графика
     private Map map;
@@ -23,6 +27,9 @@ public class RayCasting{
 
     private Character charcter = new Character();
     private double[][] screen;
+
+    //Лист с объектами
+    public List<Object> listObjects = new ArrayList<Object>();
 
     public RayCasting(){
         this.map = new Map();
@@ -34,7 +41,7 @@ public class RayCasting{
         double radX, radY, stepX, stepY, angRad;
 
         while(true){
-            double [][]temp = new double[800][5];
+            double [][]temp = new double[800][6];
 
             angRad = (charcter.getAngCharacter() -  Angles.Ang30);
 
@@ -61,9 +68,27 @@ public class RayCasting{
                 temp[rad][3] = Height;
                 temp[rad][4] = wall-1;
 
+                if(this.eventCharacter == SHOOT){
+                    temp[rad][5] = 1;
+                }
+                else {
+                    temp[rad][5] = 0;
+                }
+
                 angRad++;
             }
             this.screen = temp;
+
+            for (int i = 0; i< listObjects.size(); i++){
+                if(listObjects.get(i).getType() == "bullet"){
+                    listObjects.get(i).setX(listObjects.get(i).getX()+listObjects.get(i).getVx()*0.1);
+                    listObjects.get(i).setY(listObjects.get(i).getY()+listObjects.get(i).getVy()*0.1);
+                    if(this.map.getMap()[(int) listObjects.get(i).getX()][(int) listObjects.get(i).getY()] > 0){
+                        listObjects.get(i).setRemove(true);
+                        listObjects.remove(i);
+                    }
+                }
+            }
 
             double posCharacterXPrev = charcter.getPosCharacterX();
             double posCharacterYPrev = charcter.getPosCharacterY();
@@ -83,6 +108,9 @@ public class RayCasting{
                 case RIGHT:
                     this.caseRight();
                     break;
+                case SHOOT:
+                    this.caseShoot();
+                    break;
             }
         }
 
@@ -91,8 +119,8 @@ public class RayCasting{
     public void caseUp(double posCharacterXPrev, double posCharacterYPrev){
         posCharacterXPrev = charcter.getPosCharacterX();
         posCharacterYPrev = charcter.getPosCharacterY();
-        charcter.setPosCharacterXPlus(Math.cos(Angles.converteDegreeToRadian(charcter.getAngCharacter())) /100);
-        charcter.setPosCharacterYPlus(Math.sin(Angles.converteDegreeToRadian(charcter.getAngCharacter())) /100);
+        charcter.setPosCharacterXPlus(Math.cos(Angles.converteDegreeToRadian(charcter.getAngCharacter())) /500);
+        charcter.setPosCharacterYPlus(Math.sin(Angles.converteDegreeToRadian(charcter.getAngCharacter())) /500);
         if(this.map.getMap()[(int) charcter.getPosCharacterX()][(int) charcter.getPosCharacterY()] > 0){
             charcter.setPosCharacterXRedefinition(posCharacterXPrev);
             charcter.setPosCharacterYRedefinition(posCharacterYPrev);
@@ -102,8 +130,8 @@ public class RayCasting{
     public void caseDown(double posCharacterXPrev, double posCharacterYPrev){
         posCharacterXPrev = charcter.getPosCharacterX();
         posCharacterYPrev = charcter.getPosCharacterY();
-        charcter.setPosCharacterXMinus(Math.cos(Angles.converteDegreeToRadian(charcter.getAngCharacter())) /100);
-        charcter.setPosCharacterYMinus(Math.sin(Angles.converteDegreeToRadian(charcter.getAngCharacter())) /100);
+        charcter.setPosCharacterXMinus(Math.cos(Angles.converteDegreeToRadian(charcter.getAngCharacter())) /500);
+        charcter.setPosCharacterYMinus(Math.sin(Angles.converteDegreeToRadian(charcter.getAngCharacter())) /500);
         if(this.map.getMap()[(int) charcter.getPosCharacterX()][(int) charcter.getPosCharacterY()] > 0){
             charcter.setPosCharacterXRedefinition(posCharacterXPrev);
             charcter.setPosCharacterYRedefinition(posCharacterYPrev);
@@ -111,11 +139,18 @@ public class RayCasting{
     }
 
     public void caseLeft(){
-        charcter.setAngCharacterMinus(0.1 * (Angles.Ang6/6));
+        charcter.setAngCharacterMinus(0.1 * (Angles.Ang6/16));
     }
 
     public void caseRight(){
-        charcter.setAngCharacterPlus(0.1 * (Angles.Ang6/6));
+        charcter.setAngCharacterPlus(0.1 * (Angles.Ang6/16));
+    }
+
+    public void caseShoot(){
+        Object o = new Object(charcter.getPosCharacterX(), charcter.getPosCharacterY(), 1, "bullet");
+        o.setVx(Math.cos(Angles.converteDegreeToRadian(charcter.getAngCharacter())) * 6);
+        o.setVy(Math.sin(Angles.converteDegreeToRadian(charcter.getAngCharacter())) * 6);
+        this.listObjects.add(o);
     }
 
     public int getEventCharacter(){return this.eventCharacter;}

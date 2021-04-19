@@ -20,5 +20,6 @@
         <jarDirectory url="file://$MODULE_DIR$/../javafx/lib" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>

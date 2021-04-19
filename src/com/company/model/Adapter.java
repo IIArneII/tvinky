@@ -54,6 +54,7 @@ public class Adapter {
 
     public void pressShot(){
         System.out.println("com.company.model.Adapter.pressShot()");
+        rc.setEventCharacter(5);
     }
 
     public void setName(String name){
