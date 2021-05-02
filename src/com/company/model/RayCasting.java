@@ -29,7 +29,7 @@ public class RayCasting{
     private double[][] screen;
 
     //Лист с объектами
-    public List<Object> listObjects = new ArrayList<Object>();
+
 
     public RayCasting(){
         this.map = new Map();
@@ -41,7 +41,7 @@ public class RayCasting{
         double radX, radY, stepX, stepY, angRad;
 
         while(true){
-            double [][]temp = new double[800][6];
+            double [][]temp = new double[800][5];
 
             angRad = (charcter.getAngCharacter() -  Angles.Ang30);
 
@@ -53,7 +53,8 @@ public class RayCasting{
 
                 int wall = 0;
                 int distant = 1;
-                while (wall == 0){
+                while (wall == 0)
+                {
                     radX += stepX;
                     radY += stepY;
                     wall = this.map.getMap()[(int)radX][(int)radY];
@@ -67,26 +68,11 @@ public class RayCasting{
                 temp[rad][2] = Height_Center + heightWall;
                 temp[rad][3] = Height;
                 temp[rad][4] = wall-1;
-                temp[rad][5] = 0;
-
-                if(this.eventCharacter == SHOOT){
-                    temp[rad][5] = 1;
-                }
 
                 angRad++;
             }
             this.screen = temp;
 
-            for (int i = 0; i< listObjects.size(); i++){
-                if(listObjects.get(i).getType() == "bullet"){
-                    listObjects.get(i).setX(listObjects.get(i).getX()+listObjects.get(i).getVx()*0.1);
-                    listObjects.get(i).setY(listObjects.get(i).getY()+listObjects.get(i).getVy()*0.1);
-                    if(this.map.getMap()[(int) listObjects.get(i).getX()][(int) listObjects.get(i).getY()] > 0){
-                        listObjects.get(i).setRemove(true);
-                        listObjects.remove(i);
-                    }
-                }
-            }
 
             double posCharacterXPrev = charcter.getPosCharacterX();
             double posCharacterYPrev = charcter.getPosCharacterY();
@@ -145,10 +131,30 @@ public class RayCasting{
     }
 
     public void caseShoot(){
-        Object o = new Object(charcter.getPosCharacterX(), charcter.getPosCharacterY(), 1, "bullet");
-        o.setVx(Math.cos(Angles.converteDegreeToRadian(charcter.getAngCharacter())) * 6);
-        o.setVy(Math.sin(Angles.converteDegreeToRadian(charcter.getAngCharacter())) * 6);
-        this.listObjects.add(o);
+
+        double distant = 0;
+        boolean hitWall = false;
+
+        double angRad = (charcter.getAngCharacter() -  Angles.Ang30);
+
+        double stepX = Math.cos(Angles.converteDegreeToRadian(angRad)) / 80;
+        double stepY = Math.sin(Angles.converteDegreeToRadian(angRad)) / 80;
+
+        while (!hitWall && distant < 10){
+            distant += 0.1;
+
+            double radX = charcter.getPosCharacterX() + stepX *distant;
+            double radY = charcter.getPosCharacterY() + stepY *distant;
+
+            if(map.getMap()[(int)radX][(int)radY] != 0){
+                hitWall = true;
+            }
+            /*
+            else{
+
+            }
+            */
+        }
     }
 
     public int getEventCharacter(){return this.eventCharacter;}
