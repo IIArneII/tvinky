@@ -43,8 +43,8 @@ public class RayCasting{
             angRad = (charcter.getAngCharacter() -  Angles.Ang30);
 
             for(int rad = 0; rad<Angles.Ang60; rad++){
-                radX = charcter.getPosCharacterX();
-                radY = charcter.getPosCharacterY();
+                radX = charcter.getX();
+                radY = charcter.getY();
                 stepX = Math.cos(Angles.converteDegreeToRadian(angRad)) / 80;
                 stepY = Math.sin(Angles.converteDegreeToRadian(angRad)) / 80;
 
@@ -71,8 +71,8 @@ public class RayCasting{
             this.screen = temp;
 
 
-            double posCharacterXPrev = charcter.getPosCharacterX();
-            double posCharacterYPrev = charcter.getPosCharacterY();
+            double posCharacterXPrev = charcter.getX();
+            double posCharacterYPrev = charcter.getY();
             switch (this.eventCharacter){
                 case UP:
                     this.caseUp(posCharacterXPrev, posCharacterYPrev);
@@ -98,33 +98,33 @@ public class RayCasting{
     }
 
     public void caseUp(double posCharacterXPrev, double posCharacterYPrev){
-        posCharacterXPrev = charcter.getPosCharacterX();
-        posCharacterYPrev = charcter.getPosCharacterY();
-        charcter.setPosCharacterXPlus(Math.cos(Angles.converteDegreeToRadian(charcter.getAngCharacter())) /500);
-        charcter.setPosCharacterYPlus(Math.sin(Angles.converteDegreeToRadian(charcter.getAngCharacter())) /500);
-        if(this.map.getMap()[(int) charcter.getPosCharacterX()][(int) charcter.getPosCharacterY()] > 0){
-            charcter.setPosCharacterXRedefinition(posCharacterXPrev);
-            charcter.setPosCharacterYRedefinition(posCharacterYPrev);
+        posCharacterXPrev = charcter.getX();
+        posCharacterYPrev = charcter.getY();
+        charcter.setX(charcter.getX() + Math.cos(Angles.converteDegreeToRadian(charcter.getAngCharacter())) /500);
+        charcter.setY(charcter.getY() + Math.sin(Angles.converteDegreeToRadian(charcter.getAngCharacter())) /500);
+        if(this.map.getMap()[(int) charcter.getX()][(int) charcter.getY()] > 0){
+            charcter.setX(posCharacterXPrev);
+            charcter.setY(posCharacterYPrev);
         }
     }
 
     public void caseDown(double posCharacterXPrev, double posCharacterYPrev){
-        posCharacterXPrev = charcter.getPosCharacterX();
-        posCharacterYPrev = charcter.getPosCharacterY();
-        charcter.setPosCharacterXMinus(Math.cos(Angles.converteDegreeToRadian(charcter.getAngCharacter())) /500);
-        charcter.setPosCharacterYMinus(Math.sin(Angles.converteDegreeToRadian(charcter.getAngCharacter())) /500);
-        if(this.map.getMap()[(int) charcter.getPosCharacterX()][(int) charcter.getPosCharacterY()] > 0){
-            charcter.setPosCharacterXRedefinition(posCharacterXPrev);
-            charcter.setPosCharacterYRedefinition(posCharacterYPrev);
+        posCharacterXPrev = charcter.getX();
+        posCharacterYPrev = charcter.getY();
+        charcter.setX(charcter.getX() - Math.cos(Angles.converteDegreeToRadian(charcter.getAngCharacter())) /500);
+        charcter.setY(charcter.getY() - Math.sin(Angles.converteDegreeToRadian(charcter.getAngCharacter())) /500);
+        if(this.map.getMap()[(int) charcter.getX()][(int) charcter.getY()] > 0){
+            charcter.setX(posCharacterXPrev);
+            charcter.setY(posCharacterYPrev);
         }
     }
 
     public void caseLeft(){
-        charcter.setAngCharacterMinus(0.1 * (Angles.Ang6/16));
+        charcter.setAngCharacter(charcter.getAngCharacter() - 0.1 * (Angles.Ang6/16));
     }
 
     public void caseRight(){
-        charcter.setAngCharacterPlus(0.1 * (Angles.Ang6/16));
+        charcter.setAngCharacter(charcter.getAngCharacter() + 0.1 * (Angles.Ang6/16));
     }
 
     public void caseShoot(){
@@ -132,7 +132,7 @@ public class RayCasting{
         double distant = 0;
         boolean hitWall = false;
 
-        double angRad = (charcter.getAngCharacter() -  Angles.Ang30);
+        double angRad = (charcter.getAngCharacter() -  Angles.Ang30 / 6);
 
         double stepX = Math.cos(Angles.converteDegreeToRadian(angRad)) / 80;
         double stepY = Math.sin(Angles.converteDegreeToRadian(angRad)) / 80;
@@ -140,8 +140,8 @@ public class RayCasting{
         while (!hitWall){
             distant += 1;
 
-            double radX = charcter.getPosCharacterX() + stepX *distant;
-            double radY = charcter.getPosCharacterY() + stepY *distant;
+            double radX = charcter.getX() + stepX *distant;
+            double radY = charcter.getY() + stepY *distant;
 
             if(map.getMap()[(int)radX][(int)radY] != 0){
                 hitWall = true;

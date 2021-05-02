@@ -1,7 +1,10 @@
 package com.company.model;
 
+import java.util.ArrayList;
+
 public class Map {
     private int[][] map;
+    private ArrayList<Entity> entityStaticList;
 
     public Map(){
         this.map = new int[][]{ {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4},
@@ -18,8 +21,7 @@ public class Map {
     }
 
     public int[][] getMap(){ return map;}
-    public void setMap(int x, int y, int value){
-        this.map[x][y] = value;
-    }
+    public void setMap(int x, int y, int value){ this.map[x][y] = value;}
+    public ArrayList<Entity> getEntityStaticList(){return this.entityStaticList;}
 
 }
