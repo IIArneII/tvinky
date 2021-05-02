@@ -137,8 +137,8 @@ public class RayCasting{
         double stepX = Math.cos(Angles.converteDegreeToRadian(angRad)) / 80;
         double stepY = Math.sin(Angles.converteDegreeToRadian(angRad)) / 80;
 
-        while (!hitWall && distant < 10){
-            distant += 0.1;
+        while (!hitWall){
+            distant += 1;
 
             double radX = charcter.getPosCharacterX() + stepX *distant;
             double radY = charcter.getPosCharacterY() + stepY *distant;
