@@ -18,5 +18,8 @@ public class Map {
     }
 
     public int[][] getMap(){ return map;}
+    public void setMap(int x, int y, int value){
+        this.map[x][y] = value;
+    }
 
 }

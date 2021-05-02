@@ -1,8 +1,5 @@
 package com.company.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class RayCasting{
 
     //Констатнты - размеры
@@ -148,6 +145,8 @@ public class RayCasting{
 
             if(map.getMap()[(int)radX][(int)radY] != 0){
                 hitWall = true;
+                System.out.print("Hitwall. coordinates:" + (int)radX + " " + (int)radY);
+                this.map.setMap((int)radX, (int)radY, 0);
             }
             /*
             else{
