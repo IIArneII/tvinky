@@ -9,6 +9,14 @@ public class Client {
     public int SHOOT = 0;
 
     GameClient gameClient;
+    Movement movement;
 
+    public Client(){
+        gameClient = new GameClient();
+        movement = new Movement(this);
+    }
 
+    public void start(){
+        movement.start();
+    }
 }

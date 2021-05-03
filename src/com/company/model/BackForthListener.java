@@ -10,6 +10,7 @@ public class BackForthListener extends Thread{
     @Override
     public void run() {
         while (true){
+            try { Thread.currentThread().sleep(1); } catch (Exception e) {}
             if(movement.client.UP == 1){
                 double posCharacterXPrev = movement.client.gameClient.getEntityDynamicList().get(0).getX();
                 double posCharacterYPrev = movement.client.gameClient.getEntityDynamicList().get(0).getY();

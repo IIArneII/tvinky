@@ -5,6 +5,9 @@ public class GameClient extends Game{
 
     public GameClient(){
         this.rendering = new Rendering(this);
+        rendering.start();
     }
+
+    public Rendering getRendering(){ return this.rendering;}
 
 }

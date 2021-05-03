@@ -1,5 +1,6 @@
 package com.company.view.game;
 
+import com.company.model.Screen;
 import com.company.view.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -84,11 +85,34 @@ public class GameController extends Controller {
             System.out.println("A");
             getAdapter().pressLeft();
         }
+        if(event.getCode() == KeyCode.SPACE){
+            System.out.println("SPACE");
+            getAdapter().pressShot();
+        }
     }
 
     @FXML
     void btnOnKeyReleased(KeyEvent event){
-        getAdapter().keyReleased();
+        if(event.getCode() == KeyCode.W){
+            System.out.println("W");
+            getAdapter().pressWReleased();
+        }
+        if(event.getCode() == KeyCode.S){
+            System.out.println("S");
+            getAdapter().pressSReleased();
+        }
+        if(event.getCode() == KeyCode.D){
+            System.out.println("D");
+            getAdapter().pressRightReleased();
+        }
+        if(event.getCode() == KeyCode.A){
+            System.out.println("A");
+            getAdapter().pressLeftReleased();
+        }
+        if(event.getCode() == KeyCode.SPACE){
+            System.out.println("SPACE");
+            getAdapter().pressShotReleased();
+        }
     }
 
     public Line[] getLineSky(){
@@ -117,7 +141,7 @@ class Start implements Runnable{
 
     public void run(){
         System.out.println("Start thread: " + t.getName());
-        controller.getAdapter().run();
+        controller.getAdapter().start();
     }
 }
 
@@ -134,30 +158,28 @@ class Rendering implements Runnable{
 
     public void run(){
         System.out.println("Start thread: " + t.getName());
-        double [][]screen;
+        Screen screen;
 
         while (true){
-            try {
-                t.sleep(100);
-            }
-            catch (Exception e){}
-            screen = controller.getAdapter().getWindow();
+            try { t.sleep(30); } catch (Exception e){}
+            screen = controller.getAdapter().getScreen();
             for (int i = 0; i < 800; i++){
-                controller.getLineSky()[i].setStartX((int)screen[i][0]);
+                //System.out.println(screen.getScreen()[i][2]);
+                controller.getLineSky()[i].setStartX(screen.getScreen()[i][0]);
                 controller.getLineSky()[i].setStartY(0);
-                controller.getLineSky()[i].setEndX((int)screen[i][0]);
-                controller.getLineSky()[i].setEndY((int)screen[i][1]);
+                controller.getLineSky()[i].setEndX(screen.getScreen()[i][0]);
+                controller.getLineSky()[i].setEndY(screen.getScreen()[i][1]);
 
-                controller.getLineWall()[i].setStroke(Palette.getColor((int)screen[i][4]));
-                controller.getLineWall()[i].setStartX((int)screen[i][0]);
-                controller.getLineWall()[i].setStartY((int)screen[i][1]);
-                controller.getLineWall()[i].setEndX((int)screen[i][0]);
-                controller.getLineWall()[i].setEndY((int)screen[i][2]);
+                controller.getLineWall()[i].setStroke(Palette.getColor(screen.getScreen()[i][4]));
+                controller.getLineWall()[i].setStartX(screen.getScreen()[i][0]);
+                controller.getLineWall()[i].setStartY(screen.getScreen()[i][1]);
+                controller.getLineWall()[i].setEndX(screen.getScreen()[i][0]);
+                controller.getLineWall()[i].setEndY(screen.getScreen()[i][2]);
 
-                controller.getLineLand()[i].setStartX((int)screen[i][0]);
-                controller.getLineLand()[i].setStartY((int)screen[i][2]);
-                controller.getLineLand()[i].setEndX((int)screen[i][0]);
-                controller.getLineLand()[i].setEndY((int)screen[i][3]);
+                controller.getLineLand()[i].setStartX(screen.getScreen()[i][0]);
+                controller.getLineLand()[i].setStartY(screen.getScreen()[i][2]);
+                controller.getLineLand()[i].setEndX(screen.getScreen()[i][0]);
+                controller.getLineLand()[i].setEndY(screen.getScreen()[i][3]);
             }
         }
 

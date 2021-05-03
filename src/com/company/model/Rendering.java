@@ -17,6 +17,10 @@ public class Rendering extends Thread {
         this.gameClient = gameClient;
     }
 
+    public Screen getScreen() {
+        return this.screen;
+    }
+
     @Override
     public void run() {
         double radX, radY, stepX, stepY, angRad;

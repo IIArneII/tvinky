@@ -2,31 +2,38 @@ package com.company.model;
 
 public class Adapter {
 
-    private RayCasting rc;
+    private Client client;
 
     public Adapter(){
-        rc = new RayCasting();
+        client = new Client();
     }
 
-    public void run(){
-        rc.run();
-        System.out.println("com.company.model.Adapter.run()");
+    public void start(){
+        client.start();
     }
 
-    public double[][] getWindow(){
-        //System.out.println("com.company.model.Adapter.getWindow()");
-
-        return rc.getScreen();
+    public Screen getScreen(){
+        return client.gameClient.getRendering().getScreen();
     }
 
     public void pressW(){
         System.out.println("com.company.model.Adapter.pressW()");
-        rc.setEventCharacter(1);
+        client.UP = 1;
+    }
+
+    public void pressWReleased(){
+        System.out.println("com.company.model.Adapter.pressW()");
+        client.UP = 0;
     }
 
     public void pressS(){
         System.out.println("com.company.model.Adapter.pressS()");
-        rc.setEventCharacter(2);
+        client.DOWN = 1;
+    }
+
+    public void pressSReleased(){
+        System.out.println("com.company.model.Adapter.pressS()");
+        client.DOWN = 0;
     }
 
     public void pressD(){
@@ -39,22 +46,32 @@ public class Adapter {
 
     public void pressRight(){
         System.out.println("com.company.model.Adapter.pressRight()");
-        rc.setEventCharacter(4);
+        client.TurnRIGHT = 1;
+    }
+
+    public void pressRightReleased(){
+        System.out.println("com.company.model.Adapter.pressRight()");
+        client.TurnRIGHT = 0;
     }
 
     public void pressLeft(){
         System.out.println("com.company.model.Adapter.pressLeft()");
-        rc.setEventCharacter(3);
+        client.TurnLEFT = 1;
     }
 
-    public void keyReleased(){
-        System.out.println("com.company.model.Adapter.keyReleased()");
-        rc.setEventCharacter(-1);
+    public void pressLeftReleased(){
+        System.out.println("com.company.model.Adapter.pressLeft()");
+        client.TurnLEFT = 0;
     }
 
     public void pressShot(){
         System.out.println("com.company.model.Adapter.pressShot()");
-        rc.setEventCharacter(5);
+        client.SHOOT = 1;
+    }
+
+    public void pressShotReleased(){
+        System.out.println("com.company.model.Adapter.pressShot()");
+        client.SHOOT = 0;
     }
 
     public void setName(String name){

@@ -8,6 +8,7 @@ public class Game {
 
     public Game(){
         this.map = new Map();
+        this.entityDynamicList = new ArrayList<>();
         this.entityDynamicList.add(new Character());
     }
 
