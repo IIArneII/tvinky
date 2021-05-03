@@ -26,6 +26,8 @@ public class Rendering extends Thread {
         double radX, radY, stepX, stepY, angRad;
 
         while (true) {
+
+            try { Thread.currentThread().sleep(1); } catch (Exception e) {}
             int[][] temp = new int[800][5];
 
             angRad = (gameClient.getEntityDynamicList().get(0).getAngCharacter() - Angles.Ang30);
@@ -43,9 +45,9 @@ public class Rendering extends Thread {
                     radY += stepY;
                     wall = this.gameClient.getMap().getMap()[(int) radX][(int) radY];
                     distant++;
-                }
 
-                int heightWall = (30000 / distant);
+                }
+                int heightWall = (int)(25000 /(distant*Math.cos(Angles.converteDegreeToRadian(angRad)  - Angles.converteDegreeToRadian(gameClient.getEntityDynamicList().get(0).getAngCharacter()))));
 
                 temp[rad][0] = rad;
                 temp[rad][1] = Height_Center - heightWall;

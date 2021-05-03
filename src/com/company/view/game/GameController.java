@@ -70,23 +70,26 @@ public class GameController extends Controller {
     @FXML
     void btnOnKeyPressed(KeyEvent event){
         if(event.getCode() == KeyCode.W){
-            System.out.println("W");
             getAdapter().pressW();
         }
         if(event.getCode() == KeyCode.S){
-            System.out.println("S");
             getAdapter().pressS();
         }
+
+        if(event.getCode() == KeyCode.A){
+            getAdapter().pressA();
+        }
         if(event.getCode() == KeyCode.D){
-            System.out.println("D");
+            getAdapter().pressD();
+        }
+
+        if(event.getCode() == KeyCode.RIGHT){
             getAdapter().pressRight();
         }
-        if(event.getCode() == KeyCode.A){
-            System.out.println("A");
+        if(event.getCode() == KeyCode.LEFT){
             getAdapter().pressLeft();
         }
         if(event.getCode() == KeyCode.SPACE){
-            System.out.println("SPACE");
             getAdapter().pressShot();
         }
     }
@@ -94,23 +97,26 @@ public class GameController extends Controller {
     @FXML
     void btnOnKeyReleased(KeyEvent event){
         if(event.getCode() == KeyCode.W){
-            System.out.println("W");
             getAdapter().pressWReleased();
         }
         if(event.getCode() == KeyCode.S){
-            System.out.println("S");
             getAdapter().pressSReleased();
         }
+
+        if(event.getCode() == KeyCode.A){
+            getAdapter().pressAReleased();
+        }
         if(event.getCode() == KeyCode.D){
-            System.out.println("D");
+            getAdapter().pressDReleased();
+        }
+
+        if(event.getCode() == KeyCode.RIGHT){
             getAdapter().pressRightReleased();
         }
-        if(event.getCode() == KeyCode.A){
-            System.out.println("A");
+        if(event.getCode() == KeyCode.LEFT){
             getAdapter().pressLeftReleased();
         }
         if(event.getCode() == KeyCode.SPACE){
-            System.out.println("SPACE");
             getAdapter().pressShotReleased();
         }
     }
