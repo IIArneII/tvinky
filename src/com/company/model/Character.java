@@ -8,7 +8,7 @@ public class Character extends Entity {
     private String name;
 
     public Character(){
-        super(2, 2, 2, 1);
+        super(5, 5, 2, 1);
         this.angCharacter = 0;
         this.health = 100;
         this.name = "player";
