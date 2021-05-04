@@ -18,6 +18,10 @@ public class Client {
         movement = new Movement(this);
     }
 
+    public void setRenderingAdapter(RenderingAdapterInterface renderingAdapter){
+        this.gameClient.setRenderingAdapter(renderingAdapter);
+    }
+
     public void start(){
         movement.start();
     }

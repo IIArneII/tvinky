@@ -8,6 +8,10 @@ public class Adapter {
         client = new Client();
     }
 
+    public void setRenderingAdapter(RenderingAdapterInterface renderingAdapter){
+        client.setRenderingAdapter(renderingAdapter);
+    }
+
     public void start(){
         client.start();
     }

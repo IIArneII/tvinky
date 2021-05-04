@@ -8,6 +8,10 @@ public class GameClient extends Game{
         rendering.start();
     }
 
+    public void setRenderingAdapter(RenderingAdapterInterface renderingAdapter){
+        this.rendering.setRenderingAdapter(renderingAdapter);
+    }
+
     public Rendering getRendering(){ return this.rendering;}
 
 }

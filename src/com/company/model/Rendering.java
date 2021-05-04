@@ -2,7 +2,6 @@ package com.company.model;
 
 public class Rendering extends Thread {
 
-
     public static final int Width = 800;
     public static final int Height = 600;
     public static final int Width_Center = Width / 2;
@@ -11,10 +10,26 @@ public class Rendering extends Thread {
 
     private GameClient gameClient;
     private Screen screen;
+    private RenderingAdapterInterface renderingAdapter;
 
     public Rendering(GameClient gameClient) {
         this.screen = new Screen();
         this.gameClient = gameClient;
+        renderingAdapter = new RenderingAdapterInterface() {
+            @Override
+            public void drawLines(Screen screen) {
+
+            }
+
+            @Override
+            public void drowLine(int rad, int r1, int r2, int r3, int r4) {
+
+            }
+        };
+    }
+
+    public void setRenderingAdapter(RenderingAdapterInterface renderingAdapter){
+        this.renderingAdapter = renderingAdapter;
     }
 
     public Screen getScreen() {
@@ -57,9 +72,11 @@ public class Rendering extends Thread {
                 temp[rad][4] = wall - 1;
 
                 angRad++;
+
+                //renderingAdapter.drowLine(rad, Height_Center - heightWall, Height_Center + heightWall, Height, wall - 1);
             }
             this.screen.setScreen(temp);
+            //renderingAdapter.drawLines(this.screen);
         }
-
     }
 }
