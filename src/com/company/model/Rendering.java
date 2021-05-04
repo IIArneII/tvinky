@@ -43,7 +43,8 @@ public class Rendering extends Thread {
                 while (wall == 0) {
                     radX += stepX;
                     radY += stepY;
-                    wall = this.gameClient.getMap().getMap()[(int) radX][(int) radY];
+                    //wall = this.gameClient.getMap().getMap()[(int) radX][(int) radY];
+                    wall = this.gameClient.getMap().isWall(radX, radY);
                     distant++;
 
                 }
