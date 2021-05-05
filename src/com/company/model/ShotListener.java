@@ -9,29 +9,33 @@ public class ShotListener extends Thread {
 
     @Override
     public void run() {
-        while (true) {
-            if (movement.client.SHOOT == 1) {
-                double distant = 0;
-                boolean hitWall = false;
+        while (movement.isMovementLaunched()) {
+            if(!movement.isMovementOnPause()){
+                if (movement.client.SHOOT == 1) {
+                    double distant = 0;
+                    boolean hitWall = false;
 
-                double angRad = (movement.client.gameClient.getEntityDynamicList().get(0).getAngCharacter() - Angles.Ang30 / 6);
+                    double angRad = (movement.client.gameClient.getEntityDynamicList().get(0).getAngCharacter() - Angles.Ang30 / 6);
 
-                double stepX = Math.cos(Angles.converteDegreeToRadian(angRad)) / 80;
-                double stepY = Math.sin(Angles.converteDegreeToRadian(angRad)) / 80;
+                    double stepX = Math.cos(Angles.converteDegreeToRadian(angRad)) / 80;
+                    double stepY = Math.sin(Angles.converteDegreeToRadian(angRad)) / 80;
 
-                while (!hitWall) {
-                    distant += 1;
+                    while (!hitWall) {
+                        distant += 1;
 
-                    double radX = movement.client.gameClient.getEntityDynamicList().get(0).getX() + stepX * distant;
-                    double radY = movement.client.gameClient.getEntityDynamicList().get(0).getY() + stepY * distant;
+                        double radX = movement.client.gameClient.getEntityDynamicList().get(0).getX() + stepX * distant;
+                        double radY = movement.client.gameClient.getEntityDynamicList().get(0).getY() + stepY * distant;
 
-                    if (movement.client.gameClient.getMap().getMap()[(int) radX][(int) radY] != 0) {
-                        hitWall = true;
-                        System.out.print("Hitwall. coordinates:" + (int) radX + " " + (int) radY);
-                        //this.movement.client.gameClient.getMap().setMap((int)radX, (int)radY, 0);
+                        //if (movement.client.gameClient.getMap().getMap()[(int) radX][(int) radY] != 0) {
+                            hitWall = true;
+                            System.out.print("Hitwall. coordinates:" + (int) radX + " " + (int) radY);
+                            //this.movement.client.gameClient.getMap().setMap((int)radX, (int)radY, 0);
+                        //}
                     }
                 }
             }
+            else try { Thread.currentThread().sleep(10); } catch (Exception e) {}
         }
+        System.out.println("Поток выстрелов завершился");
     }
 }

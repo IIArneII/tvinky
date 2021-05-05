@@ -9,9 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import com.company.view.Controller;
-
-public class MainController extends Controller{
+public class MainController{
 
     private String userNameFieldText;
 

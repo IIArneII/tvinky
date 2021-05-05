@@ -1,5 +1,7 @@
 package com.company.model;
 
+import com.company.model.map.Map;
+
 import java.util.ArrayList;
 
 public class Game {

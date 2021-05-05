@@ -1,6 +1,5 @@
 package com.company.view.online;
 
-import com.company.view.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressIndicator;
 
-public class OnlineController extends Controller{
+public class OnlineController{
     @FXML
     private Button backBtn;
 

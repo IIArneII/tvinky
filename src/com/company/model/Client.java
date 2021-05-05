@@ -16,13 +16,20 @@ public class Client {
     public Client(){
         gameClient = new GameClient();
         movement = new Movement(this);
-    }
-
-    public void setRenderingAdapter(RenderingAdapterInterface renderingAdapter){
-        this.gameClient.setRenderingAdapter(renderingAdapter);
+        System.out.println("Rrecec");
     }
 
     public void start(){
         movement.start();
+        gameClient.startRendering();
+    }
+
+    public void pause(boolean pause){
+        gameClient.pauseRendering(pause);
+    }
+
+    public void stop(){
+        gameClient.stopRendering();
+        movement.setMovementLaunched(false);
     }
 }

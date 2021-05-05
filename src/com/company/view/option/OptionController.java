@@ -1,6 +1,6 @@
 package com.company.view.option;
 
-import com.company.view.Controller;
+import com.company.view.Info;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,10 +8,23 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 
-public class OptionController extends Controller{
+public class OptionController{
 
     @FXML
     private Button backBtn;
+
+    @FXML
+    private Button changeRenderingBtn;
+
+    @FXML
+    private void clickChangeRenderingBtn(ActionEvent event){
+        if(Info.renderingMethod == 0){
+            Info.renderingMethod = 1;
+        }
+        else {
+            Info.renderingMethod = 0;
+        }
+    }
 
     @FXML
     private void clickBackBtn(ActionEvent event) throws Exception{
@@ -19,6 +32,5 @@ public class OptionController extends Controller{
         Scene theScene = backBtn.getScene();
         Parent theRoot = FXMLLoader.load(getClass().getResource("../main/MainView.fxml"));
         theScene.setRoot(theRoot);
-
     }
 }

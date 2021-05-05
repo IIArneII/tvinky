@@ -1,5 +1,7 @@
 package com.company.model;
 
+import com.company.model.map.Map;
+
 public class RayCasting{
 
     //Констатнты - размеры
@@ -54,7 +56,7 @@ public class RayCasting{
                 {
                     radX += stepX;
                     radY += stepY;
-                    wall = this.map.getMap()[(int)radX][(int)radY];
+                    //wall = this.map.getMap()[(int)radX][(int)radY];
                     distant++;
                 }
 
@@ -102,22 +104,22 @@ public class RayCasting{
         posCharacterYPrev = charcter.getY();
         charcter.setX(charcter.getX() + Math.cos(Angles.converteDegreeToRadian(charcter.getAngCharacter())) /500);
         charcter.setY(charcter.getY() + Math.sin(Angles.converteDegreeToRadian(charcter.getAngCharacter())) /500);
-        if(this.map.getMap()[(int) charcter.getX()][(int) charcter.getY()] > 0){
+        //if(this.map.getMap()[(int) charcter.getX()][(int) charcter.getY()] > 0){
             charcter.setX(posCharacterXPrev);
             charcter.setY(posCharacterYPrev);
         }
-    }
+    //}
 
     public void caseDown(double posCharacterXPrev, double posCharacterYPrev){
         posCharacterXPrev = charcter.getX();
         posCharacterYPrev = charcter.getY();
         charcter.setX(charcter.getX() - Math.cos(Angles.converteDegreeToRadian(charcter.getAngCharacter())) /500);
         charcter.setY(charcter.getY() - Math.sin(Angles.converteDegreeToRadian(charcter.getAngCharacter())) /500);
-        if(this.map.getMap()[(int) charcter.getX()][(int) charcter.getY()] > 0){
+        //if(this.map.getMap()[(int) charcter.getX()][(int) charcter.getY()] > 0){
             charcter.setX(posCharacterXPrev);
             charcter.setY(posCharacterYPrev);
         }
-    }
+    //}
 
     public void caseLeft(){
         charcter.setAngCharacter(charcter.getAngCharacter() - 0.1 * (Angles.Ang6/16));
@@ -143,11 +145,11 @@ public class RayCasting{
             double radX = charcter.getX() + stepX *distant;
             double radY = charcter.getY() + stepY *distant;
 
-            if(map.getMap()[(int)radX][(int)radY] != 0){
+            //if(map.getMap()[(int)radX][(int)radY] != 0){
                 hitWall = true;
                 System.out.print("Hitwall. coordinates:" + (int)radX + " " + (int)radY);
-                this.map.setMap((int)radX, (int)radY, 0);
-            }
+                //this.map.setMap((int)radX, (int)radY, 0);
+            //}
             /*
             else{
 

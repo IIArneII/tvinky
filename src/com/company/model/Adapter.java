@@ -4,16 +4,32 @@ public class Adapter {
 
     private Client client;
 
+    private int renderingMethod;
+
     public Adapter(){
         client = new Client();
+        renderingMethod = 0;
     }
 
-    public void setRenderingAdapter(RenderingAdapterInterface renderingAdapter){
-        client.setRenderingAdapter(renderingAdapter);
+    public void setRenderingMethod(int renderingMethod) {
+        this.renderingMethod = renderingMethod;
+        client.gameClient.getRendering().setRenderingMethod(renderingMethod);
+    }
+
+    public int getRenderingMethod() {
+        return renderingMethod;
     }
 
     public void start(){
         client.start();
+    }
+
+    public void stop(){
+        client.stop();
+    }
+
+    public void pause(boolean pause){
+        client.pause(pause);
     }
 
     public Screen getScreen(){

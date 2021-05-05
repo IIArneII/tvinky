@@ -5,11 +5,18 @@ public class GameClient extends Game{
 
     public GameClient(){
         this.rendering = new Rendering(this);
+    }
+
+    public void startRendering(){
         rendering.start();
     }
 
-    public void setRenderingAdapter(RenderingAdapterInterface renderingAdapter){
-        this.rendering.setRenderingAdapter(renderingAdapter);
+    public void stopRendering(){
+        rendering.setRenderingLaunched(false);
+    }
+
+    public void pauseRendering(boolean pause){
+        rendering.setRenderingOnPause(pause);
     }
 
     public Rendering getRendering(){ return this.rendering;}
