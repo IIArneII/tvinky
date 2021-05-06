@@ -1,5 +1,6 @@
 package com.company.view.game;
 
+import java.io.File;
 import com.company.model.Adapter;
 import com.company.model.Screen;
 import com.company.view.Info;
@@ -12,12 +13,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.input.KeyCode;
 import javafx.application.Platform;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.WritableImage;
+
+import java.io.FileInputStream;
+import java.util.ArrayList;
 
 public class GameController{
 
@@ -36,7 +44,11 @@ public class GameController{
 
     private Line []lineSky;
 
-    private Line []lineWall;
+    //private Line []lineWall;
+
+    private ImageView [] textureWall;
+
+    private ArrayList<Image[]> textures;
 
     private Line []lineLand;
 
@@ -46,18 +58,36 @@ public class GameController{
     @FXML
     public void initialize(){
         System.out.println("gui.Controller.initialize()");
+        try {
+            textures = new ArrayList<>();
+            File[] files = new File(".\\textures").listFiles();
+            for(int i = 0; i < files.length; i++){
+                System.out.println(files[i].getAbsolutePath());
+                Image temp = new Image(new FileInputStream(files[i]));
+                Image[] image = new Image[(int)temp.getWidth()];
+                for(int j = 0; j < temp.getWidth(); j++){
+                    //System.out.println(j);
+                    image[j] = new WritableImage(temp.getPixelReader(), j, 0, 1, (int)temp.getHeight());
+                }
+                textures.add(image);
+            }
+        }
+        catch (Exception e){}
+
         final int count = 800;
         lineSky = new Line[count];
-        lineWall = new Line[count];
+        textureWall = new ImageView[count];
+        //lineWall = new Line[count];
         lineLand = new Line[count];
         for(int i = 0; i < count; i++){
             lineSky[i] = new Line();
-            lineWall[i] = new Line();
+            //lineWall[i] = new Line();
+            textureWall[i] = new ImageView();
             lineLand[i] = new Line();
             lineSky[i].setStroke(Color.CYAN);
             lineLand[i].setStroke(Color.GREY);
             lineSky[i].setStrokeWidth(1);
-            lineWall[i].setStrokeWidth(1);
+            //lineWall[i].setStrokeWidth(1);
             lineLand[i].setStrokeWidth(1);
 
             lineSky[i].setStrokeWidth(1);
@@ -66,11 +96,11 @@ public class GameController{
             lineSky[i].setEndX(1);
             lineSky[i].setEndY(1);
 
-            lineWall[i].setStrokeWidth(1);
-            lineWall[i].setStartX(1);
-            lineWall[i].setStartY(1);
-            lineWall[i].setEndX(1);
-            lineWall[i].setEndY(1);
+            //lineWall[i].setStrokeWidth(1);
+            //lineWall[i].setStartX(1);
+            //lineWall[i].setStartY(1);
+            //lineWall[i].setEndX(1);
+            //lineWall[i].setEndY(1);
 
             lineLand[i].setStrokeWidth(1);
             lineLand[i].setStartX(1);
@@ -78,7 +108,8 @@ public class GameController{
             lineLand[i].setEndX(1);
             lineLand[i].setEndY(1);
             pane.getChildren().add(lineSky[i]);
-            pane.getChildren().add(lineWall[i]);
+            //pane.getChildren().add(lineWall[i]);
+            pane.getChildren().add(textureWall[i]);
             pane.getChildren().add(lineLand[i]);
         }
         renderingLaunched = false;
@@ -128,25 +159,36 @@ public class GameController{
     }
 
     @FXML
-    public void drawLines(Screen screen) throws Exception{
-        Scene theScene = menuExitBtn.getScene();
-        Screen temp = screen.copyScreen();
-        for (int i = 0; i < 800; i++){
-            this.getLineSky()[i].setStartX(temp.getScreen()[i][0]);
-            this.getLineSky()[i].setStartY(0);
-            this.getLineSky()[i].setEndX(temp.getScreen()[i][0]);
-            this.getLineSky()[i].setEndY(temp.getScreen()[i][1]);
+    public void drawLines(Screen screen){
+        try {
+            for (int i = 0; i < 800; i++){
+                this.getLineSky()[i].setStartX(screen.getScreen()[i][0]);
+                this.getLineSky()[i].setStartY(0);
+                this.getLineSky()[i].setEndX(screen.getScreen()[i][0]);
+                this.getLineSky()[i].setEndY(screen.getScreen()[i][1]);
 
-            this.getLineWall()[i].setStroke(Palette.getColor(temp.getScreen()[i][4]));
-            this.getLineWall()[i].setStartX(temp.getScreen()[i][0]);
-            this.getLineWall()[i].setStartY(temp.getScreen()[i][1]);
-            this.getLineWall()[i].setEndX(temp.getScreen()[i][0]);
-            this.getLineWall()[i].setEndY(temp.getScreen()[i][2]);
+                int textureID = screen.getScreen()[i][5];
+                textureWall[i].setImage(textures.get(textureID)[(int)(textures.get(textureID).length * screen.getWidth()[i])]);
+                textureWall[i].setX(screen.getScreen()[i][0]);
+                textureWall[i].setY(screen.getScreen()[i][1]);
+                textureWall[i].setFitWidth(10);
+                textureWall[i].setFitHeight(screen.getScreen()[i][2] - screen.getScreen()[i][1]);
 
-            this.getLineLand()[i].setStartX(temp.getScreen()[i][0]);
-            this.getLineLand()[i].setStartY(temp.getScreen()[i][2]);
-            this.getLineLand()[i].setEndX(temp.getScreen()[i][0]);
-            this.getLineLand()[i].setEndY(temp.getScreen()[i][3]);
+            /*
+            this.getLineWall()[i].setStroke(Palette.getColor(screen.getScreen()[i][4]));
+            this.getLineWall()[i].setStartX(screen.getScreen()[i][0]);
+            this.getLineWall()[i].setStartY(screen.getScreen()[i][1]);
+            this.getLineWall()[i].setEndX(screen.getScreen()[i][0]);
+            this.getLineWall()[i].setEndY(screen.getScreen()[i][2]);*/
+
+                this.getLineLand()[i].setStartX(screen.getScreen()[i][0]);
+                this.getLineLand()[i].setStartY(screen.getScreen()[i][2]);
+                this.getLineLand()[i].setEndX(screen.getScreen()[i][0]);
+                this.getLineLand()[i].setEndY(screen.getScreen()[i][3]);
+            }
+        }
+        catch (Exception e){
+            System.out.println("Ошибка");
         }
     }
 
@@ -158,10 +200,10 @@ public class GameController{
             lineSky[i].setEndX(1);
             lineSky[i].setEndY(1);
 
-            lineWall[i].setStartX(1);
-            lineWall[i].setStartY(1);
-            lineWall[i].setEndX(1);
-            lineWall[i].setEndY(1);
+            //lineWall[i].setStartX(1);
+            //lineWall[i].setStartY(1);
+            //lineWall[i].setEndX(1);
+            //lineWall[i].setEndY(1);
 
             lineLand[i].setStartX(1);
             lineLand[i].setStartY(1);
@@ -238,9 +280,9 @@ public class GameController{
         return lineSky;
     }
 
-    public Line[] getLineWall(){
-        return lineWall;
-    }
+    //public Line[] getLineWall(){
+        //return lineWall;
+    //}
 
     public Line[] getLineLand(){
         return lineLand;

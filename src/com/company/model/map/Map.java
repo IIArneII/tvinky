@@ -13,6 +13,10 @@ public class Map {
 
     public Map(){
         walls = new ArrayList<>();
+        walls.add(new Wall(4, 2, 4, 3, 0, 1, 1));
+        walls.add(new Wall(3, 4, 2, 4, 0, 0, 1));
+        walls.add(new Wall(0, 0, 3, 0, 0, 2, 1));
+        /*
         walls.add(new Wall(2, 0, 0, 2, 0));
         walls.add(new Wall(2, 0, 4, 2, 0));
         walls.add(new Wall(0, 2, 2, 4, 0));
@@ -34,7 +38,7 @@ public class Map {
         walls.add(new Wall(6, 6, 10, 6, 3));
         walls.add(new Wall(10, 6, 12, 8, 3));
         walls.add(new Wall(6, 6, 6, 8, 3));
-        walls.add(new Wall(10, 4, 10, 8, 3));
+        walls.add(new Wall(10, 4, 10, 8, 3));*/
 
         /*this.map = new int[][]{ {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4},
                                 {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
@@ -65,11 +69,13 @@ public class Map {
                 double lA = section.getA().distance(new Point(q1, q2));
                 double lB = section.getB().distance(new Point(q1, q2));
                 if(lA > lB) {
-                    wallPoints.add(new WallPoint(lA, walls.get(i).getColor()));
+                    double l = new Section(temp.getA(), new Point(q1, q2)).length();
+                    double k = (l / walls.get(i).getTextureWidth()) - (int)(l / walls.get(i).getTextureWidth());
+                    wallPoints.add(new WallPoint(lA, walls.get(i).getColor(), walls.get(i).getTextureID(), k));
                 }
             }
         }
-        WallPoint min = new WallPoint(1000, 0);
+        WallPoint min = new WallPoint(1000, 0, 0, 0);
         for(int i = 0; i < wallPoints.size(); i++){
             if(wallPoints.get(i).getDistance() < min.getDistance()) min = wallPoints.get(i);
         }

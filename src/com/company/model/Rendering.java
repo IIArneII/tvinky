@@ -91,7 +91,7 @@ public class Rendering extends Thread {
 
                         angRad--;
                     }
-                    this.screen.setScreen(temp);
+                    this.screen.setScreen(temp, new double[800]);
                 }
                 else try { Thread.currentThread().sleep(10);
                     System.out.println("Птокок рендеринг на паузе");} catch (Exception e) {}
@@ -102,7 +102,8 @@ public class Rendering extends Thread {
             while (renderingLaunched) {
                 if(!renderingOnPause){
                     try { Thread.currentThread().sleep(1); } catch (Exception e) {}
-                    int[][] temp = new int[800][5];
+                    int[][] temp = new int[800][6];
+                    double[] width = new double[800];
 
                     angRad = (gameClient.getEntityDynamicList().get(0).getAngCharacter() - Angles.Ang30);
 
@@ -119,10 +120,12 @@ public class Rendering extends Thread {
                         temp[rad][2] = Height_Center + heightWall;
                         temp[rad][3] = Height;
                         temp[rad][4] = distant.getColor();
+                        temp[rad][5] = distant.getTextureID();
+                        width[rad] = distant.getTextureK();
 
                         angRad++;
                     }
-                    this.screen.setScreen(temp);
+                    this.screen.setScreen(temp, width);
                 }
                 else try { Thread.currentThread().sleep(10);
                     System.out.println("Птокок рендеринг на паузе");} catch (Exception e) {}
