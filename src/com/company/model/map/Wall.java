@@ -1,6 +1,6 @@
 package com.company.model.map;
 
-import com.company.model.Section;
+import com.company.model.math.Section;
 
 public class Wall {
     private Section section;

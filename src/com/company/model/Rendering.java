@@ -1,6 +1,7 @@
 package com.company.model;
 
 import com.company.model.map.WallPoint;
+import com.company.model.math.Section;
 
 public class Rendering extends Thread {
 
@@ -61,7 +62,7 @@ public class Rendering extends Thread {
                     try { Thread.currentThread().sleep(1); } catch (Exception e) {}
                     int[][] temp = new int[800][5];
 
-                    angRad = (gameClient.getEntityDynamicList().get(0).getAngCharacter() - Angles.Ang30);
+                    angRad = (gameClient.getEntityDynamicList().get(0).getAngCharacter() + Angles.Ang30);
 
                     for (int rad = 0; rad < Angles.Ang60; rad++) {
                         radX = gameClient.getEntityDynamicList().get(0).getX();
@@ -88,11 +89,12 @@ public class Rendering extends Thread {
                         temp[rad][3] = Height;
                         temp[rad][4] = wall - 1;
 
-                        angRad++;
+                        angRad--;
                     }
                     this.screen.setScreen(temp);
                 }
-                else try { Thread.currentThread().sleep(10); } catch (Exception e) {}
+                else try { Thread.currentThread().sleep(10);
+                    System.out.println("Птокок рендеринг на паузе");} catch (Exception e) {}
             }
         }
         else if(renderingMethod == 1){
@@ -108,27 +110,7 @@ public class Rendering extends Thread {
                         radX = gameClient.getEntityDynamicList().get(0).getX();
                         radY = gameClient.getEntityDynamicList().get(0).getY();
 
-/*
-                stepX = Math.cos(Angles.converteDegreeToRadian(angRad)) / 80;
-                stepY = Math.sin(Angles.converteDegreeToRadian(angRad)) / 80;
-
-                int wall = 0;
-                int distant = 1;
-                while (wall == 0) {
-                    radX += stepX;
-                    radY += stepY;
-                    //wall = this.gameClient.getMap().getMap()[(int) radX][(int) radY];
-                    wall = this.gameClient.getMap().isWall(radX, radY);
-                    distant++;
-
-                }
-                System.out.println(distant);
-                int heightWall = (int)(25000 /(distant*Math.cos(Angles.converteDegreeToRadian(angRad)  - Angles.converteDegreeToRadian(gameClient.getEntityDynamicList().get(0).getAngCharacter()))));
-
- */
-                        WallPoint distant = this.gameClient.getMap().distance(new Section(radX, radY, radX + Math.cos(Angles.converteDegreeToRadian(gameClient.getEntityDynamicList().get(0).getAngCharacter() - Angles.Ang30 + rad)), radY + Math.sin(Angles.converteDegreeToRadian(gameClient.getEntityDynamicList().get(0).getAngCharacter() - Angles.Ang30 + rad))), rad);
-
-                        //int heightWall = (int)(2500 /(distant*Math.cos(Angles.converteDegreeToRadian(angRad)  - Angles.converteDegreeToRadian(gameClient.getEntityDynamicList().get(0).getAngCharacter()))));
+                        WallPoint distant = this.gameClient.getMap().distance(new Section(radX, radY, radX + Math.cos(Angles.converteDegreeToRadian(gameClient.getEntityDynamicList().get(0).getAngCharacter() + Angles.Ang30 - rad)), radY + Math.sin(Angles.converteDegreeToRadian(gameClient.getEntityDynamicList().get(0).getAngCharacter() + Angles.Ang30 - rad))), rad);
 
                         int heightWall = (int)(2500 / (distant.getDistance() * 10 *  Math.cos(Angles.converteDegreeToRadian(angRad) - Angles.converteDegreeToRadian(gameClient.getEntityDynamicList().get(0).getAngCharacter()))));
 
@@ -139,14 +121,13 @@ public class Rendering extends Thread {
                         temp[rad][4] = distant.getColor();
 
                         angRad++;
-
-                        //renderingAdapter.drowLine(rad, Height_Center - heightWall, Height_Center + heightWall, Height, wall - 1);
                     }
                     this.screen.setScreen(temp);
                 }
-                else try { Thread.currentThread().sleep(10); } catch (Exception e) {}
+                else try { Thread.currentThread().sleep(10);
+                    System.out.println("Птокок рендеринг на паузе");} catch (Exception e) {}
             }
         }
-        System.out.println("Потоко рендеринг завершился");
+        System.out.println("Потокок рендеринг завершился");
     }
 }

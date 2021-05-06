@@ -1,7 +1,8 @@
 package com.company.model.map;
 
 import com.company.model.Entity;
-import com.company.model.Section;
+import com.company.model.math.Point;
+import com.company.model.math.Section;
 
 import java.util.ArrayList;
 
@@ -12,11 +13,29 @@ public class Map {
 
     public Map(){
         walls = new ArrayList<>();
-        walls.add(new Wall(2, 2, 4, 4, 4));
-        walls.add(new Wall(0, 0, 10, 0, 0));
-        walls.add(new Wall(10, 0, 10, 10, 1));
-        walls.add(new Wall(10, 10, 0, 10, 2));
-        walls.add(new Wall(5, 10, 0, 0, 3));
+        walls.add(new Wall(2, 0, 0, 2, 0));
+        walls.add(new Wall(2, 0, 4, 2, 0));
+        walls.add(new Wall(0, 2, 2, 4, 0));
+        walls.add(new Wall(4, 2, 10, 0, 0));
+        walls.add(new Wall(2, 4, 2, 10, 0));
+        walls.add(new Wall(10, 0, 14, 2, 0));
+
+        walls.add(new Wall(14, 2, 14, 8, 2));
+        walls.add(new Wall(2, 10, 6, 12, 2));
+        walls.add(new Wall(6, 12, 12, 10, 2));
+        walls.add(new Wall(12, 10, 14, 12, 2));
+        walls.add(new Wall(14, 12, 16, 10, 2));
+        walls.add(new Wall(16, 10, 14, 8, 2));
+
+        walls.add(new Wall(14, 2, 12, 4, 1));
+        walls.add(new Wall(2, 10, 4, 8, 1));
+
+        walls.add(new Wall(4, 4, 6, 6, 3));
+        walls.add(new Wall(6, 6, 10, 6, 3));
+        walls.add(new Wall(10, 6, 12, 8, 3));
+        walls.add(new Wall(6, 6, 6, 8, 3));
+        walls.add(new Wall(10, 4, 10, 8, 3));
+
         /*this.map = new int[][]{ {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4},
                                 {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
                                 {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
@@ -35,22 +54,26 @@ public class Map {
     //public void setMap(int x, int y, int value){ this.map[x][y] = value;}
 
     public WallPoint distance(Section section, int rad){
+        ArrayList<WallPoint> wallPoints = new ArrayList<>();
         for(int i = 0; i < this.walls.size(); i++){
             Section temp = walls.get(i).getSection();
-            double z1 = (section.getBX() - section.getAX()) * (temp.getAY() - section.getAY()) - (temp.getAX() - section.getAX()) * (section.getBY() - section.getAY());
-            double z2 = (section.getBX() - section.getAX()) * (temp.getBY() - section.getAY()) - (temp.getBX() - section.getAX()) * (section.getBY() - section.getAY());
+            double z1 = section.crossProduct(new Section(section.getA(), temp.getA()));
+            double z2 = section.crossProduct(new Section(section.getA(), temp.getB()));
             if(Math.signum(z1) != Math.signum(z2)){
-                double q1 = temp.getAX() + (temp.getBX() - temp.getAX()) * Math.abs(z1) / Math.abs(z2 - z1);
-                double q2 = temp.getAY() + (temp.getBY() - temp.getAY()) * Math.abs(z1) / Math.abs(z2 - z1);
-                double lA = Math.sqrt((section.getAX() - q1) * (section.getAX() - q1) + (section.getAY() - q2) * (section.getAY() - q2));
-                double lB = Math.sqrt((section.getBX() - q1) * (section.getBX() - q1) + (section.getBY() - q2) * (section.getBY() - q2));
+                double q1 = temp.getA().getX() + (temp.getB().getX() - temp.getA().getX()) * Math.abs(z1) / Math.abs(z2 - z1);
+                double q2 = temp.getA().getY() + (temp.getB().getY() - temp.getA().getY()) * Math.abs(z1) / Math.abs(z2 - z1);
+                double lA = section.getA().distance(new Point(q1, q2));
+                double lB = section.getB().distance(new Point(q1, q2));
                 if(lA > lB) {
-                    //if( rad == 400) System.out.println(q1 + "   " + q2);
-                    return new WallPoint(lA, walls.get(i).getColor());
+                    wallPoints.add(new WallPoint(lA, walls.get(i).getColor()));
                 }
             }
         }
-        return new WallPoint(1000, 0);
+        WallPoint min = new WallPoint(1000, 0);
+        for(int i = 0; i < wallPoints.size(); i++){
+            if(wallPoints.get(i).getDistance() < min.getDistance()) min = wallPoints.get(i);
+        }
+        return min;
     }
 
     public int isWall(double x, double y){

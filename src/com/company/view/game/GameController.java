@@ -3,12 +3,15 @@ package com.company.view.game;
 import com.company.model.Adapter;
 import com.company.model.Screen;
 import com.company.view.Info;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -109,6 +112,7 @@ public class GameController{
     @FXML
     private void clickMenuContinueBtn(ActionEvent event){
         adapter.pause(false);
+        renderingOnPause = false;
         pane.setVisible(true);
         menuContinueBtn.setVisible(false);
         menuExitBtn.setVisible(false);
@@ -126,25 +130,23 @@ public class GameController{
     @FXML
     public void drawLines(Screen screen) throws Exception{
         Scene theScene = menuExitBtn.getScene();
-        double x = (theScene.getWidth() / 800);
-        double y = (theScene.getHeight() / 600);
         Screen temp = screen.copyScreen();
         for (int i = 0; i < 800; i++){
-            this.getLineSky()[i].setStartX((int)(x * temp.getScreen()[i][0]));
+            this.getLineSky()[i].setStartX(temp.getScreen()[i][0]);
             this.getLineSky()[i].setStartY(0);
-            this.getLineSky()[i].setEndX((int)(x * temp.getScreen()[i][0]));
-            this.getLineSky()[i].setEndY((int)(y * temp.getScreen()[i][1]));
+            this.getLineSky()[i].setEndX(temp.getScreen()[i][0]);
+            this.getLineSky()[i].setEndY(temp.getScreen()[i][1]);
 
             this.getLineWall()[i].setStroke(Palette.getColor(temp.getScreen()[i][4]));
-            this.getLineWall()[i].setStartX((int)(x * temp.getScreen()[i][0]));
-            this.getLineWall()[i].setStartY((int)(y * temp.getScreen()[i][1]));
-            this.getLineWall()[i].setEndX((int)(x * temp.getScreen()[i][0]));
-            this.getLineWall()[i].setEndY((int)(y * temp.getScreen()[i][2]));
+            this.getLineWall()[i].setStartX(temp.getScreen()[i][0]);
+            this.getLineWall()[i].setStartY(temp.getScreen()[i][1]);
+            this.getLineWall()[i].setEndX(temp.getScreen()[i][0]);
+            this.getLineWall()[i].setEndY(temp.getScreen()[i][2]);
 
-            this.getLineLand()[i].setStartX((int)(x * temp.getScreen()[i][0]));
-            this.getLineLand()[i].setStartY((int)(y * temp.getScreen()[i][2]));
-            this.getLineLand()[i].setEndX((int)(x * temp.getScreen()[i][0]));
-            this.getLineLand()[i].setEndY((int)(y * temp.getScreen()[i][3]));
+            this.getLineLand()[i].setStartX(temp.getScreen()[i][0]);
+            this.getLineLand()[i].setStartY(temp.getScreen()[i][2]);
+            this.getLineLand()[i].setEndX(temp.getScreen()[i][0]);
+            this.getLineLand()[i].setEndY(temp.getScreen()[i][3]);
         }
     }
 
@@ -180,6 +182,7 @@ public class GameController{
         if(event.getCode() == KeyCode.A){
             adapter.pressA();
         }
+
         if(event.getCode() == KeyCode.D){
             adapter.pressD();
         }
@@ -196,6 +199,8 @@ public class GameController{
         if(event.getCode() == KeyCode.ESCAPE){
             renderingOnPause = true;
             adapter.pause(true);
+            //ObservableList<Node> list = pane.getChildren();
+            //list.clear();
             pane.setVisible(false);
             menuContinueBtn.setVisible(true);
             menuExitBtn.setVisible(true);
@@ -284,7 +289,8 @@ class Rendering implements Runnable{
                     }
                 });
             }
-            else try { t.sleep(10); } catch (Exception e){}
+            else try { t.sleep(10);
+                System.out.println("Птокок рендеринг в котроллере на паузе");} catch (Exception e){}
         }
         System.out.println("Поток отрисовки котроллера завершился");
     }
@@ -296,7 +302,7 @@ class Palette{
         if (n == 1) return Color.GREEN;
         if (n == 2) return Color.BLUE;
         if (n == 3) return Color.BLUEVIOLET;
-        if (n == 4) return Color.CORAL;
+        if (n == 4) return Color.BISQUE;
         return Color.RED;
     }
 }
