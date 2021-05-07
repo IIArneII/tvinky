@@ -26,6 +26,14 @@ public class Section {
         return (b.getX() - a.getX()) * (section.b.getY() - section.a.getY()) - (section.b.getX() - section.a.getX()) * (b.getY() - a.getY());
     }
 
+    public Section getNormal(){
+        return new Section(0, 0, (-b.getY() + a.getY()) / length(), (b.getX() - a.getX()) / length());
+    }
+
+    public Section sum(Section section){
+        return new Section(a.getX() + section.a.getX(), a.getY() + section.a.getY(), b.getX() + section.b.getX(), b.getY() + section.b.getY());
+    }
+
     public Point getA() {
         return a;
     }

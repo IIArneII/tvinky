@@ -13,32 +13,29 @@ public class Map {
 
     public Map(){
         walls = new ArrayList<>();
-        walls.add(new Wall(4, 2, 4, 3, 0, 1, 1));
-        walls.add(new Wall(3, 4, 2, 4, 0, 0, 1));
-        walls.add(new Wall(0, 0, 3, 0, 0, 2, 1));
-        /*
-        walls.add(new Wall(2, 0, 0, 2, 0));
-        walls.add(new Wall(2, 0, 4, 2, 0));
-        walls.add(new Wall(0, 2, 2, 4, 0));
-        walls.add(new Wall(4, 2, 10, 0, 0));
-        walls.add(new Wall(2, 4, 2, 10, 0));
-        walls.add(new Wall(10, 0, 14, 2, 0));
 
-        walls.add(new Wall(14, 2, 14, 8, 2));
-        walls.add(new Wall(2, 10, 6, 12, 2));
-        walls.add(new Wall(6, 12, 12, 10, 2));
-        walls.add(new Wall(12, 10, 14, 12, 2));
-        walls.add(new Wall(14, 12, 16, 10, 2));
-        walls.add(new Wall(16, 10, 14, 8, 2));
+        walls.add(new Wall(2, 0, 0, 2, 0, 1, 1));
+        walls.add(new Wall(2, 0, 4, 2, 0, 2,1));
+        walls.add(new Wall(0, 2, 2, 4, 0, 1, 1));
+        walls.add(new Wall(4, 2, 10, 0, 0, 0, 1));
+        walls.add(new Wall(2, 4, 2, 10, 0, 1, 1));
+        walls.add(new Wall(10, 0, 14, 2, 0, 1, 1));
 
-        walls.add(new Wall(14, 2, 12, 4, 1));
-        walls.add(new Wall(2, 10, 4, 8, 1));
+        walls.add(new Wall(14, 2, 14, 8, 2, 2, 1));
+        walls.add(new Wall(2, 10, 6, 12, 2, 2, 1));
+        walls.add(new Wall(6, 12, 12, 10, 2, 2, 1));
+        walls.add(new Wall(12, 10, 14, 12, 2, 0, 1));
+        walls.add(new Wall(14, 12, 16, 10, 2, 1, 1));
+        walls.add(new Wall(16, 10, 14, 8, 2, 0, 1));
 
-        walls.add(new Wall(4, 4, 6, 6, 3));
-        walls.add(new Wall(6, 6, 10, 6, 3));
-        walls.add(new Wall(10, 6, 12, 8, 3));
-        walls.add(new Wall(6, 6, 6, 8, 3));
-        walls.add(new Wall(10, 4, 10, 8, 3));*/
+        walls.add(new Wall(14, 2, 12, 4, 1, 1, 1));
+        walls.add(new Wall(2, 10, 4, 8, 1, 0, 1));
+
+        walls.add(new Wall(4, 4, 6, 6, 3, 0, 1));
+        walls.add(new Wall(6, 6, 10, 6, 3, 0, 1));
+        walls.add(new Wall(10, 6, 12, 8, 3, 1, 1));
+        walls.add(new Wall(6, 6, 6, 8, 3, 1, 1));
+        walls.add(new Wall(10, 4, 10, 8, 3, 1, 1));
 
         /*this.map = new int[][]{ {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4},
                                 {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
@@ -57,8 +54,8 @@ public class Map {
 
     //public void setMap(int x, int y, int value){ this.map[x][y] = value;}
 
-    public WallPoint distance(Section section, int rad){
-        ArrayList<WallPoint> wallPoints = new ArrayList<>();
+    //public WallPoint distance(Section section, int rad){
+        /*ArrayList<WallPoint> wallPoints = new ArrayList<>();
         for(int i = 0; i < this.walls.size(); i++){
             Section temp = walls.get(i).getSection();
             double z1 = section.crossProduct(new Section(section.getA(), temp.getA()));
@@ -80,7 +77,7 @@ public class Map {
             if(wallPoints.get(i).getDistance() < min.getDistance()) min = wallPoints.get(i);
         }
         return min;
-    }
+    }*/
 
     public int isWall(double x, double y){
         double v1 = (x - 5) * (x - 5) + (y - 5) * (y - 5);
@@ -96,4 +93,7 @@ public class Map {
 
     public ArrayList<Entity> getEntityStaticList(){return this.entityStaticList;}
 
+    public ArrayList<Wall> getWalls() {
+        return walls;
+    }
 }

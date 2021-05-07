@@ -1,6 +1,7 @@
 package com.company.model;
 
 import com.company.model.map.WallPoint;
+import com.company.model.math.RayCasting;
 import com.company.model.math.Section;
 
 public class Rendering extends Thread {
@@ -111,7 +112,7 @@ public class Rendering extends Thread {
                         radX = gameClient.getEntityDynamicList().get(0).getX();
                         radY = gameClient.getEntityDynamicList().get(0).getY();
 
-                        WallPoint distant = this.gameClient.getMap().distance(new Section(radX, radY, radX + Math.cos(Angles.converteDegreeToRadian(gameClient.getEntityDynamicList().get(0).getAngCharacter() + Angles.Ang30 - rad)), radY + Math.sin(Angles.converteDegreeToRadian(gameClient.getEntityDynamicList().get(0).getAngCharacter() + Angles.Ang30 - rad))), rad);
+                        WallPoint distant = RayCasting.rayCasting(new Section(radX, radY, radX + Math.cos(Angles.converteDegreeToRadian(gameClient.getEntityDynamicList().get(0).getAngCharacter() + Angles.Ang30 - rad)), radY + Math.sin(Angles.converteDegreeToRadian(gameClient.getEntityDynamicList().get(0).getAngCharacter() + Angles.Ang30 - rad))), gameClient.getMap().getWalls(), 0);
 
                         int heightWall = (int)(2500 / (distant.getDistance() * 10 *  Math.cos(Angles.converteDegreeToRadian(angRad) - Angles.converteDegreeToRadian(gameClient.getEntityDynamicList().get(0).getAngCharacter()))));
 
