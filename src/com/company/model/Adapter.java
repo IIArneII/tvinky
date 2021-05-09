@@ -1,5 +1,8 @@
 package com.company.model;
 
+import com.company.model.client.Client;
+import com.company.model.rendering.Screen;
+
 public class Adapter {
 
     private Client client;
@@ -13,7 +16,7 @@ public class Adapter {
 
     public void setRenderingMethod(int renderingMethod) {
         this.renderingMethod = renderingMethod;
-        client.gameClient.getRendering().setRenderingMethod(renderingMethod);
+        client.getGameClient().getRendering().setRenderingMethod(renderingMethod);
     }
 
     public int getRenderingMethod() {
@@ -33,55 +36,67 @@ public class Adapter {
     }
 
     public Screen getScreen(){
-        return client.gameClient.getRendering().getScreen();
+        return client.getGameClient().getRendering().getScreen();
     }
 
     public void pressW(){
-        client.UP = 1;
+        client.getMovement().setForth(true);
+        client.getMovement().setBackForthEvent(true);
     }
 
     public void pressWReleased(){
-        client.UP = 0;
+        client.getMovement().setForth(false);
+        //client.getMovement().setBackForthEvent(false);
     }
 
     public void pressS(){
-        client.DOWN = 1;
+        client.getMovement().setBack(true);
+        client.getMovement().setBackForthEvent(true);
     }
 
     public void pressSReleased(){
-        client.DOWN = 0;
+        client.getMovement().setBack(false);
+        //client.getMovement().setBackForthEvent(false);
     }
 
     public void pressD(){
-        client.RIGHT = 1;
+        client.getMovement().setRight(true);
+        client.getMovement().setRightLeftEvent(true);
     }
 
     public void pressDReleased() {
-        client.RIGHT = 0;
+        client.getMovement().setRight(false);
+        //client.getMovement().setRightLeftEvent(false);
     }
 
     public void pressA(){
-        client.LEFT = 1;
+        client.getMovement().setLeft(true);
+        client.getMovement().setRightLeftEvent(true);
     }
 
     public void pressAReleased() {
-        client.LEFT = 0;
+        client.getMovement().setLeft(false);
+        //client.getMovement().setRightLeftEvent(false);
     }
 
     public void pressRight(){
-        client.TurnRIGHT = 1;
+        client.getMovement().setTurnRight(true);
+        client.getMovement().setTurnRightLeftEvent(true);
     }
 
     public void pressRightReleased(){
-        client.TurnRIGHT = 0;
+        client.getMovement().setTurnRight(false);
+        //client.getMovement().setTurnRightLeftEvent(false);
     }
 
     public void pressLeft(){
-        client.TurnLEFT = 1;
+        client.getMovement().setTurnLeft(true);
+        client.getMovement().setTurnRightLeftEvent(true);
     }
 
     public void pressLeftReleased(){
-        client.TurnLEFT = 0;
+        client.getMovement().setTurnLeft(false);
+        //client.getMovement().setTurnRightLeftEvent(false);
     }
 
     public void pressShot(){

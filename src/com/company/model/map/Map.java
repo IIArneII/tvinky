@@ -1,8 +1,6 @@
 package com.company.model.map;
 
-import com.company.model.Entity;
-import com.company.model.math.Point;
-import com.company.model.math.Section;
+import com.company.model.entity.Entity;
 
 import java.util.ArrayList;
 

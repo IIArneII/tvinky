@@ -1,16 +1,30 @@
-package com.company.model;
+package com.company.model.listeners;
+
+import com.company.model.math.Angles;
 
 public class BackForthListener extends Thread{
-    Movement movement;
+    private Event event;
+    private Realize realize;
+    private int value;
+    private boolean launched;
+    private boolean pause;
 
-    public BackForthListener(Movement movement){
-        this.movement = movement;
+    public BackForthListener(Event event, int value, Realize realize){
+        this.event = event;
+        this.realize = realize;
+        this.value = value;
+        pause = false;
+        launched = false;
     }
 
     @Override
     public void run() {
-        while (movement.isMovementLaunched()){
-            if(!movement.isMovementOnPause()) {
+        while (launched){
+            if(!pause) {
+                if(event.getEvent() == value) {
+                    realize.make();
+                }
+                /*
                 try { Thread.currentThread().sleep(1); } catch (Exception e) {}
                 if(movement.client.UP == 1){
                     double posCharacterXPrev = movement.client.gameClient.getEntityDynamicList().get(0).getX();
@@ -31,10 +45,8 @@ public class BackForthListener extends Thread{
                         movement.client.gameClient.getEntityDynamicList().get(0).setX(posCharacterXPrev);
                         movement.client.gameClient.getEntityDynamicList().get(0).setY(posCharacterYPrev);
                     }
-                }
+                }*/
             }
-            else try { Thread.currentThread().sleep(10); } catch (Exception e) {}
         }
-        System.out.println("Поток вперед назад завершился");
     }
 }

@@ -1,5 +1,7 @@
 package com.company.model;
 
+import com.company.model.math.Angles;
+
 public class ShotListener extends Thread {
     Movement movement;
 

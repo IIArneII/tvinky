@@ -1,5 +1,7 @@
 package com.company.model;
 
+import com.company.model.client.GameClient;
+
 public class Client {
     public int STOP = 0;
     public int UP = 0;
