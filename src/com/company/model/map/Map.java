@@ -12,8 +12,8 @@ public class Map {
     public Map(){
         walls = new ArrayList<>();
 
-        walls.add(new Wall(2, 0, 0, 2, 0, 1, 1));
-        walls.add(new Wall(2, 0, 4, 2, 0, 2,1));
+        walls.add(new Wall(2, 0, 0, 2, 0, 3, 1));
+        walls.add(new Wall(2, 0, 4, 2, 0, 3,1));
         walls.add(new Wall(0, 2, 2, 4, 0, 1, 1));
         walls.add(new Wall(4, 2, 10, 0, 0, 0, 1));
         walls.add(new Wall(2, 4, 2, 10, 0, 1, 1));

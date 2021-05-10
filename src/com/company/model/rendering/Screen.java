@@ -1,4 +1,4 @@
-package com.company.model;
+package com.company.model.rendering;
 
 public class Screen {
     private int[][] screen;
@@ -19,10 +19,4 @@ public class Screen {
         this.screen = screen;
         this.width = width;
     }
-/*
-    public Screen copyScreen(){
-        Screen temp = new Screen();
-        temp.setScreen(this.getScreen().clone());
-        return temp;
-    }*/
 }

@@ -1,4 +1,4 @@
-package com.company.model;
+package com.company.model.math;
 
 public class Angles {
     public static final int Ang360 = 4800;

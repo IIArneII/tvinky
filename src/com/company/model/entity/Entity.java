@@ -1,4 +1,4 @@
-package com.company.model;
+package com.company.model.entity;
 
 public class Entity {
     private double x;

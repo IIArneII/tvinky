@@ -1,4 +1,6 @@
-package com.company.model;
+package com.company.model.entity;
+
+import com.company.model.entity.Entity;
 
 public class Character extends Entity {
 

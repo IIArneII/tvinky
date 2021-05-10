@@ -7,20 +7,8 @@ public class Adapter {
 
     private Client client;
 
-    private int renderingMethod;
-
     public Adapter(){
         client = new Client();
-        renderingMethod = 0;
-    }
-
-    public void setRenderingMethod(int renderingMethod) {
-        this.renderingMethod = renderingMethod;
-        client.getGameClient().getRendering().setRenderingMethod(renderingMethod);
-    }
-
-    public int getRenderingMethod() {
-        return renderingMethod;
     }
 
     public void start(){
@@ -36,7 +24,7 @@ public class Adapter {
     }
 
     public Screen getScreen(){
-        return client.getGameClient().getRendering().getScreen();
+        return client.getRendering().getScreen();
     }
 
     public void pressW(){
@@ -100,11 +88,11 @@ public class Adapter {
     }
 
     public void pressShot(){
-        client.SHOOT = 1;
+        client.getMovement().setShot(true);
     }
 
     public void pressShotReleased(){
-        client.SHOOT = 0;
+        client.getMovement().setShot(false);
     }
 
     public void setName(String name){

@@ -1,4 +1,4 @@
-package com.company.model;
+/*package com.company.model.listeners;
 
 import com.company.model.math.Angles;
 
@@ -43,3 +43,4 @@ public class RightLeftListiner extends Thread{
     }
 }
 
+*/

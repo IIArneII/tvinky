@@ -1,37 +1,42 @@
-package com.company.model;
+package com.company.model.client;
 
-import com.company.model.client.GameClient;
+import com.company.model.rendering.Rendering;
 
 public class Client {
-    public int STOP = 0;
-    public int UP = 0;
-    public int DOWN = 0;
-    public int LEFT = 0;
-    public int RIGHT = 0;
-    public int TurnLEFT = 0;
-    public int TurnRIGHT = 0;
-    public int SHOOT = 0;
-
-    GameClient gameClient;
-    Movement movement;
+    private GameClient gameClient;
+    private Movement movement;
+    private Rendering rendering;
 
     public Client(){
         gameClient = new GameClient();
-        movement = new Movement(this);
-        System.out.println("Rrecec");
+        movement = new Movement(gameClient.getEntityDynamicList().get("player"), gameClient.getMap());
+        rendering = new Rendering(gameClient.getEntityDynamicList().get("player"), gameClient.getMap());
+    }
+
+    public GameClient getGameClient() {
+        return gameClient;
+    }
+
+    public Movement getMovement(){
+        return movement;
+    }
+
+    public Rendering getRendering(){
+        return rendering;
     }
 
     public void start(){
         movement.start();
-        gameClient.startRendering();
+        rendering.start();
     }
 
     public void pause(boolean pause){
-        gameClient.pauseRendering(pause);
+        movement.setPause(pause);
+        rendering.setRenderingOnPause(pause);
     }
 
     public void stop(){
-        gameClient.stopRendering();
-        movement.setMovementLaunched(false);
+        movement.setLaunched(false);
+        rendering.setRenderingLaunched(false);
     }
 }

@@ -61,6 +61,7 @@ public class GameController{
                 System.out.println(files[i].getAbsolutePath());
                 Image temp = new Image(new FileInputStream(files[i]));
                 Image[] image = new Image[(int)temp.getWidth()];
+                //System.out.println(temp.getWidth());
                 for(int j = 0; j < temp.getWidth(); j++){
                     //System.out.println(j);
                     image[j] = new WritableImage(temp.getPixelReader(), j, 0, 1, (int)temp.getHeight());
@@ -111,7 +112,6 @@ public class GameController{
         renderingLaunched = false;
         renderingOnPause = false;
         adapter = new Adapter();
-        adapter.setRenderingMethod(Info.renderingMethod);
         new Start("Game", this);
         new Rendering("Rendering", this);
     }
