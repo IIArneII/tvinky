@@ -8,18 +8,14 @@ import java.util.HashMap;
 
 public class Game {
     private Map map;
-    //private ArrayList<Character> entityDynamicList;
     private HashMap<String, Character> entityDynamicList;
 
-    public Game(){
+    public Game(Character character){
         this.map = new Map();
-        //this.entityDynamicList = new ArrayList<>();
         this.entityDynamicList = new HashMap<>();
-        this.entityDynamicList.put("player", new Character());
+        this.entityDynamicList.put(character.getName(), character);
     }
 
-
-    //public ArrayList<Character> getEntityDynamicList(){return this.entityDynamicList;}
     public HashMap<String, Character> getEntityDynamicList(){
         return entityDynamicList;
     }

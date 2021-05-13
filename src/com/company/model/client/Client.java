@@ -1,20 +1,24 @@
 package com.company.model.client;
 
 import com.company.model.rendering.Rendering;
+import com.company.model.entity.Character;
+import com.company.model.game.Game;
 
 public class Client {
-    private GameClient gameClient;
+    private Game game;
+    private Character character;
     private Movement movement;
     private Rendering rendering;
 
     public Client(){
-        gameClient = new GameClient();
-        movement = new Movement(gameClient.getEntityDynamicList().get("player"), gameClient.getMap());
-        rendering = new Rendering(gameClient.getEntityDynamicList().get("player"), gameClient.getMap());
+        character = new Character("Player");
+        game = new Game(character);
+        movement = new Movement(character, game.getMap());
+        rendering = new Rendering(character, game.getMap());
     }
 
-    public GameClient getGameClient() {
-        return gameClient;
+    public Game getGame() {
+        return game;
     }
 
     public Movement getMovement(){
