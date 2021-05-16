@@ -27,6 +27,10 @@ public class Character extends Entity {
     public double getHealth(){return this.health;}
 
     public void setAngCharacter(double angle){this.angCharacter = angle;}
+
     public void setHealth(double health){this.health = health;}
 
+    public String getName() {
+        return name;
+    }
 }
