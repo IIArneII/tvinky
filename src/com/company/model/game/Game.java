@@ -16,6 +16,11 @@ public class Game {
         this.entityDynamicList.put(character.getName(), character);
     }
 
+    public Game(){
+        this.map = new Map();
+        this.entityDynamicList = new HashMap<>();
+    }
+
     public HashMap<String, Character> getEntityDynamicList(){
         return entityDynamicList;
     }
