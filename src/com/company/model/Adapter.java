@@ -2,13 +2,17 @@ package com.company.model;
 
 import com.company.model.client.Client;
 import com.company.model.rendering.Screen;
+import com.company.model.server.Server;
 
 public class Adapter {
 
     private Client client;
 
+    private Server server;
+
     public Adapter(){
         client = new Client();
+        server = new Server();
     }
 
     public void start(){

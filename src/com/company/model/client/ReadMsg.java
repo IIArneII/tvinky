@@ -1,19 +1,21 @@
-package com.company.model.server;
+package com.company.model.client;
+
+import com.company.model.entity.Character;
 import com.company.model.game.Game;
+
 import java.io.ObjectInputStream;
 import java.net.Socket;
-import com.company.model.entity.Character;
-public class InputStream extends Thread{
-    Connect c;
+
+public class ReadMsg extends Thread{
+    Net n;
     Socket socket;
     static private ObjectInputStream input;
     private static java.io.InputStream in;
-    Character readData;
     Game game;
-    public InputStream(Connect c, Socket socket, Game game){
-        System.out.println("InputStream");
+    public ReadMsg(Net n, Socket socket, Game game){
+        System.out.println("ReadMSG");
         try {
-            this.c = c;
+            this.n = n;
             this.socket = socket;
             in = socket.getInputStream();
             input = new ObjectInputStream(in);
@@ -23,12 +25,13 @@ public class InputStream extends Thread{
     }
     @Override
     public void run(){
+        System.out.println("RUN rEADmSG");
         while(true){
             try {
-                readData = (Character) input.readObject();
-                game.getEntityDynamicList().put(readData.getName(), readData);
+                game = (Game) input.readObject();
             }
             catch (Exception e) {}
         }
     }
+
 }

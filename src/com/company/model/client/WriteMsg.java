@@ -1,20 +1,19 @@
-package com.company.model.server;
+package com.company.model.client;
 
 import com.company.model.game.Game;
 
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class OutputStream extends Thread{
-    Connect c;
+public class WriteMsg extends Thread{
+    Net n;
     Socket socket;
     static private ObjectOutputStream output;
     private static java.io.OutputStream out;
     Game game;
-    public OutputStream(Connect c, Socket socket, Game game){
-        System.out.println("OutputStream");
+    public WriteMsg(Net n, Socket socket, Game game){
         try {
-            this.c = c;
+            this.n = n;
             this.socket = socket;
             out = socket.getOutputStream();
             output = new ObjectOutputStream(out);
@@ -24,9 +23,10 @@ public class OutputStream extends Thread{
     }
     @Override
     public void run(){
+        System.out.println("run WriteMsg");
         while(true){
             try {
-                output.writeObject(game);
+                output.writeObject(n.client.character);
             }
             catch (Exception e) {}
         }

@@ -16,15 +16,13 @@ public class Server {
     public HashMap<String, Character> allPersonal;
     private static ServerSocket ss;
     private static Game game;
-    public void run() {
+    public Server() {
+        System.out.println("Server");
         try {
             ss = new ServerSocket(1111);
-            while (true) {
-                Socket socket = ss.accept();
-                Connect c = new Connect(this, socket);
-                Game game = new Game();
-            }
-
+            Socket socket = ss.accept();
+            Connect c = new Connect(this, socket);
+            Game game = new Game();
         } catch (Exception e) {}
     }
 
@@ -33,7 +31,13 @@ public class Server {
     }
 
     public void setAllPersonal(HashMap<String, Character> u) {
+        System.out.println("setAllPersonal");
         this.allPersonal = u;
+    }
+
+    public static Game getGame() {
+        System.out.println("getGame");
+        return game;
     }
 }
 
