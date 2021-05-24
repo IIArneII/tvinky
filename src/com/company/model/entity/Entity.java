@@ -1,6 +1,8 @@
 package com.company.model.entity;
 
-public class Entity {
+import java.io.Serializable;
+
+public class Entity implements Serializable {
     private double x;
     private double y;
     private double r;

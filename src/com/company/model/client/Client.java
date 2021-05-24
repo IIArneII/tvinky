@@ -9,35 +9,36 @@ public class Client {
     public Character character;
     private Movement movement;
     private Rendering rendering;
-    private Net n;
+    private ConnectionServer connectionServer;
 
     public Client(){
         System.out.println("Client");
         character = new Character("Player");
         game = new Game(character);
         movement = new Movement(character, game.getMap());
-        rendering = new Rendering(character, game.getMap());
-        this.n = new Net(this, "127.0.0.1", 1111);
+        rendering = new Rendering(character, game);
+        connectionServer = new ConnectionServer(this, "127.0.0.1", 1111);
     }
 
     public Game getGame() {
-        System.out.println("getGame");
+        //System.out.println("getGame");
         return game;
     }
 
     public Movement getMovement(){
-        System.out.println("getMovement");
+        //System.out.println("getMovement");
         return movement;
     }
 
     public Rendering getRendering(){
-        System.out.println("getRendering");
+        //System.out.println("getRendering");
         return rendering;
     }
 
     public void start(){
         movement.start();
         rendering.start();
+        connectionServer.start();
     }
 
     public void pause(boolean pause){

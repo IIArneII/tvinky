@@ -2,21 +2,23 @@ package com.company.model;
 
 import com.company.model.client.Client;
 import com.company.model.rendering.Screen;
-import com.company.model.server.Server;
 
 public class Adapter {
 
     private Client client;
 
-    private Server server;
-
     public Adapter(){
+        System.out.println("Adapter");
         client = new Client();
-        server = new Server();
     }
 
-    public void start(){
+    public void startClient(){
+        System.out.println("Adapter.startClient");
         client.start();
+    }
+
+    public void startServer(){
+        System.out.println("Adapter.startServer");
     }
 
     public void stop(){

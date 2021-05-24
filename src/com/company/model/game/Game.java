@@ -14,6 +14,7 @@ public class Game {
         this.map = new Map();
         this.entityDynamicList = new HashMap<>();
         this.entityDynamicList.put(character.getName(), character);
+        map.getWalls().add(character.getWall());
     }
 
     public Game(){

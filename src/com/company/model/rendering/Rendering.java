@@ -1,11 +1,16 @@
 package com.company.model.rendering;
 
+import com.company.model.client.Client;
 import com.company.model.entity.Character;
 import com.company.model.map.Map;
+import com.company.model.map.Wall;
 import com.company.model.map.WallPoint;
 import com.company.model.math.Angles;
 import com.company.model.math.RayCasting;
 import com.company.model.math.Section;
+import com.company.model.game.Game;
+
+import java.util.ArrayList;
 
 public class Rendering extends Thread {
 
@@ -15,15 +20,15 @@ public class Rendering extends Thread {
     public static final int Height_Center = Height / 2;
 
     private Character character;
-    private Map map;
+    private Game game;
     private Screen screen;
     private boolean renderingLaunched;
     private boolean renderingOnPause;
 
-    public Rendering(Character character, Map map) {
+    public Rendering(Character character, Game game) {
         this.screen = new Screen();
         this.character = character;
-        this.map = map;
+        this.game = game;
         renderingLaunched = false;
         renderingOnPause = false;
     }
@@ -65,7 +70,7 @@ public class Rendering extends Thread {
                     radX = character.getX();
                     radY = character.getY();
 
-                    WallPoint distant = RayCasting.rayCasting(new Section(radX, radY, radX + Math.cos(Angles.converteDegreeToRadian(character.getAngCharacter() + Angles.Ang30 - rad)), radY + Math.sin(Angles.converteDegreeToRadian(character.getAngCharacter() + Angles.Ang30 - rad))), map.getWalls(), 0);
+                    WallPoint distant = RayCasting.rayCasting(new Section(radX, radY, radX + Math.cos(Angles.converteDegreeToRadian(character.getAngCharacter() + Angles.Ang30 - rad)), radY + Math.sin(Angles.converteDegreeToRadian(character.getAngCharacter() + Angles.Ang30 - rad))), game.getMap().getWalls(), 0);
 
                     int heightWall = (int)(250 / (distant.getDistance() * Math.cos(Angles.converteDegreeToRadian(angRad) - Angles.converteDegreeToRadian(character.getAngCharacter()))));
 

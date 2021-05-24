@@ -112,7 +112,8 @@ public class GameController{
         renderingLaunched = false;
         renderingOnPause = false;
         adapter = new Adapter();
-        new Start("Game", this);
+        new StartServer("Server", this);
+        new StartClient("Game", this);
         new Rendering("Rendering", this);
     }
 
@@ -276,30 +277,42 @@ public class GameController{
         return lineSky;
     }
 
-    //public Line[] getLineWall(){
-        //return lineWall;
-    //}
-
     public Line[] getLineLand(){
         return lineLand;
     }
 }
 
-class Start implements Runnable{
+class StartClient implements Runnable{
 
     private Thread t;
     private GameController controller;
 
-    public Start(String nameThread, GameController controller){
+    public StartClient(String nameThread, GameController controller){
         t = new Thread(this, nameThread);
         this.controller = controller;
         t.start();
-        System.out.println("Поток запуска завершился");
     }
 
     public void run(){
         System.out.println("Start thread: " + t.getName());
-        controller.getAdapter().start();
+        controller.getAdapter().startClient();
+    }
+}
+
+class StartServer implements Runnable{
+
+    private Thread t;
+    private GameController controller;
+
+    public StartServer(String nameThread, GameController controller){
+        t = new Thread(this, nameThread);
+        this.controller = controller;
+        t.start();
+    }
+
+    public void run(){
+        System.out.println("Start thread: " + t.getName());
+        controller.getAdapter().startServer();
     }
 }
 

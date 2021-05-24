@@ -3,7 +3,7 @@ package com.company.model.map;
 import com.company.model.math.Section;
 
 public class Wall {
-    private Section section;
+    Section section;
     private int color;
     private int textureID;
     private double textureWidth;
