@@ -42,11 +42,9 @@ public class ReadMsg extends Thread{
                 Thread.currentThread().sleep(1);
                 temp = (HashMap<String, Character>) readMsg.readObject();
                 temp.remove(connectionServer.client.character.getName());
-                game.getEntityDynamicList().putAll(temp);
-                if(temp.size() > n){
-                    n++;
-                    connectionServer.client.getGame().getMap().getWalls().add(temp.get("ddd").getWall());
-                }
+
+                game.getEntityDynamicList().get("ddd").setX(temp.get("ddd").getX());
+                game.getEntityDynamicList().get("ddd").setY(temp.get("ddd").getY());
             }
         }
         catch (Exception e) {

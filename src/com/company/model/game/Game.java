@@ -15,6 +15,10 @@ public class Game {
         this.entityDynamicList = new HashMap<>();
         this.entityDynamicList.put(character.getName(), character);
         map.getWalls().add(character.getWall());
+
+        Character temp = new Character("ddd");
+        this.entityDynamicList.put(temp.getName(), temp);
+        map.getWalls().add(temp.getWall());
     }
 
     public Game(){

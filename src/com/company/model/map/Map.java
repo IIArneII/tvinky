@@ -13,27 +13,6 @@ public class Map {
         walls = new ArrayList<>();
 
         walls.add(new Wall(2, 0, 0, 2, 0, 3, 1));
-        walls.add(new Wall(2, 0, 4, 2, 0, 3,1));
-        walls.add(new Wall(0, 2, 2, 4, 0, 1, 1));
-        walls.add(new Wall(4, 2, 10, 0, 0, 0, 1));
-        walls.add(new Wall(2, 4, 2, 10, 0, 1, 1));
-        walls.add(new Wall(10, 0, 14, 2, 0, 1, 1));
-
-        walls.add(new Wall(14, 2, 14, 8, 2, 2, 1));
-        walls.add(new Wall(2, 10, 6, 12, 2, 2, 1));
-        walls.add(new Wall(6, 12, 12, 10, 2, 2, 1));
-        walls.add(new Wall(12, 10, 14, 12, 2, 0, 1));
-        walls.add(new Wall(14, 12, 16, 10, 2, 1, 1));
-        walls.add(new Wall(16, 10, 14, 8, 2, 0, 1));
-
-        walls.add(new Wall(14, 2, 12, 4, 1, 1, 1));
-        walls.add(new Wall(2, 10, 4, 8, 1, 0, 1));
-
-        walls.add(new Wall(4, 4, 6, 6, 3, 0, 1));
-        walls.add(new Wall(6, 6, 10, 6, 3, 0, 1));
-        walls.add(new Wall(10, 6, 12, 8, 3, 1, 1));
-        walls.add(new Wall(6, 6, 6, 8, 3, 1, 1));
-        walls.add(new Wall(10, 4, 10, 8, 3, 1, 1));
 
         /*this.map = new int[][]{ {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4},
                                 {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},

@@ -17,7 +17,7 @@ public class Client {
         game = new Game(character);
         movement = new Movement(character, game.getMap());
         rendering = new Rendering(character, game);
-        connectionServer = new ConnectionServer(this, "127.0.0.1", 1111);
+        connectionServer = new ConnectionServer(this, "26.24.57.118", 1111);
     }
 
     public Game getGame() {
