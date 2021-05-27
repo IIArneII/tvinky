@@ -129,10 +129,10 @@ public class Movement {
 
     public void turnRightLeft(){
         if(turnLeft){
-            character.setAngCharacter(character.getAngCharacter() + 0.1 * (Angles.Ang6/8));
+            character.setAngCharacter(character.getAngCharacter() + 0.3 * (Angles.Ang6/8));
         }
         if(turnRight){
-            character.setAngCharacter(character.getAngCharacter() - 0.1 * (Angles.Ang6/8));
+            character.setAngCharacter(character.getAngCharacter() - 0.3 * (Angles.Ang6/8));
         }
     }
 

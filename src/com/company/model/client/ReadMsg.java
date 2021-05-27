@@ -45,15 +45,24 @@ public class ReadMsg extends Thread{
                     System.out.println("game");
                     Game  game = (Game)message.getObject();
                     game.getEntityDynamicList().remove(connectionServer.client.character.getName());
-                    connectionServer.client.getGame().updateFrom(game);
-
-                    connectionServer.writeMsg.writeMsg.writeObject(new Message("addCharacter", connectionServer.client.character));
-
-                    message = (Message) readMsg.readObject();
-                    Character character = (Character)message.getObject();
-                    if(message.getType().equals("addCharacter") & character.getName().equals(connectionServer.client.character.getName())){
-                        connectionServer.writeMsg.writeMsg.writeObject(new Message("info", "yes", ""));
+                    for(java.util.Map.Entry<String, Character> entry: game.getEntityDynamicList().entrySet()){
+                        System.out.println(entry.getValue().getName());
                     }
+                    System.out.println("End.");
+                    connectionServer.client.getGame().updateFrom(game);
+                    System.out.println("End2.");
+                    connectionServer.writeMsg.writeMsg.writeObject(new Message("addCharacter", connectionServer.client.character));
+                    System.out.println("End3.");
+                    message = (Message) readMsg.readObject();
+                    System.out.println("End4.");
+                    Character character = (Character)message.getObject();
+                    System.out.println("End5.");
+                    if(message.getType().equals("addCharacter") & character.getName().equals(connectionServer.client.character.getName())){
+                        System.out.println("End6.");
+                        connectionServer.writeMsg.writeMsg.writeObject(new Message("info", "yes", ""));
+                        System.out.println("End7.");
+                    }
+                    System.out.println("End8.");
                 }
 
                 if(message.getType().equals("addCharacter")){

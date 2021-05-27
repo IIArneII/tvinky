@@ -35,22 +35,27 @@ public class Game implements Serializable {
     }
 
     public void updateCharacters(HashMap<String, Character> characters){
+        System.out.println("updateCharacters");
         for(java.util.Map.Entry<String, Character> entry: characters.entrySet()){
+            System.out.println(entry.getKey());
             entityDynamicList.get(entry.getKey()).updateFrom(entry.getValue());
         }
+        System.out.println("end9.");
     }
 
     public void updateFrom(Game game){
         map = game.map;
-        for(int i = 0; i < game.entityDynamicList.size(); i++){
-            addCharacter(game.entityDynamicList.get(i));
+        for(java.util.Map.Entry<String, Character> entry: entityDynamicList.entrySet()){
+            addCharacter(entry.getValue());
         }
     }
 
     public Game copy(){
         Game temp = new Game();
         temp.map = map.copy();
-        temp.entityDynamicList = (HashMap<String, Character>)entityDynamicList.clone();
+        for(java.util.Map.Entry<String, Character> entry: entityDynamicList.entrySet()){
+            temp.entityDynamicList.put(entry.getKey(), entry.getValue().copy());
+        }
         return temp;
     }
 }
