@@ -1,5 +1,6 @@
 package com.company.model.client;
 
+import com.company.model.Message;
 import com.company.model.entity.Character;
 import com.company.model.game.Game;
 
@@ -17,9 +18,7 @@ public class WriteMsg extends Thread{
         try {
             this.connectionServer = connectionServer;
             this.socket = socket;
-            System.out.println("Получение потока оутпута");
             writeMsg = new ObjectOutputStream(socket.getOutputStream());
-            System.out.println("Получение потока оутпута");
             this.game = game;
         }
         catch (Exception e) {
@@ -30,14 +29,23 @@ public class WriteMsg extends Thread{
     public void run(){
         System.out.println("run WriteMsg");
         try {
-            Character temp;
-            while(true){
-                Thread.currentThread().sleep(1);
-                temp = connectionServer.client.character.copy();
-                writeMsg.writeObject(temp);
-            }
+            Message message = new Message("addCharacter", connectionServer.client.character.copy());
+//            writeMsg.writeObject(message.copy());
+//            message.setType("character");
+//
+//            while(true){
+//                Thread.currentThread().sleep(1);
+//                message.setObject(connectionServer.client.character.copy());
+//                writeMsg.writeObject(message.copy());
+//            }
         }
         catch (Exception e) {
+            try {
+                socket.close();
+            }
+            catch (Exception ee){
+                System.out.println("Ошибка при закрытии сокета: " + e.getMessage());
+            }
             System.out.println("Ошибка при отправке сообщения серверу: " + e.getMessage());
         }
 

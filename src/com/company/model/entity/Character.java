@@ -58,4 +58,10 @@ public class Character extends Entity implements Serializable {
         wall.setSection(new Section(getX(), getY(), getX() + 1, getY() + 1));
         return wall;
     }
+
+    public void updateFrom(Character character){
+        setX(character.getX());
+        setY(character.getY());
+        this.angCharacter = (character.angCharacter);
+    }
 }

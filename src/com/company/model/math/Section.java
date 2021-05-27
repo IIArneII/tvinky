@@ -1,6 +1,8 @@
 package com.company.model.math;
 
-public class Section {
+import java.io.Serializable;
+
+public class Section implements Serializable {
     private Point a, b;
 
     public Section(){

@@ -1,12 +1,15 @@
 package com.company.model.client;
 
+import com.company.model.Message;
 import com.company.model.entity.Character;
 import com.company.model.game.Game;
 
+import javax.crypto.spec.PSource;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.util.HashMap;
+import java.util.Map;
 
 public class ReadMsg extends Thread{
     ConnectionServer connectionServer;
@@ -19,13 +22,9 @@ public class ReadMsg extends Thread{
         try {
             this.connectionServer = connectionServer;
             this.socket = socket;
-            System.out.println("Получение потока инпута");
             InputStream in = socket.getInputStream();
-            System.out.println("Получен потока инпута");
             readMsg = new ObjectInputStream(in);
-            System.out.println("Получение обжект инпут стрим");
             this.game = game;
-            System.out.println("ReadMsg end");
         }
         catch (Exception e) {
             System.out.println("Ошибка при создании ReadMsg: " + e.getMessage());
@@ -35,23 +34,51 @@ public class ReadMsg extends Thread{
     @Override
     public void run(){
         System.out.println("RUN rEADmSG");
-        HashMap<String, Character> temp;
-        int n = 0;
+        HashMap<String, Character> characters;
+        Message message;
         try {
             while(true){
                 Thread.currentThread().sleep(1);
-                temp = (HashMap<String, Character>) readMsg.readObject();
-                temp.remove(connectionServer.client.character.getName());
+                message = (Message) readMsg.readObject();
 
-                if(!temp.isEmpty()){
-                    //System.out.println(temp.get("ddd").getX());
-                    game.getEntityDynamicList().get("ddd").setX(temp.get("ddd").getX());
-                    game.getEntityDynamicList().get("ddd").setY(temp.get("ddd").getY());
+                if(message.getType().equals("game")){
+                    System.out.println("game");
+                    Game  game = (Game)message.getObject();
+                    game.getEntityDynamicList().remove(connectionServer.client.character.getName());
+                    connectionServer.client.getGame().updateFrom(game);
+
+                    connectionServer.writeMsg.writeMsg.writeObject(new Message("addCharacter", connectionServer.client.character));
+
+                    message = (Message) readMsg.readObject();
+                    Character character = (Character)message.getObject();
+                    if(message.getType().equals("addCharacter") & character.getName().equals(connectionServer.client.character.getName())){
+                        connectionServer.writeMsg.writeMsg.writeObject(new Message("info", "yes", ""));
+                    }
                 }
 
+                if(message.getType().equals("addCharacter")){
+                    System.out.println("addCharacter");
+                    Character character = (Character)message.getObject();
+                    if(!character.getName().equals(connectionServer.client.character.getName())){
+                        connectionServer.client.getGame().addCharacter(character);
+                    }
+                }
+
+                if(message.getType().equals("characters")){
+                    characters = (HashMap<String, Character>)message.getObject();
+                    characters.remove(connectionServer.client.character.getName());
+                    connectionServer.client.getGame().updateCharacters(characters);
+                }
+                connectionServer.writeMsg.writeMsg.writeObject(new Message("character", connectionServer.client.character));
             }
         }
         catch (Exception e) {
+            try {
+                socket.close();
+            }
+            catch (Exception ee){
+                System.out.println("Ошибка при закрытии сокета: " + e.getMessage());
+            }
             System.out.println("Ошибка при получении сообщения с сервера: " + e.getMessage());
         }
     }

@@ -2,11 +2,10 @@ package com.company.model.map;
 
 import com.company.model.entity.Entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Map {
-    //private int[][] map;
-    private ArrayList<Entity> entityStaticList;
+public class Map implements Serializable {
     private ArrayList<Wall> walls;
 
     public Map(){
@@ -68,9 +67,17 @@ public class Map {
         return 0;
     }
 
-    public ArrayList<Entity> getEntityStaticList(){return this.entityStaticList;}
-
     public ArrayList<Wall> getWalls() {
         return walls;
+    }
+
+    public void addWall(Wall wall){
+        walls.add(wall);
+    }
+
+    public Map copy(){
+        Map temp = new Map();
+        temp.walls = (ArrayList<Wall>)walls.clone();
+        return temp;
     }
 }

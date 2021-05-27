@@ -2,7 +2,9 @@ package com.company.model.map;
 
 import com.company.model.math.Section;
 
-public class Wall {
+import java.io.Serializable;
+
+public class Wall implements Serializable {
     Section section;
     private int color;
     private int textureID;
