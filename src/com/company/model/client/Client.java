@@ -13,7 +13,7 @@ public class Client {
 
     public Client(){
         System.out.println("Client");
-        character = new Character("4eis");
+        character = new Character("player");
         game = new Game(character);
         movement = new Movement(character, game.getMap());
         rendering = new Rendering(character, game);

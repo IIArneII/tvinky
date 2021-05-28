@@ -27,9 +27,9 @@ public class WriteMsg extends Thread{
     }
     @Override
     public void run(){
-        System.out.println("run WriteMsg");
-        try {
-            Message message = new Message("addCharacter", connectionServer.client.character.copy());
+//        System.out.println("run WriteMsg");
+//        try {
+//            Message message = new Message("addCharacter", connectionServer.client.character.copy());
 //            writeMsg.writeObject(message.copy());
 //            message.setType("character");
 //
@@ -38,16 +38,16 @@ public class WriteMsg extends Thread{
 //                message.setObject(connectionServer.client.character.copy());
 //                writeMsg.writeObject(message.copy());
 //            }
-        }
-        catch (Exception e) {
-            try {
-                socket.close();
-            }
-            catch (Exception ee){
-                System.out.println("Ошибка при закрытии сокета: " + e.getMessage());
-            }
-            System.out.println("Ошибка при отправке сообщения серверу: " + e.getMessage());
-        }
+//        }
+//        catch (Exception e) {
+//            try {
+//                socket.close();
+//            }
+//            catch (Exception ee){
+//                System.out.println("Ошибка при закрытии сокета: " + e.getMessage());
+//            }
+//            System.out.println("Ошибка при отправке сообщения серверу: " + e.getMessage());
+//        }
 
     }
 }
