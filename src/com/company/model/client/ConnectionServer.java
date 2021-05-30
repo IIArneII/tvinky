@@ -15,10 +15,7 @@ public class ConnectionServer {
         System.out.println("ConnectionServer");
         try {
             this.client = client;
-            System.out.println("Создает сокет");
-            //Thread.currentThread().sleep(5000);
             socket = new Socket(ip, port);
-            System.out.println("Создал сокет");
             writeMsg = new WriteMsg(this, socket, client.getGame());
             readMsg = new ReadMsg(this, socket, client.getGame());
         }
@@ -29,6 +26,5 @@ public class ConnectionServer {
 
     public void start(){
         readMsg.start();
-        writeMsg.start();
     }
 }

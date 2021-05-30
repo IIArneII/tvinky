@@ -52,6 +52,7 @@ public class ReadMsg extends Thread{
                     if(message.getType().equals("addCharacter") & character.getName().equals(connectionServer.client.character.getName())){
                         connectionServer.writeMsg.writeMsg.writeObject(new Message("info", "yes", ""));
                     }
+                    connectionServer.writeMsg.start();
                 }
 
                 if(message.getType().equals("addCharacter")){
@@ -67,7 +68,6 @@ public class ReadMsg extends Thread{
                     characters.remove(connectionServer.client.character.getName());
                     connectionServer.client.getGame().updateCharacters(characters);
                 }
-                connectionServer.writeMsg.writeMsg.writeObject(new Message("character", connectionServer.client.character));
             }
         }
         catch (Exception e) {
