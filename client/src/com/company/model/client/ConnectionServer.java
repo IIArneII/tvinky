@@ -26,5 +26,6 @@ public class ConnectionServer {
 
     public void start(){
         readMsg.start();
+        writeMsg.start();
     }
 }

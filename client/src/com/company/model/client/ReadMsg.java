@@ -42,32 +42,37 @@ public class ReadMsg extends Thread{
                 message = (Message) readMsg.readObject();
 
                 if(message.getType().equals("game")){
-                    System.out.println("game");
                     Game  game = (Game)message.getObject();
                     game.getEntityDynamicList().remove(connectionServer.client.character.getName());
                     connectionServer.client.getGame().updateFrom(game);
-                    connectionServer.writeMsg.writeMsg.writeObject(new Message("addCharacter", connectionServer.client.character));
-                    message = (Message) readMsg.readObject();
-                    Character character = (Character)message.getObject();
-                    if(message.getType().equals("addCharacter") & character.getName().equals(connectionServer.client.character.getName())){
-                        connectionServer.writeMsg.writeMsg.writeObject(new Message("info", "yes", ""));
-                    }
-                    connectionServer.writeMsg.start();
+//                    connectionServer.writeMsg.writeMsg.writeObject(new Message("addCharacter", connectionServer.client.character));
+//                    message = (Message) readMsg.readObject();
+//                    Character character = (Character)message.getObject();
+//                    if(message.getType().equals("addCharacter") & character.getName().equals(connectionServer.client.character.getName())){
+//                        connectionServer.writeMsg.writeMsg.writeObject(new Message("info", "yes", ""));
+//                    }
+//                    connectionServer.writeMsg.start();
                 }
 
-                if(message.getType().equals("addCharacter")){
-                    System.out.println("addCharacter");
-                    Character character = (Character)message.getObject();
-                    if(!character.getName().equals(connectionServer.client.character.getName())){
-                        connectionServer.client.getGame().addCharacter(character);
-                    }
-                }
-
-                if(message.getType().equals("characters")){
-                    characters = (HashMap<String, Character>)message.getObject();
-                    characters.remove(connectionServer.client.character.getName());
-                    connectionServer.client.getGame().updateCharacters(characters);
-                }
+//                if(message.getType().equals("addCharacter")){
+//                    System.out.println("addCharacter");
+//                    Character character = (Character)message.getObject();
+//                    if(!character.getName().equals(connectionServer.client.character.getName())){
+//                        connectionServer.client.getGame().addCharacter(character);
+//                    }
+//                }
+//
+//                if(message.getType().equals("characters")){
+//                    characters = (HashMap<String, Character>)message.getObject();
+//                    characters.remove(connectionServer.client.character.getName());
+//                    connectionServer.client.getGame().updateCharacters(characters);
+//                }
+//
+//                if(message.getType().equals("game")){
+//                    Game  game = (Game)message.getObject();
+//                    game.getEntityDynamicList().remove(connectionServer.client.character.getName());
+//                    connectionServer.client.getGame().updateFrom(game);
+//                }
             }
         }
         catch (Exception e) {

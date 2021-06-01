@@ -9,8 +9,10 @@ import java.util.HashMap;
 public class Game implements Serializable {
     private Map map;
     private HashMap<String, Character> entityDynamicList;
+    private String nameCharacter;
 
     public Game(Character character){
+        nameCharacter = character.getName();
         this.map = new Map();
         this.entityDynamicList = new HashMap<>();
         this.entityDynamicList.put(character.getName(), character);
@@ -18,6 +20,7 @@ public class Game implements Serializable {
     }
 
     public Game(){
+        nameCharacter = "";
         this.map = new Map();
         this.entityDynamicList = new HashMap<>();
     }
@@ -49,15 +52,7 @@ public class Game implements Serializable {
     public Game copy(){
         Game temp = new Game();
         temp.map = map.copy();
-        System.out.println("Копирование персонажей:");
-        for(java.util.Map.Entry<String, Character> entry: entityDynamicList.entrySet()){
-            System.out.println(entry.getValue().getName());
-            temp.entityDynamicList.put(entry.getKey(), entry.getValue().copy());
-        }
-        System.out.println("Скопированные персонажи:");
-        for(java.util.Map.Entry<String, Character> entry: temp.entityDynamicList.entrySet()){
-            System.out.println(entry.getValue().getName());
-        }
+        temp.entityDynamicList = (HashMap<String, Character>)entityDynamicList.clone();
         return temp;
     }
 }

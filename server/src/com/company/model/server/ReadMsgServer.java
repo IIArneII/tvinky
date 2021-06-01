@@ -26,27 +26,38 @@ public class ReadMsgServer extends Thread{
     @Override
     public void run(){
         try {
-            Message message = new Message("game", connectionClient.server.getGame().copy());
+            //Message message = new Message("game", connectionClient.server.getGame().copy());
 
-            connectionClient.writeMsgServer.writeMsg(message);
+//            connectionClient.writeMsgServer.writeMsg(message);
+//
+//            message = (Message) readMsg.readObject();
+//            Character character = (Character)message.getObject();
+//            System.out.println("Получен персонаж" + character.getName());
+//            connectionClient.server.getGame().getEntityDynamicList().put(character.getName(), character);
+//            connectionClient.server.writeMsgAll(new Message("addCharacter", message.getObject()));
+//
+//            message = (Message) readMsg.readObject();
+            Message message = new Message();
+            Character character = new Character();
+            //if(message.getType().equals("info") & message.getComment().equals("yes")){
+                //connectionClient.writeMsgServer.start();
 
             message = (Message) readMsg.readObject();
-            Character character = (Character)message.getObject();
-            System.out.println("Получен персонаж" + character.getName());
-            connectionClient.server.getGame().getEntityDynamicList().put(character.getName(), character);
-            connectionClient.server.writeMsgAll(new Message("addCharacter", message.getObject()));
+            if(message.getType().equals("character")){
+                character = (Character) message.getObject();
+                connectionClient.server.getGame().getEntityDynamicList().put(character.getName(), character);
+                connectionClient.name = character.getName();
+            }
 
-            message = (Message) readMsg.readObject();
-
-            if(message.getType().equals("info") & message.getComment().equals("yes")){
-                connectionClient.writeMsgServer.start();
-                while (true){
-                    Thread.currentThread().sleep(1);
-                    message = (Message) readMsg.readObject();
+            while (true){
+                Thread.currentThread().sleep(1);
+                message = (Message) readMsg.readObject();
+                if(message.getType().equals("character")){
                     character = (Character) message.getObject();
                     connectionClient.server.getGame().getEntityDynamicList().put(character.getName(), character);
                 }
             }
+            //}
         }
         catch (Exception e) {
             try {
@@ -55,6 +66,7 @@ public class ReadMsgServer extends Thread{
             catch (Exception ee){
                 System.out.println("Ошибка при закрытии сокета: " + e.getMessage());
             }
+            connectionClient.disconnection();
             System.out.println("Ошибка при получении сообщения с клиента: " + e.getMessage());
         }
 

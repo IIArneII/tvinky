@@ -44,6 +44,10 @@ public class Server{
         return game;
     }
 
+    public ArrayList<ConnectionClient> getConnections() {
+        return connections;
+    }
+
     public void writeMsgAll(Message message){
         for(int i = 0; i < connections.size(); i++){
             connections.get(i).writeMsgServer.writeMsg(message);

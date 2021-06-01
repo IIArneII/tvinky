@@ -25,7 +25,8 @@ public class WriteMsgServer extends Thread{
         try {
             while (true){
                 Thread.currentThread().sleep(1);
-                writeMsg.writeObject(new Message("characters", connectionClient.server.getGame().getEntityDynamicList().clone()));
+                //writeMsg.writeObject(new Message("characters", connectionClient.server.getGame().getEntityDynamicList().clone()));
+                writeMsg.writeObject(new Message("game", connectionClient.server.getGame().copy()));
             }
         }
         catch (Exception e) {

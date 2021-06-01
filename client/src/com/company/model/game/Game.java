@@ -10,8 +10,10 @@ import java.util.HashMap;
 public class Game implements Serializable {
     private Map map;
     private HashMap<String, Character> entityDynamicList;
+    private String nameCharacter;
 
     public Game(Character character){
+        nameCharacter = character.getName();
         this.map = new Map();
         this.entityDynamicList = new HashMap<>();
         this.entityDynamicList.put(character.getName(), character);
@@ -19,6 +21,7 @@ public class Game implements Serializable {
     }
 
     public Game(){
+        nameCharacter = "";
         this.map = new Map();
         this.entityDynamicList = new HashMap<>();
     }
@@ -41,9 +44,22 @@ public class Game implements Serializable {
     }
 
     public void updateFrom(Game game){
-        map = game.map;
+//        map = game.map;
+//        for(java.util.Map.Entry<String, Character> entry: game.entityDynamicList.entrySet()){
+//            addCharacter(entry.getValue());
+//        }
+        HashMap<String, Character> temp = (HashMap<String, Character>)entityDynamicList.clone();
+        temp.remove(nameCharacter);
         for(java.util.Map.Entry<String, Character> entry: game.entityDynamicList.entrySet()){
-            addCharacter(entry.getValue());
+            if(!entityDynamicList.containsKey(entry.getValue())){
+                addCharacter(entry.getValue());
+            }
+            else entityDynamicList.get(entry.getKey()).updateFrom(entry.getValue());
+            temp.remove(entry.getKey());
+        }
+        for(java.util.Map.Entry<String, Character> entry: temp.entrySet()){
+            map.getWalls().remove(entityDynamicList.get(entry.getKey()).getWall());
+            entityDynamicList.remove(entry.getKey());
         }
     }
 
