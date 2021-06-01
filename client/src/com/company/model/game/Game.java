@@ -51,7 +51,8 @@ public class Game implements Serializable {
         HashMap<String, Character> temp = (HashMap<String, Character>)entityDynamicList.clone();
         temp.remove(nameCharacter);
         for(java.util.Map.Entry<String, Character> entry: game.entityDynamicList.entrySet()){
-            if(!entityDynamicList.containsKey(entry.getValue())){
+            if(!entityDynamicList.containsKey(entry.getValue().getName())){
+                System.out.println("Добавил");
                 addCharacter(entry.getValue());
             }
             else entityDynamicList.get(entry.getKey()).updateFrom(entry.getValue());
