@@ -12,7 +12,7 @@ public class Server{
     private ServerSocket serverSocket;
     private ArrayList<ConnectionClient> connections;
     private Game game;
-
+    public static boolean ConnectDataBase;
     public Server() {
         System.out.println("Server");
         try {
@@ -26,6 +26,11 @@ public class Server{
     }
 
     public void start(){
+        try {
+            DataBase.ConnectionWithDataBase();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         System.out.println("Server.run()");
         try {
             while (true) {
@@ -51,6 +56,15 @@ public class Server{
     public void writeMsgAll(Message message){
         for(int i = 0; i < connections.size(); i++){
             connections.get(i).writeMsgServer.writeMsg(message);
+        }
+    }
+
+    public static void Answer (){
+        if (ConnectDataBase) {
+            System.out.println("Успешное подключение к базе данных");
+        }
+        else {
+            System.out.println("Не удалось подключиться к базе данных");
         }
     }
 }
