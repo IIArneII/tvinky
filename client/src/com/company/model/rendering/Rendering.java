@@ -70,7 +70,7 @@ public class Rendering extends Thread {
                     radX = character.getX();
                     radY = character.getY();
 
-                    WallPoint distant = RayCasting.rayCasting(new Section(radX, radY, radX + Math.cos(Angles.converteDegreeToRadian(character.getAngCharacter() + Angles.Ang30 - rad)), radY + Math.sin(Angles.converteDegreeToRadian(character.getAngCharacter() + Angles.Ang30 - rad))), game.getMap().getWalls(), 0);
+                    WallPoint distant = RayCasting.rayCasting(new Section(radX, radY, radX + Math.cos(Angles.converteDegreeToRadian(character.getAngCharacter() + Angles.Ang30 - rad)), radY + Math.sin(Angles.converteDegreeToRadian(character.getAngCharacter() + Angles.Ang30 - rad))), game.getMap().getWalls());
 
                     int heightWall = (int)(250 / (distant.getDistance() * Math.cos(Angles.converteDegreeToRadian(angRad) - Angles.converteDegreeToRadian(character.getAngCharacter()))));
 

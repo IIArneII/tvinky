@@ -1,7 +1,7 @@
 package com.company.model.entity;
 
 import com.company.model.map.WallCharacter;
-import com.company.model.math.Section;
+import com.company.model.math.Angles;
 
 import java.io.Serializable;
 
@@ -11,14 +11,20 @@ public class Character extends Entity implements Serializable {
     private double angCharacter;
     private double health;
     private String name;
-    private WallCharacter wall;
+    private WallCharacter wallFront;
+    private WallCharacter wallBehind;
+    private WallCharacter wallLeft;
+    private WallCharacter wallRight;
 
     public Character(){
         super(2, 2, 2, 1);
         this.angCharacter = 0;
         this.health = 100;
         this.name = "player";
-        wall = new WallCharacter(this);
+        wallFront = new WallCharacter(this, -Angles.Ang45, Angles.Ang45, 0);
+        wallLeft = new WallCharacter(this, Angles.Ang45, Angles.Ang135, 2);
+        wallBehind = new WallCharacter(this, Angles.Ang135, Angles.Ang225, 2);
+        wallRight = new WallCharacter(this, Angles.Ang225, Angles.Ang315, 2);
     }
 
     public Character(String name){
@@ -26,7 +32,10 @@ public class Character extends Entity implements Serializable {
         this.angCharacter = 0;
         this.health = 100;
         this.name = name;
-        wall = new WallCharacter(this);
+        wallFront = new WallCharacter(this, -Angles.Ang45, Angles.Ang45, 0);
+        wallLeft = new WallCharacter(this, Angles.Ang45, Angles.Ang135, 2);
+        wallBehind = new WallCharacter(this, Angles.Ang135, Angles.Ang225, 2);
+        wallRight = new WallCharacter(this, Angles.Ang225, Angles.Ang315, 2);
     }
 
     public double getAngCharacter(){return this.angCharacter;}
@@ -52,9 +61,20 @@ public class Character extends Entity implements Serializable {
         return temp;
     }
 
-    public WallCharacter getWall(){
-        wall.setSection(new Section(getX(), getY(), getX() + 1, getY() + 1));
-        return wall;
+    public WallCharacter getWallFront(){
+        return wallFront;
+    }
+
+    public WallCharacter getWallBehind() {
+        return wallBehind;
+    }
+
+    public WallCharacter getWallLeft() {
+        return wallLeft;
+    }
+
+    public WallCharacter getWallRight() {
+        return wallRight;
     }
 
     public void updateFrom(Character character){

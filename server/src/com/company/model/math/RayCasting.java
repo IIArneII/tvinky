@@ -6,7 +6,7 @@ import com.company.model.map.WallPoint;
 import java.util.ArrayList;
 
 public class RayCasting {
-    public static WallPoint rayCasting(Section section, ArrayList<Wall> walls, int deep){
+    public static WallPoint rayCasting(Section section, ArrayList<Wall> walls){
         ArrayList<WallPoint> wallPoints = new ArrayList<>();
         for(int i = 0; i < walls.size(); i++){
             Section temp = walls.get(i).getSection();

@@ -16,7 +16,10 @@ public class Game implements Serializable {
         this.map = new Map();
         this.entityDynamicList = new HashMap<>();
         this.entityDynamicList.put(character.getName(), character);
-        map.getWalls().add(character.getWall());
+//        map.addWall(character.getWallFront());
+//        map.addWall(character.getWallLeft());
+//        map.addWall(character.getWallBehind());
+//        map.addWall(character.getWallRight());
     }
 
     public Game(){
@@ -33,7 +36,10 @@ public class Game implements Serializable {
 
     public void addCharacter(Character character){
         entityDynamicList.put(character.getName(), character);
-        map.addWall(character.getWall());
+        map.addWall(character.getWallFront());
+        map.addWall(character.getWallLeft());
+        map.addWall(character.getWallBehind());
+        map.addWall(character.getWallRight());
     }
 
     public void updateCharacters(HashMap<String, Character> characters){
@@ -47,14 +53,16 @@ public class Game implements Serializable {
         temp.remove(nameCharacter);
         for(java.util.Map.Entry<String, Character> entry: game.entityDynamicList.entrySet()){
             if(!entityDynamicList.containsKey(entry.getValue().getName())){
-                System.out.println("Добавил");
                 addCharacter(entry.getValue());
             }
             else entityDynamicList.get(entry.getKey()).updateFrom(entry.getValue());
             temp.remove(entry.getKey());
         }
         for(java.util.Map.Entry<String, Character> entry: temp.entrySet()){
-            map.getWalls().remove(entityDynamicList.get(entry.getKey()).getWall());
+            map.getWalls().remove(entityDynamicList.get(entry.getKey()).getWallFront());
+            map.getWalls().remove(entityDynamicList.get(entry.getKey()).getWallLeft());
+            map.getWalls().remove(entityDynamicList.get(entry.getKey()).getWallRight());
+            map.getWalls().remove(entityDynamicList.get(entry.getKey()).getWallBehind());
             entityDynamicList.remove(entry.getKey());
         }
     }

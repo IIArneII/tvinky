@@ -54,7 +54,7 @@ public class Client {
     public void start(){
         movement.start();
         rendering.start();
-        //connectionServer.start();
+        connectionServer.start();
     }
 
     public void pause(boolean pause){

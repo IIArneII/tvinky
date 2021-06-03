@@ -8,18 +8,22 @@ import com.company.model.math.Section;
 import java.io.Serializable;
 
 public class WallCharacter extends Wall implements Serializable {
-    Character character;
+    private Character character;
+    private int angleA;
+    private int angleB;
 
-    public WallCharacter(Character character){
-        super(character.getX(), character.getY(), character.getX() + 0.5, character.getY(), 1, 0, 1);
+    public WallCharacter(Character character, int angleA, int angleB, int texture){
+        super(character.getX(), character.getY(), character.getX() + 0.5, character.getY(), 1, texture, 1);
+        this.angleA = angleA;
+        this.angleB = angleB;
         this.character = character;
     }
 
     public Section getSection() {
-        section.setA(new Point(character.getX() + Math.cos(Angles.converteDegreeToRadian(character.getAngCharacter() - Angles.Ang90)) / 8,
-                character.getY() + Math.sin(Angles.converteDegreeToRadian(character.getAngCharacter() - Angles.Ang90)) / 8));
-        section.setB(new Point(character.getX() + Math.cos(Angles.converteDegreeToRadian(character.getAngCharacter() + Angles.Ang90)) / 8,
-                character.getY() + Math.sin(Angles.converteDegreeToRadian(character.getAngCharacter() + Angles.Ang90)) / 8));
+        section.setA(new Point(character.getX() + Math.cos(Angles.converteDegreeToRadian(character.getAngCharacter() + angleA)),
+                character.getY() + Math.sin(Angles.converteDegreeToRadian(character.getAngCharacter() + angleA))));
+        section.setB(new Point(character.getX() + Math.cos(Angles.converteDegreeToRadian(character.getAngCharacter() + angleB)),
+                character.getY() + Math.sin(Angles.converteDegreeToRadian(character.getAngCharacter() + angleB))));
         return section;
     }
 }
