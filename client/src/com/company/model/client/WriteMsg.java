@@ -1,19 +1,18 @@
 package com.company.model.client;
 
 import com.company.model.Message;
-import com.company.model.entity.Character;
 import com.company.model.game.Game;
 
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class WriteMsg extends Thread {
-    ConnectionServer connectionServer;
+    Connection connectionServer;
     Socket socket;
     ObjectOutputStream writeMsg;
     Game game;
 
-    public WriteMsg(ConnectionServer connectionServer, Socket socket, Game game) {
+    public WriteMsg(Connection connectionServer, Socket socket, Game game) {
         System.out.println("WriteMsg");
         try {
             this.connectionServer = connectionServer;
@@ -31,7 +30,7 @@ public class WriteMsg extends Thread {
         try {
             while (true) {
                 Thread.currentThread().sleep(1);
-                writeMsg.writeObject(new Message("character", connectionServer.client.character.copy()));
+                writeMsg.writeObject(new Message("character", connectionServer.client.getCharacter().copy()));
             }
         } catch (Exception e) {
             try {

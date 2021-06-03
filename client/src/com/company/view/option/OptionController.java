@@ -17,16 +17,6 @@ public class OptionController{
     private Button changeRenderingBtn;
 
     @FXML
-    private void clickChangeRenderingBtn(ActionEvent event){
-        if(Info.renderingMethod == 0){
-            Info.renderingMethod = 1;
-        }
-        else {
-            Info.renderingMethod = 0;
-        }
-    }
-
-    @FXML
     private void clickBackBtn(ActionEvent event) throws Exception{
         System.out.println("gui.OptionController.clickBackBtn()");
         Scene theScene = backBtn.getScene();

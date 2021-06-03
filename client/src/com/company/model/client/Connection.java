@@ -6,12 +6,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-public class ConnectionServer {
+public class Connection{
     Socket socket;
     Client client;
     ReadMsg readMsg;
     WriteMsg writeMsg;
-    public ConnectionServer (Client client, String ip, int port) {
+    public Connection(Client client, String ip, int port) {
         System.out.println("ConnectionServer");
         try {
             this.client = client;

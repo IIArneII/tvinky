@@ -4,7 +4,6 @@ import com.company.model.entity.Character;
 import com.company.model.map.Map;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Game implements Serializable {
@@ -44,10 +43,6 @@ public class Game implements Serializable {
     }
 
     public void updateFrom(Game game){
-//        map = game.map;
-//        for(java.util.Map.Entry<String, Character> entry: game.entityDynamicList.entrySet()){
-//            addCharacter(entry.getValue());
-//        }
         HashMap<String, Character> temp = (HashMap<String, Character>)entityDynamicList.clone();
         temp.remove(nameCharacter);
         for(java.util.Map.Entry<String, Character> entry: game.entityDynamicList.entrySet()){

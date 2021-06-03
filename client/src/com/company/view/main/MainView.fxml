@@ -30,12 +30,10 @@
             </rowConstraints>
             <columnConstraints><ColumnConstraints hgrow="SOMETIMES"/></columnConstraints>
             <children>
-                <Button maxWidth="Infinity" text="Начать" GridPane.rowIndex="0"
+                <Button maxWidth="Infinity" text="Одиночная игра" GridPane.rowIndex="0"
                         fx:id="startBtn" onAction="#clickStartBtn"/>
-                <Button maxWidth="Infinity" text="Начать онлайн" GridPane.rowIndex="1"
+                <Button maxWidth="Infinity" text="Подключиться к серверу" GridPane.rowIndex="1"
                         fx:id="onlineBtn" onAction="#clickStartOnlineBtn"/>
-                <Button maxWidth="Infinity" text="Настроки" GridPane.rowIndex="2"
-                        fx:id="optionsBtn" onAction="#clickOptionsBtn"/>
                 <Button maxWidth="Infinity" text="Выход" GridPane.rowIndex="3"
                         fx:id="exitBtn" onAction="#clickExitBtn"/>
             </children>

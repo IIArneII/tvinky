@@ -1,5 +1,7 @@
 package com.company.view;
 
 public class Info {
-    public static int renderingMethod = 0;
+    public static String ip = "";
+    public static String name = "";
+    public static int port = 1111;
 }

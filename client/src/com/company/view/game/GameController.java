@@ -31,16 +31,7 @@ public class GameController{
 
     private boolean renderingOnPause;
 
-    @FXML Button menuExitBtn;
-
-    @FXML Button menuContinueBtn;
-
-    @FXML
-    Pane pane;
-
     private Line []lineSky;
-
-    //private Line []lineWall;
 
     private ImageView [] textureWall;
 
@@ -48,22 +39,27 @@ public class GameController{
 
     private Line []lineLand;
 
+    @FXML Button menuExitBtn;
+
+    @FXML Button menuContinueBtn;
+
     @FXML
     Button btn;
 
     @FXML
+    Pane pane;
+
+    @FXML
     public void initialize(){
-        System.out.println("gui.Controller.initialize()");
         try {
             textures = new ArrayList<>();
+            System.out.println("Загрузка текстур:");
             File[] files = new File(".\\textures").listFiles();
             for(int i = 0; i < files.length; i++){
                 System.out.println(files[i].getAbsolutePath());
                 Image temp = new Image(new FileInputStream(files[i]));
                 Image[] image = new Image[(int)temp.getWidth()];
-                //System.out.println(temp.getWidth());
                 for(int j = 0; j < temp.getWidth(); j++){
-                    //System.out.println(j);
                     image[j] = new WritableImage(temp.getPixelReader(), j, 0, 1, (int)temp.getHeight());
                 }
                 textures.add(image);
@@ -74,17 +70,14 @@ public class GameController{
         final int count = 800;
         lineSky = new Line[count];
         textureWall = new ImageView[count];
-        //lineWall = new Line[count];
         lineLand = new Line[count];
         for(int i = 0; i < count; i++){
             lineSky[i] = new Line();
-            //lineWall[i] = new Line();
             textureWall[i] = new ImageView();
             lineLand[i] = new Line();
             lineSky[i].setStroke(Color.CYAN);
             lineLand[i].setStroke(Color.GREY);
             lineSky[i].setStrokeWidth(1);
-            //lineWall[i].setStrokeWidth(1);
             lineLand[i].setStrokeWidth(1);
 
             lineSky[i].setStrokeWidth(1);
@@ -93,25 +86,18 @@ public class GameController{
             lineSky[i].setEndX(1);
             lineSky[i].setEndY(1);
 
-            //lineWall[i].setStrokeWidth(1);
-            //lineWall[i].setStartX(1);
-            //lineWall[i].setStartY(1);
-            //lineWall[i].setEndX(1);
-            //lineWall[i].setEndY(1);
-
             lineLand[i].setStrokeWidth(1);
             lineLand[i].setStartX(1);
             lineLand[i].setStartY(1);
             lineLand[i].setEndX(1);
             lineLand[i].setEndY(1);
             pane.getChildren().add(lineSky[i]);
-            //pane.getChildren().add(lineWall[i]);
             pane.getChildren().add(textureWall[i]);
             pane.getChildren().add(lineLand[i]);
         }
         renderingLaunched = false;
         renderingOnPause = false;
-        adapter = new Adapter();
+        adapter = new Adapter(Info.name, Info.ip, Info.port);
         new StartServer("Server", this);
         new StartClient("Game", this);
         new Rendering("Rendering", this);
@@ -186,26 +172,6 @@ public class GameController{
         }
         catch (Exception e){
             System.out.println("Ошибка");
-        }
-    }
-
-    @FXML
-    public void resetLines(){
-        for(int i = 0; i < 800; i++) {
-            lineSky[i].setStartX(1);
-            lineSky[i].setStartY(1);
-            lineSky[i].setEndX(1);
-            lineSky[i].setEndY(1);
-
-            //lineWall[i].setStartX(1);
-            //lineWall[i].setStartY(1);
-            //lineWall[i].setEndX(1);
-            //lineWall[i].setEndY(1);
-
-            lineLand[i].setStartX(1);
-            lineLand[i].setStartY(1);
-            lineLand[i].setEndX(1);
-            lineLand[i].setEndY(1);
         }
     }
 

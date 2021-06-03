@@ -6,22 +6,28 @@ import com.company.model.game.Game;
 
 public class Client {
     private Game game;
-    public Character character;
+    private Character character;
     private Movement movement;
     private Rendering rendering;
-    private ConnectionServer connectionServer;
+    private Connection connectionServer;
 
     public Client(){
-        System.out.println("Client");
         character = new Character("player");
         game = new Game(character);
         movement = new Movement(character, game.getMap());
         rendering = new Rendering(character, game);
-        connectionServer = new ConnectionServer(this, "26.24.57.118", 1111);
+        connectionServer = null;
+    }
+
+    public Client(String name, String ip, int port){
+        character = new Character(name);
+        game = new Game(character);
+        movement = new Movement(character, game.getMap());
+        rendering = new Rendering(character, game);
+        connectionServer = new Connection(this, ip, port);
     }
 
     public Game getGame() {
-        //System.out.println("getGame");
         return game;
     }
 
@@ -29,20 +35,26 @@ public class Client {
         this.game = game;
     }
 
+    public Character getCharacter() {
+        return character;
+    }
+
+    public void setCharacter(Character character) {
+        this.character = character;
+    }
+
     public Movement getMovement(){
-        //System.out.println("getMovement");
         return movement;
     }
 
     public Rendering getRendering(){
-        //System.out.println("getRendering");
         return rendering;
     }
 
     public void start(){
         movement.start();
         rendering.start();
-        connectionServer.start();
+        //connectionServer.start();
     }
 
     public void pause(boolean pause){

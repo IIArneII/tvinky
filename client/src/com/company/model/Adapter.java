@@ -8,12 +8,16 @@ public class Adapter {
     private Client client;
 
     public Adapter(){
-        System.out.println("Adapter");
         client = new Client();
     }
 
+    public Adapter(String name, String ip, int port){
+        if(!name.equals("") && !ip.equals(""))
+        client = new Client(name, ip, port);
+        else client = new Client();
+    }
+
     public void startClient(){
-        System.out.println("Adapter.startClient");
         client.start();
     }
 

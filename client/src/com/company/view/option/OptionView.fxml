@@ -36,8 +36,7 @@
                 <Label text="Громкость" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                 <Slider GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.columnSpan="2"/>
                 <Label text="Пошаговая отрисовка" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <Button text="Сменить" GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="changeRenderingBtn"
-                        onAction="#clickChangeRenderingBtn"/>
+                <Button text="Сменить" GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="changeRenderingBtn"/>
                 <Label text="Отрисовка пересечением отрезков" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
             </children>
         </GridPane>
