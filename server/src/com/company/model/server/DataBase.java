@@ -10,7 +10,7 @@ public class DataBase {
         Class.forName("org.postgresql.Driver");
         String UserName = "123456";
         String Password = "123456";
-        String URL = "jdbc:postgresql://localhost:5432/Test";
+        String URL = "jdbc:postgresql://localhost:5432/Tvinky";
         try {
 
             Connection connection = DriverManager.getConnection(URL, UserName, Password);
@@ -28,16 +28,21 @@ public class DataBase {
         // то вызывает функцию DataInput() регистрацию в базе данных.
 
         // добавить проверку на корректность введённых данных
-        try {
-            DataInput();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        if ((Controller.userNameFieldText.trim().length() <= 0) || (Controller.NameServerFieldText.trim().length() <= 0)){
+            // сделать окошко для ошибки "Вы заполнили не все поля"
+        }
+        else {
+            try {
+                DataInput();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public static void Registration() {
+    /*public static void Registration() {
         // проверяет данные введённые для входа в свой аккаунт и после вызывает LoginToAccount()
         // в котором проверяется есть ли такой пользователь в базе данных и совпадает ли пароль
 
@@ -49,14 +54,20 @@ public class DataBase {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-    }
+    }*/
     public static void DataInput() throws SQLException, ClassNotFoundException {
         //мы сверяем данные из базы данных с введёнными и после добавляем в базу данных
         try {
-            Connection con = ConnectionWithDataBase();
+            Connection con = ConnectionToDateBase();
             Statement create = con.createStatement();
-            //обновление базы
-            //проверка на то, существует ли пользователь в базе
+            create.executeUpdate("CREATE TABLE IF NOT EXISTS players (login CHAR(30) NOT NULL, server CHAR(30) NOT NULL, PRIMARY KEY (login))");
+            ResultSet result = create.executeQuery("select * from players where login = '" + Controller.userNameFieldText + "'");
+            if (result.next()){
+                // окно: такой логин уже используется
+            }else {
+                create.executeUpdate("INSERT INTO players (login,server) VALUES ('" + Controller.userNameFieldText + "','" + Controller.NameServerFieldText + "')");
+                Server.Answer();
+            }
         } catch (Exception e) {
             Server.ConnectDataBase = false;
             Server.Answer();

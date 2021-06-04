@@ -11,7 +11,9 @@ import javafx.stage.Stage;
 
 public class MainController{
 
-    private String userNameFieldText;
+    public static String userNameFieldText;
+
+    public static String NameServerFieldText;
 
     @FXML
     private Button startBtn;
@@ -29,9 +31,18 @@ public class MainController{
     private TextField userNameField;
 
     @FXML
+    private TextField NameServerField;
+
+    @FXML
     private void clickUserNameField(ActionEvent event) {
         System.out.println("gui.Controller.clickUserNameField()");
         userNameFieldText = userNameField.getText();
+    }
+
+    @FXML
+    private void clickNameServerField(ActionEvent event) {
+        System.out.println("gui.Controller.clickNameServerField()");
+        NameServerFieldText = NameServerField.getText();
     }
 
     @FXML
