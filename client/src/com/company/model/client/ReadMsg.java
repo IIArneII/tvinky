@@ -10,6 +10,7 @@ import java.net.Socket;
 import java.util.HashMap;
 
 public class ReadMsg extends Thread{
+    private boolean launched;
     Connection connectionServer;
     Socket socket;
     ObjectInputStream readMsg;
@@ -23,6 +24,7 @@ public class ReadMsg extends Thread{
             InputStream in = socket.getInputStream();
             readMsg = new ObjectInputStream(in);
             this.game = game;
+            launched = false;
         }
         catch (Exception e) {
             System.out.println("Ошибка при создании ReadMsg: " + e.getMessage());
@@ -31,11 +33,12 @@ public class ReadMsg extends Thread{
 
     @Override
     public void run(){
+        launched = true;
         System.out.println("RUN rEADmSG");
         HashMap<String, Character> characters;
         Message message;
         try {
-            while(true){
+            while(launched){
                 Thread.currentThread().sleep(1);
                 message = (Message) readMsg.readObject();
 
@@ -47,14 +50,25 @@ public class ReadMsg extends Thread{
             }
         }
         catch (Exception e) {
+
+            System.out.println("Ошибка при получении сообщения с сервера: " + e.getMessage());
+        }
+        finally {
             try {
                 socket.close();
             }
-            catch (Exception ee){
+            catch (Exception e){
                 System.out.println("Ошибка при закрытии сокета: " + e.getMessage());
             }
-            System.out.println("Ошибка при получении сообщения с сервера: " + e.getMessage());
         }
+        System.out.println("Реад месседж завершился");
     }
 
+    public void setLaunched(boolean launched) {
+        this.launched = launched;
+    }
+
+    public boolean isLaunched() {
+        return launched;
+    }
 }

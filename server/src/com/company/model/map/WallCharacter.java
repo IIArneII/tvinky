@@ -20,10 +20,10 @@ public class WallCharacter extends Wall implements Serializable {
     }
 
     public Section getSection() {
-        section.setA(new Point(character.getX() + Math.cos(Angles.converteDegreeToRadian(character.getAngCharacter() + angleA)),
-                character.getY() + Math.sin(Angles.converteDegreeToRadian(character.getAngCharacter() + angleA))));
-        section.setB(new Point(character.getX() + Math.cos(Angles.converteDegreeToRadian(character.getAngCharacter() + angleB)),
-                character.getY() + Math.sin(Angles.converteDegreeToRadian(character.getAngCharacter() + angleB))));
+        section.setA(new Point(character.getX() + Math.cos(Angles.converteDegreeToRadian(character.getAngCharacter() + angleA)) / 7,
+                character.getY() + Math.sin(Angles.converteDegreeToRadian(character.getAngCharacter() + angleA)) / 7));
+        section.setB(new Point(character.getX() + Math.cos(Angles.converteDegreeToRadian(character.getAngCharacter() + angleB)) / 7,
+                character.getY() + Math.sin(Angles.converteDegreeToRadian(character.getAngCharacter() + angleB)) / 7));
         return section;
     }
 }

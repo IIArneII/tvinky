@@ -1,15 +1,18 @@
 package com.company.model.client;
 
+import com.company.model.Message;
 import com.company.model.listeners.Event;
 import com.company.model.listeners.Listener;
 import com.company.model.listeners.Realize;
 import com.company.model.math.Angles;
 import com.company.model.map.Map;
 import com.company.model.entity.Character;
+import com.company.model.math.Section;
 
 public class Movement {
     private Character character;
     private Map map;
+    private Connection connection;
 
     private Listener backForthListener;
     private Listener rightLeftListiner;
@@ -32,7 +35,7 @@ public class Movement {
     private boolean turnLeft;
     private boolean shot;
 
-    public Movement(Character character, Map map){
+    public Movement(Character character, Map map, Connection connection){
         back = false;
         forth = false;
         right = false;
@@ -43,6 +46,7 @@ public class Movement {
 
         this.character = character;
         this.map = map;
+        this.connection = connection;
 
         backForthEvent = new Event();
         rightLeftEvent = new Event();
@@ -137,6 +141,21 @@ public class Movement {
     }
 
     public void shot(){
+        try {
+            Section section = new Section(character.getX(), character.getY(),
+                    character.getX() + Math.cos(Angles.converteDegreeToRadian(character.getAngCharacter())),
+                    character.getY() + Math.sin(Angles.converteDegreeToRadian(character.getAngCharacter())));
+            connection.writeMsg.write(new Message("shot", section));
+        }
+        catch (Exception e){
+            System.out.println("Ошибка при отправке выстрела на сервер: " + e.getMessage());
+        }
+        finally {
+            try {
+                Thread.currentThread().sleep(1000);
+            }
+            catch (Exception e){}
+        }
     }
 
     public boolean isLaunched() {
@@ -145,6 +164,14 @@ public class Movement {
 
     public void setLaunched(boolean launched) {
         this.launched = launched;
+    }
+
+    public void stop(){
+        this.launched = false;
+        backForthListener.setLaunched(false);
+        rightLeftListiner.setLaunched(false);
+        turnRightLeftListiner.setLaunched(false);
+        shotListener.setLaunched(false);
     }
 
     public boolean isPause() {

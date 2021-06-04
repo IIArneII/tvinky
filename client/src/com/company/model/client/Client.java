@@ -14,17 +14,17 @@ public class Client {
     public Client(){
         character = new Character("player");
         game = new Game(character);
-        movement = new Movement(character, game.getMap());
         rendering = new Rendering(character, game);
         connectionServer = null;
+        movement = new Movement(character, game.getMap(), connectionServer);
     }
 
     public Client(String name, String ip, int port){
         character = new Character(name);
         game = new Game(character);
-        movement = new Movement(character, game.getMap());
         rendering = new Rendering(character, game);
         connectionServer = new Connection(this, ip, port);
+        movement = new Movement(character, game.getMap(), connectionServer);
     }
 
     public Game getGame() {
@@ -63,7 +63,8 @@ public class Client {
     }
 
     public void stop(){
-        movement.setLaunched(false);
-        rendering.setRenderingLaunched(false);
+        movement.stop();
+        rendering.setLaunched(false);
+        connectionServer.stop();
     }
 }

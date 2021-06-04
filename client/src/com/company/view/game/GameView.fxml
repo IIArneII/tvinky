@@ -9,7 +9,7 @@
 
 <GridPane stylesheets="@../Style.css" xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="com.company.view.game.GameController">
+          fx:controller="com.company.view.game.GameController" fx:id="gridPane">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES"/>
         <ColumnConstraints hgrow="SOMETIMES"/>

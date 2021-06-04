@@ -4,15 +4,18 @@ import java.io.File;
 import com.company.model.Adapter;
 import com.company.model.rendering.Screen;
 import com.company.view.Info;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -48,6 +51,9 @@ public class GameController{
 
     @FXML
     Pane pane;
+
+    @FXML
+    GridPane gridPane;
 
     @FXML
     public void initialize(){
@@ -98,8 +104,7 @@ public class GameController{
         renderingLaunched = false;
         renderingOnPause = false;
         adapter = new Adapter(Info.name, Info.ip, Info.port);
-        new StartServer("Server", this);
-        new StartClient("Game", this);
+        adapter.startClient();
         new Rendering("Rendering", this);
     }
 
@@ -130,6 +135,7 @@ public class GameController{
         pane.setVisible(true);
         menuContinueBtn.setVisible(false);
         menuExitBtn.setVisible(false);
+        gridPane.getChildren().add(pane);
     }
 
     @FXML
@@ -204,8 +210,7 @@ public class GameController{
         if(event.getCode() == KeyCode.ESCAPE){
             renderingOnPause = true;
             adapter.pause(true);
-            //ObservableList<Node> list = pane.getChildren();
-            //list.clear();
+            gridPane.getChildren().remove(pane);
             pane.setVisible(false);
             menuContinueBtn.setVisible(true);
             menuExitBtn.setVisible(true);
@@ -248,40 +253,6 @@ public class GameController{
     }
 }
 
-class StartClient implements Runnable{
-
-    private Thread t;
-    private GameController controller;
-
-    public StartClient(String nameThread, GameController controller){
-        t = new Thread(this, nameThread);
-        this.controller = controller;
-        t.start();
-    }
-
-    public void run(){
-        System.out.println("Start thread: " + t.getName());
-        controller.getAdapter().startClient();
-    }
-}
-
-class StartServer implements Runnable{
-
-    private Thread t;
-    private GameController controller;
-
-    public StartServer(String nameThread, GameController controller){
-        t = new Thread(this, nameThread);
-        this.controller = controller;
-        t.start();
-    }
-
-    public void run(){
-        System.out.println("Start thread: " + t.getName());
-        controller.getAdapter().startServer();
-    }
-}
-
 class Rendering implements Runnable{
 
     private Thread t;
@@ -306,8 +277,7 @@ class Rendering implements Runnable{
                     }
                 });
             }
-            else try { t.sleep(10);
-                System.out.println("Птокок рендеринг в котроллере на паузе");} catch (Exception e){}
+            else try {t.sleep(10);} catch (Exception e){}
         }
         System.out.println("Поток отрисовки котроллера завершился");
     }

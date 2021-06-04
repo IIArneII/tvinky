@@ -7,6 +7,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class WriteMsg extends Thread {
+    private boolean launched;
     Connection connectionServer;
     Socket socket;
     ObjectOutputStream writeMsg;
@@ -19,6 +20,7 @@ public class WriteMsg extends Thread {
             this.socket = socket;
             writeMsg = new ObjectOutputStream(socket.getOutputStream());
             this.game = game;
+            launched = false;
         } catch (Exception e) {
             System.out.println("Ошибка при создании WriteMsg: " + e.getMessage());
         }
@@ -27,18 +29,35 @@ public class WriteMsg extends Thread {
     @Override
     public void run() {
         System.out.println("run WriteMsg");
+        launched = true;
         try {
-            while (true) {
+            while (launched) {
                 Thread.currentThread().sleep(1);
-                writeMsg.writeObject(new Message("character", connectionServer.client.getCharacter().copy()));
+                write(new Message("character", connectionServer.client.getCharacter().copy()));
             }
-        } catch (Exception e) {
-            try {
-                socket.close();
-            } catch (Exception ee) {
-                System.out.println("Ошибка при закрытии сокета: " + e.getMessage());
-            }
+        }
+        catch (Exception e) {
             System.out.println("Ошибка при отправке сообщения серверу: " + e.getMessage());
         }
+        finally {
+            try {
+                socket.close();
+            } catch (Exception e) {
+                System.out.println("Ошибка при закрытии сокета: " + e.getMessage());
+            }
+        }
+        System.out.println("Врайт месселж завершился");
+    }
+
+    synchronized public void write(Message message) throws Exception{
+        writeMsg.writeObject(message);
+    }
+
+    public void setLaunched(boolean launched) {
+        this.launched = launched;
+    }
+
+    public boolean isLaunched() {
+        return launched;
     }
 }

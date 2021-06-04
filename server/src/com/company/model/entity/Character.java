@@ -17,7 +17,7 @@ public class Character extends Entity implements Serializable {
     private WallCharacter wallRight;
 
     public Character(){
-        super(2, 2, 2, 1);
+        super(2, 2, 2);
         this.angCharacter = 0;
         this.health = 100;
         this.name = "player";
@@ -28,7 +28,7 @@ public class Character extends Entity implements Serializable {
     }
 
     public Character(String name){
-        super(5, 5, 2, 1);
+        super(5, 5, 2);
         this.angCharacter = 0;
         this.health = 100;
         this.name = name;

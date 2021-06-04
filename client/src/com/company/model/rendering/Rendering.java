@@ -37,7 +37,7 @@ public class Rendering extends Thread {
         return renderingLaunched;
     }
 
-    public void setRenderingLaunched(boolean renderingLaunched) {
+    public void setLaunched(boolean renderingLaunched) {
         this.renderingLaunched = renderingLaunched;
     }
 
@@ -88,5 +88,6 @@ public class Rendering extends Thread {
             }
             else try { Thread.currentThread().sleep(10);} catch (Exception e) {}
         }
+        System.out.println("Поток отрисовки в модели завершился");
     }
 }

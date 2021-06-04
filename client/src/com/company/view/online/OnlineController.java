@@ -45,13 +45,17 @@ public class OnlineController{
 
     @FXML
     private void writeLogin(KeyEvent event){
-        if(loginField.getText().matches("^[a-z0-9]*")){
+        System.out.println(loginField.getText());
+        if(loginField.getText().matches("^[a-z0-9]+")){
             loginCorrect = true;
             if(ipCorrect){
                 connectBtn.setDisable(false);
             }
         }
-        else connectBtn.setDisable(true);
+        else {
+            loginCorrect = false;
+            connectBtn.setDisable(true);
+        }
     }
 
     @FXML
@@ -62,7 +66,10 @@ public class OnlineController{
                 connectBtn.setDisable(false);
             }
         }
-        else connectBtn.setDisable(true);
+        else{
+            ipCorrect = false;
+            connectBtn.setDisable(true);
+        }
     }
 
     @FXML

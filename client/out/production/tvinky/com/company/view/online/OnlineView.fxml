@@ -29,7 +29,7 @@
     <padding/>
     <children>
         <TextField GridPane.rowIndex="1" GridPane.columnIndex="1" maxWidth="Infinity" alignment="CENTER"
-                   promptText="Сервер" fx:id="ipField" onKeyTyped="#writeIP"/>
+                   promptText="Сервер" fx:id="ipField" onKeyTyped="#writeIP" text="127.0.0.1"/>
         <TextField GridPane.rowIndex="2" GridPane.columnIndex="1" maxWidth="Infinity" alignment="CENTER"
                    promptText="Логин" fx:id="loginField" onKeyTyped="#writeLogin"/>
         <GridPane vgap="10" hgap="10" GridPane.rowIndex="3" GridPane.columnIndex="1">

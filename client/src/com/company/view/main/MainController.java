@@ -51,14 +51,6 @@ public class MainController{
     }
 
     @FXML
-    private void clickOptionsBtn(ActionEvent event) throws Exception{
-        System.out.println("gui.Controller.clickOptionsBtn()");
-        Scene theScene = optionsBtn.getScene();
-        Parent theRoot = FXMLLoader.load(getClass().getResource("../option/OptionView.fxml"));
-        theScene.setRoot(theRoot);
-    }
-
-    @FXML
     private void clickExitBtn(ActionEvent event){
         System.out.println("gui.Controller.clickExitBtn()");
         Stage theStage = (Stage)exitBtn.getScene().getWindow();

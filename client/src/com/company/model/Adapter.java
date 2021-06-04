@@ -21,10 +21,6 @@ public class Adapter {
         client.start();
     }
 
-    public void startServer(){
-        System.out.println("Adapter.startServer");
-    }
-
     public void stop(){
         client.stop();
     }
@@ -98,11 +94,13 @@ public class Adapter {
     }
 
     public void pressShot(){
+        client.getMovement().setShotEvent(true);
         client.getMovement().setShot(true);
     }
 
     public void pressShotReleased(){
         client.getMovement().setShot(false);
+        client.getMovement().setShotEvent(false);
     }
 
     public void setName(String name){

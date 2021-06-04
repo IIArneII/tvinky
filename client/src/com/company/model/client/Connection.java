@@ -28,4 +28,9 @@ public class Connection{
         readMsg.start();
         writeMsg.start();
     }
+
+    public  void stop(){
+        readMsg.setLaunched(false);
+        writeMsg.setLaunched(false);
+    }
 }
