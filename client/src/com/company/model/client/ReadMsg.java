@@ -47,6 +47,10 @@ public class ReadMsg extends Thread{
                     game.getEntityDynamicList().remove(connectionServer.client.getCharacter().getName());
                     connectionServer.client.getGame().updateFrom(game);
                 }
+                if(message.getType().equals("changeXY")){
+                    Character character = (Character)message.getObject();
+                    game.getEntityDynamicList().get(character.getName()).updateFrom(character);
+                }
             }
         }
         catch (Exception e) {

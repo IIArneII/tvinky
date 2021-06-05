@@ -1,9 +1,12 @@
 package com.company.model.math;
 
+import com.company.model.entity.Character;
 import com.company.model.map.Wall;
+import com.company.model.map.WallCharacter;
 import com.company.model.map.WallPoint;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RayCasting {
     public static WallPoint rayCasting(Section section, ArrayList<Wall> walls){
@@ -29,5 +32,22 @@ public class RayCasting {
             if(wallPoints.get(i).getDistance() < min.getDistance()) min = wallPoints.get(i);
         }
         return min;
+    }
+
+    public static HashMap<String, Character> rayCastingShot(Section section, ArrayList<WallCharacter> walls){
+        HashMap<String, Character> characters = new HashMap<>();
+        for(int i = 0; i < walls.size(); i++){
+            Section temp = walls.get(i).getSection();
+            double z1 = section.crossProduct(new Section(section.getA(), temp.getA()));
+            double z2 = section.crossProduct(new Section(section.getA(), temp.getB()));
+            if(Math.signum(z1) != Math.signum(z2)){
+                double q1 = temp.getA().getX() + (temp.getB().getX() - temp.getA().getX()) * Math.abs(z1) / Math.abs(z2 - z1);
+                double q2 = temp.getA().getY() + (temp.getB().getY() - temp.getA().getY()) * Math.abs(z1) / Math.abs(z2 - z1);
+                double lA = section.getA().distance(new Point(q1, q2));
+                double lB = section.getB().distance(new Point(q1, q2));
+                if(lA > lB) characters.put(walls.get(i).getCharacter().getName(), walls.get(i).getCharacter());
+            }
+        }
+        return characters;
     }
 }

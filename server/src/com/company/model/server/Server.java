@@ -12,13 +12,16 @@ public class Server{
     private ServerSocket serverSocket;
     private ArrayList<ConnectionClient> connections;
     private Game game;
+    private GameProcess process;
     public static boolean ConnectDataBase;
+
     public Server() {
         System.out.println("Server");
         try {
             connections = new ArrayList<>();
             serverSocket = new ServerSocket(1111);
             game = new Game();
+            process = new GameProcess(game, this);
         }
         catch (Exception e) {
             System.out.println("Ошибка при создании Server: " + e.getMessage());
@@ -33,6 +36,7 @@ public class Server{
         }
         System.out.println("Server.run()");
         try {
+            process.start();
             while (true) {
                 Socket socket = serverSocket.accept();
                 System.out.println("Подключение клиента");
@@ -53,9 +57,14 @@ public class Server{
         return connections;
     }
 
-    public void writeMsgAll(Message message){
+    synchronized public void writeMsgAll(Message message){
         for(int i = 0; i < connections.size(); i++){
-            connections.get(i).writeMsgServer.writeMsg(message);
+            try {
+                connections.get(i).writeMsgServer.write(message);
+            }
+            catch (Exception e){
+                System.out.println("Ошибка при отправке сообщения всем клиентам: " + e.getMessage());
+            }
         }
     }
 
@@ -66,6 +75,10 @@ public class Server{
         else {
             System.out.println("Не удалось подключиться к базе данных");
         }
+    }
+
+    public GameProcess getProcess() {
+        return process;
     }
 }
 

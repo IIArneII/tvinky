@@ -26,7 +26,7 @@ public class WriteMsgServer extends Thread{
             while (true){
                 Thread.currentThread().sleep(1);
                 //writeMsg.writeObject(new Message("characters", connectionClient.server.getGame().getEntityDynamicList().clone()));
-                writeMsg.writeObject(new Message("game", connectionClient.server.getGame().copy()));
+                write(new Message("game", connectionClient.server.getGame().copy()));
             }
         }
         catch (Exception e) {
@@ -40,12 +40,7 @@ public class WriteMsgServer extends Thread{
         }
     }
 
-    public void writeMsg(Message message){
-        try {
-            writeMsg.writeObject(message);
-        }
-        catch (Exception e){
-            System.out.println("Ошибка при единоразовом отправке сообщения клиенту: " + e.getMessage());
-        }
+    synchronized public void write(Message message) throws Exception{
+        writeMsg.writeObject(message);
     }
 }

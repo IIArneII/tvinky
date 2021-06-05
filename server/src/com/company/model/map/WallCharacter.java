@@ -26,4 +26,8 @@ public class WallCharacter extends Wall implements Serializable {
                 character.getY() + Math.sin(Angles.converteDegreeToRadian(character.getAngCharacter() + angleB)) / 7));
         return section;
     }
+
+    public Character getCharacter() {
+        return character;
+    }
 }

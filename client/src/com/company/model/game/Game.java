@@ -16,10 +16,6 @@ public class Game implements Serializable {
         this.map = new Map();
         this.entityDynamicList = new HashMap<>();
         this.entityDynamicList.put(character.getName(), character);
-//        map.addWall(character.getWallFront());
-//        map.addWall(character.getWallLeft());
-//        map.addWall(character.getWallBehind());
-//        map.addWall(character.getWallRight());
     }
 
     public Game(){

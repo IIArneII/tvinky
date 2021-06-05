@@ -28,18 +28,18 @@ public class DataBase {
         // то вызывает функцию DataInput() регистрацию в базе данных.
 
         // добавить проверку на корректность введённых данных
-        if ((Controller.userNameFieldText.trim().length() <= 0) || (Controller.NameServerFieldText.trim().length() <= 0)){
-            // сделать окошко для ошибки "Вы заполнили не все поля"
-        }
-        else {
-            try {
-                DataInput();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
+//        if ((Controller.userNameFieldText.trim().length() <= 0) || (Conelse {
+////            try {
+////                DataInput();
+////            } catch (SQLException e) {
+////                e.printStackTrace();
+////            } catch (ClassNotFoundException e) {
+////                e.printStackTrace();
+////            }
+////        }troller.NameServerFieldText.trim().length() <= 0)){
+//            // сделать окошко для ошибки "Вы заполнили не все поля"
+//        }
+//
     }
 
     /*public static void Registration() {
@@ -57,21 +57,21 @@ public class DataBase {
     }*/
     public static void DataInput() throws SQLException, ClassNotFoundException {
         //мы сверяем данные из базы данных с введёнными и после добавляем в базу данных
-        try {
-            Connection con = ConnectionToDateBase();
-            Statement create = con.createStatement();
-            create.executeUpdate("CREATE TABLE IF NOT EXISTS players (login CHAR(30) NOT NULL, server CHAR(30) NOT NULL, PRIMARY KEY (login))");
-            ResultSet result = create.executeQuery("select * from players where login = '" + Controller.userNameFieldText + "'");
-            if (result.next()){
-                // окно: такой логин уже используется
-            }else {
-                create.executeUpdate("INSERT INTO players (login,server) VALUES ('" + Controller.userNameFieldText + "','" + Controller.NameServerFieldText + "')");
-                Server.Answer();
-            }
-        } catch (Exception e) {
-            Server.ConnectDataBase = false;
-            Server.Answer();
-        }
+        //try {
+//            Connection con = ConnectionToDateBase();
+//            Statement create = con.createStatement();
+//            create.executeUpdate("CREATE TABLE IF NOT EXISTS players (login CHAR(30) NOT NULL, server CHAR(30) NOT NULL, PRIMARY KEY (login))");
+//            ResultSet result = create.executeQuery("select * from players where login = '" + Controller.userNameFieldText + "'");
+//            if (result.next()){
+//                // окно: такой логин уже используется
+//            }else {
+//                create.executeUpdate("INSERT INTO players (login,server) VALUES ('" + Controller.userNameFieldText + "','" + Controller.NameServerFieldText + "')");
+//                Server.Answer();
+//            }
+//        } catch (Exception e) {
+//            Server.ConnectDataBase = false;
+//            Server.Answer();
+//        }
     }
 
     public static void LoginToAccount() throws SQLException, ClassNotFoundException {

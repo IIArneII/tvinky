@@ -1,9 +1,11 @@
 package com.company.model.client;
 
 import com.company.model.Message;
+import com.company.model.Shot;
 import com.company.model.listeners.Event;
 import com.company.model.listeners.Listener;
 import com.company.model.listeners.Realize;
+import com.company.model.map.Wall;
 import com.company.model.math.Angles;
 import com.company.model.map.Map;
 import com.company.model.entity.Character;
@@ -145,7 +147,8 @@ public class Movement {
             Section section = new Section(character.getX(), character.getY(),
                     character.getX() + Math.cos(Angles.converteDegreeToRadian(character.getAngCharacter())),
                     character.getY() + Math.sin(Angles.converteDegreeToRadian(character.getAngCharacter())));
-            connection.writeMsg.write(new Message("shot", section));
+            map.addWall(new Wall(section, 1, 1, 1));
+            connection.writeMsg.write(new Message("shot", new Shot(section, character.copy())));
         }
         catch (Exception e){
             System.out.println("Ошибка при отправке выстрела на сервер: " + e.getMessage());
