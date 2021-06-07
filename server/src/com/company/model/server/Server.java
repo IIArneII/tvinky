@@ -68,14 +68,6 @@ public class Server{
         }
     }
 
-    public static void Answer (){
-        if (ConnectDataBase) {
-            System.out.println("Успешное подключение к базе данных");
-        }
-        else {
-            System.out.println("Не удалось подключиться к базе данных");
-        }
-    }
 
     /*public GameProcess getProcess() {
         return process;
