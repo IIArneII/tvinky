@@ -2,7 +2,7 @@ package com.company.model;
 
 import java.io.Serializable;
 
-public class Message implements Serializable {
+public class Message implements Serializable, Cloneable{
     /*
     * Типы сообщений:
     * 1. disconnection - клиент серверу или клиент серверу, отключение клиента от сервера
@@ -69,5 +69,10 @@ public class Message implements Serializable {
     public Message copy(){
         Message temp = new Message(type, comment, object);
         return temp;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException{
+        return super.clone();
     }
 }

@@ -12,9 +12,7 @@ public class Adapter {
     }
 
     public Adapter(String name, String ip, int port){
-        if(!name.equals("") && !ip.equals(""))
         client = new Client(name, ip, port);
-        else client = new Client();
     }
 
     public void startClient(){

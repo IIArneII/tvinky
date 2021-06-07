@@ -12,7 +12,7 @@ public class Angles {
     public static final int Ang30 = 400;
     public static final int Ang6 = 80;
 
-    public static double converteDegreeToRadian(double angle){
+    public static double convert(double angle){
         return angle * (Math.PI / Ang180);
     }
 }

@@ -3,7 +3,8 @@ package com.company.model.math;
 import java.io.Serializable;
 
 public class Point implements Serializable {
-    private double x, y;
+    private double x;
+    private double y;
 
     public Point(){
         x = 0;

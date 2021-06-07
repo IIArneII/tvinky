@@ -1,6 +1,6 @@
 package com.company.model.map;
 
-import com.company.model.entity.Character;
+import com.company.model.game.Character;
 import com.company.model.math.Angles;
 import com.company.model.math.Point;
 import com.company.model.math.Section;
@@ -20,10 +20,10 @@ public class WallCharacter extends Wall implements Serializable {
     }
 
     public Section getSection() {
-        section.setA(new Point(character.getX() + Math.cos(Angles.converteDegreeToRadian(character.getAngCharacter() + angleA)) / 7,
-                character.getY() + Math.sin(Angles.converteDegreeToRadian(character.getAngCharacter() + angleA)) / 7));
-        section.setB(new Point(character.getX() + Math.cos(Angles.converteDegreeToRadian(character.getAngCharacter() + angleB)) / 7,
-                character.getY() + Math.sin(Angles.converteDegreeToRadian(character.getAngCharacter() + angleB)) / 7));
+        section.setA(new Point(character.getX() + Math.cos(Angles.convert(character.getAng() + angleA)) / 7,
+                character.getY() + Math.sin(Angles.convert(character.getAng() + angleA)) / 7));
+        section.setB(new Point(character.getX() + Math.cos(Angles.convert(character.getAng() + angleB)) / 7,
+                character.getY() + Math.sin(Angles.convert(character.getAng() + angleB)) / 7));
         return section;
     }
 

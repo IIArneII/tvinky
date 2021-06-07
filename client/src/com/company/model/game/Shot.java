@@ -1,6 +1,6 @@
-package com.company.model;
+package com.company.model.game;
 
-import com.company.model.entity.Character;
+import com.company.model.game.Character;
 import com.company.model.math.Section;
 
 import java.io.Serializable;

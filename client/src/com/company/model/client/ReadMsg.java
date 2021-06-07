@@ -1,28 +1,23 @@
 package com.company.model.client;
 
 import com.company.model.Message;
-import com.company.model.entity.Character;
+import com.company.model.game.Character;
 import com.company.model.game.Game;
 
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.util.HashMap;
 
 public class ReadMsg extends Thread{
     private boolean launched;
-    Connection connectionServer;
-    Socket socket;
-    ObjectInputStream readMsg;
-    Game game;
+    private Socket socket;
+    private ObjectInputStream in;
+    private Game game;
 
-    public ReadMsg(Connection connectionServer, Socket socket, Game game){
-        System.out.println("ReadMsg");
+    public ReadMsg(Socket socket, Game game){
         try {
-            this.connectionServer = connectionServer;
             this.socket = socket;
-            InputStream in = socket.getInputStream();
-            readMsg = new ObjectInputStream(in);
+            in = new ObjectInputStream(socket.getInputStream());
             this.game = game;
             launched = false;
         }
@@ -34,18 +29,16 @@ public class ReadMsg extends Thread{
     @Override
     public void run(){
         launched = true;
-        System.out.println("RUN rEADmSG");
-        HashMap<String, Character> characters;
         Message message;
         try {
             while(launched){
-                Thread.currentThread().sleep(1);
-                message = (Message) readMsg.readObject();
+                this.sleep(1);
+                message = (Message) in.readObject();
 
                 if(message.getType().equals("game")){
-                    Game  game = (Game)message.getObject();
-                    game.getEntityDynamicList().remove(connectionServer.client.getCharacter().getName());
-                    connectionServer.client.getGame().updateFrom(game);
+                    Game  gameTemp = (Game)message.getObject();
+                    gameTemp.getEntityDynamicList().remove(game.getCharacter().getName());
+                    game.updateFrom(gameTemp);
                 }
                 if(message.getType().equals("changeXY")){
                     Character character = (Character)message.getObject();
@@ -54,18 +47,15 @@ public class ReadMsg extends Thread{
             }
         }
         catch (Exception e) {
-
             System.out.println("Ошибка при получении сообщения с сервера: " + e.getMessage());
         }
         finally {
             try {
                 socket.close();
-            }
-            catch (Exception e){
+            } catch (Exception e){
                 System.out.println("Ошибка при закрытии сокета: " + e.getMessage());
             }
         }
-        System.out.println("Реад месседж завершился");
     }
 
     public void setLaunched(boolean launched) {

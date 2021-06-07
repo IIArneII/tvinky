@@ -1,8 +1,8 @@
-package com.company.model.server;
+/*package com.company.model.server;
 
 import com.company.model.Message;
 import com.company.model.Shot;
-import com.company.model.entity.Character;
+import com.company.model.game.Character;
 import com.company.model.game.Game;
 import com.company.model.map.WallCharacter;
 import com.company.model.math.RayCasting;
@@ -41,7 +41,7 @@ public class GameProcess extends Thread{
                             targetsWall.add(entry.getValue().getWallRight());
                         }
                     }
-                    HashMap<String, Character> targets = RayCasting.rayCastingShot(shots.get(0).getSection(), targetsWall);
+                    //HashMap<String, Character> targets = RayCasting.rayCastingShot(shots.get(0).getSection(), targetsWall);
                     for(java.util.Map.Entry<String, Character> entry: targets.entrySet()){
                         entry.getValue().setHealth(entry.getValue().getHealth() - 20);
                         if(entry.getValue().getHealth() < 0){
@@ -61,3 +61,4 @@ public class GameProcess extends Thread{
         }
     }
 }
+*/

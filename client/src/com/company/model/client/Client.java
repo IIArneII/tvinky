@@ -1,7 +1,7 @@
 package com.company.model.client;
 
 import com.company.model.rendering.Rendering;
-import com.company.model.entity.Character;
+import com.company.model.game.Character;
 import com.company.model.game.Game;
 
 public class Client {
@@ -9,22 +9,25 @@ public class Client {
     private Character character;
     private Movement movement;
     private Rendering rendering;
-    private Connection connectionServer;
+    private Connection connection;
+    private boolean isConnection;
 
     public Client(){
+        isConnection = false;
         character = new Character("player");
         game = new Game(character);
         rendering = new Rendering(character, game);
-        connectionServer = null;
-        movement = new Movement(character, game.getMap(), connectionServer);
+        connection = null;
+        movement = new Movement(character, game.getMap(), connection);
     }
 
     public Client(String name, String ip, int port){
+        isConnection = true;
         character = new Character(name);
         game = new Game(character);
         rendering = new Rendering(character, game);
-        connectionServer = new Connection(this, ip, port);
-        movement = new Movement(character, game.getMap(), connectionServer);
+        connection = new Connection(game, ip, port);
+        movement = new Movement(character, game.getMap(), connection);
     }
 
     public Game getGame() {
@@ -54,7 +57,7 @@ public class Client {
     public void start(){
         movement.start();
         rendering.start();
-        connectionServer.start();
+        if(isConnection) connection.start();
     }
 
     public void pause(boolean pause){
@@ -65,6 +68,6 @@ public class Client {
     public void stop(){
         movement.stop();
         rendering.setLaunched(false);
-        connectionServer.stop();
+        if(isConnection) connection.stop();
     }
 }

@@ -1,14 +1,14 @@
 package com.company.model.client;
 
 import com.company.model.Message;
-import com.company.model.Shot;
+import com.company.model.game.Shot;
 import com.company.model.listeners.Event;
 import com.company.model.listeners.Listener;
 import com.company.model.listeners.Realize;
 import com.company.model.map.Wall;
 import com.company.model.math.Angles;
 import com.company.model.map.Map;
-import com.company.model.entity.Character;
+import com.company.model.game.Character;
 import com.company.model.math.Section;
 
 public class Movement {
@@ -91,8 +91,8 @@ public class Movement {
         if(forth){
             double posCharacterXPrev = character.getX();
             double posCharacterYPrev = character.getY();
-            character.setX(character.getX() + Math.cos(Angles.converteDegreeToRadian(character.getAngCharacter())) /360);
-            character.setY(character.getY() + Math.sin(Angles.converteDegreeToRadian(character.getAngCharacter())) /360);
+            character.setX(character.getX() + Math.cos(Angles.convert(character.getAng())) /360);
+            character.setY(character.getY() + Math.sin(Angles.convert(character.getAng())) /360);
             if(map.isWall(character.getX(), character.getY()) > 0){
                 character.setX(posCharacterXPrev);
                 character.setY(posCharacterYPrev);
@@ -101,8 +101,8 @@ public class Movement {
         if(back){
             double posCharacterXPrev = character.getX();
             double posCharacterYPrev = character.getY();
-            character.setX(character.getX() - Math.cos(Angles.converteDegreeToRadian(character.getAngCharacter())) /360);
-            character.setY(character.getY() - Math.sin(Angles.converteDegreeToRadian(character.getAngCharacter())) /360);
+            character.setX(character.getX() - Math.cos(Angles.convert(character.getAng())) /360);
+            character.setY(character.getY() - Math.sin(Angles.convert(character.getAng())) /360);
             if(map.isWall(character.getX(), character.getY()) > 0){
                 character.setX(posCharacterXPrev);
                 character.setY(posCharacterYPrev);
@@ -114,8 +114,8 @@ public class Movement {
         if(left){
             double posCharacterXPrev = character.getX();
             double posCharacterYPrev = character.getY();
-            character.setX(character.getX() - Math.cos(Angles.converteDegreeToRadian(character.getAngCharacter() - Angles.Ang90)) /360);
-            character.setY(character.getY() - Math.sin(Angles.converteDegreeToRadian(character.getAngCharacter() - Angles.Ang90)) /360);
+            character.setX(character.getX() - Math.cos(Angles.convert(character.getAng() - Angles.Ang90)) /360);
+            character.setY(character.getY() - Math.sin(Angles.convert(character.getAng() - Angles.Ang90)) /360);
             if(map.isWall(character.getX(), character.getY()) > 0){
                 character.setX(posCharacterXPrev);
                 character.setY(posCharacterYPrev);
@@ -124,8 +124,8 @@ public class Movement {
         if(right){
             double posCharacterXPrev = character.getX();
             double posCharacterYPrev = character.getY();
-            character.setX(character.getX() + Math.cos(Angles.converteDegreeToRadian(character.getAngCharacter()  - Angles.Ang90)) /360);
-            character.setY(character.getY() + Math.sin(Angles.converteDegreeToRadian(character.getAngCharacter() - Angles.Ang90)) /360);
+            character.setX(character.getX() + Math.cos(Angles.convert(character.getAng()  - Angles.Ang90)) /360);
+            character.setY(character.getY() + Math.sin(Angles.convert(character.getAng() - Angles.Ang90)) /360);
             if(map.isWall(character.getX(), character.getY()) > 0){
                 character.setX(posCharacterXPrev);
                 character.setY(posCharacterYPrev);
@@ -135,20 +135,20 @@ public class Movement {
 
     public void turnRightLeft(){
         if(turnLeft){
-            character.setAngCharacter(character.getAngCharacter() + 0.3 * (Angles.Ang6/8));
+            character.setAng(character.getAng() + 0.3 * (Angles.Ang6/8));
         }
         if(turnRight){
-            character.setAngCharacter(character.getAngCharacter() - 0.3 * (Angles.Ang6/8));
+            character.setAng(character.getAng() - 0.3 * (Angles.Ang6/8));
         }
     }
 
     public void shot(){
         try {
             Section section = new Section(character.getX(), character.getY(),
-                    character.getX() + Math.cos(Angles.converteDegreeToRadian(character.getAngCharacter())),
-                    character.getY() + Math.sin(Angles.converteDegreeToRadian(character.getAngCharacter())));
+                    character.getX() + Math.cos(Angles.convert(character.getAng())),
+                    character.getY() + Math.sin(Angles.convert(character.getAng())));
             map.addWall(new Wall(section, 1, 1, 1));
-            connection.writeMsg.write(new Message("shot", new Shot(section, character.copy())));
+            if(connection != null) connection.write(new Message("shot", new Shot(section, character.copy())));
         }
         catch (Exception e){
             System.out.println("Ошибка при отправке выстрела на сервер: " + e.getMessage());

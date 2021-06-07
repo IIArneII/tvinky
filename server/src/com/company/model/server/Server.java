@@ -12,7 +12,7 @@ public class Server{
     private ServerSocket serverSocket;
     private ArrayList<ConnectionClient> connections;
     private Game game;
-    private GameProcess process;
+    //private GameProcess process;
     public static boolean ConnectDataBase;
 
     public Server() {
@@ -21,7 +21,7 @@ public class Server{
             connections = new ArrayList<>();
             serverSocket = new ServerSocket(1111);
             game = new Game();
-            process = new GameProcess(game, this);
+            //process = new GameProcess(game, this);
         }
         catch (Exception e) {
             System.out.println("Ошибка при создании Server: " + e.getMessage());
@@ -36,7 +36,7 @@ public class Server{
         }
         System.out.println("Server.run()");
         try {
-            process.start();
+            //process.start();
             while (true) {
                 Socket socket = serverSocket.accept();
                 System.out.println("Подключение клиента");
@@ -77,8 +77,8 @@ public class Server{
         }
     }
 
-    public GameProcess getProcess() {
+    /*public GameProcess getProcess() {
         return process;
-    }
+    }*/
 }
 

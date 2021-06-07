@@ -26,7 +26,6 @@ public class Listener extends Thread{
                 }
             }
         }
-        System.out.println("Поток передвижения завершился");
     }
 
     public boolean isLaunched() {

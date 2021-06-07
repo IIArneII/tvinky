@@ -1,17 +1,16 @@
-package com.company.model.entity;
+package com.company.model.game;
 
-import com.company.model.entity.Entity;
-import com.company.model.map.Wall;
-import com.company.model.math.Angles;
-import com.company.model.math.Section;
 import com.company.model.map.WallCharacter;
+import com.company.model.math.Angles;
+import com.company.model.math.Point;
 
 import java.io.Serializable;
 
-public class Character extends Entity implements Serializable {
+public class Character implements Serializable, Cloneable {
 
-    public double MAX_HP = 100;
-    private double angCharacter;
+    final public double MAX_HP = 100;
+    private Point xy;
+    private double ang;
     private double health;
     private String name;
     private WallCharacter wallFront;
@@ -20,8 +19,8 @@ public class Character extends Entity implements Serializable {
     private WallCharacter wallRight;
 
     public Character(){
-        super(2, 2, 2);
-        this.angCharacter = 0;
+        xy = new Point(0, 0);
+        this.ang = 0;
         this.health = 100;
         this.name = "player";
         wallFront = new WallCharacter(this, -Angles.Ang45, Angles.Ang45, 0);
@@ -31,8 +30,8 @@ public class Character extends Entity implements Serializable {
     }
 
     public Character(String name){
-        super(5, 5, 2);
-        this.angCharacter = 0;
+        xy = new Point(0, 0);
+        this.ang = 0;
         this.health = 100;
         this.name = name;
         wallFront = new WallCharacter(this, -Angles.Ang45, Angles.Ang45, 0);
@@ -41,13 +40,37 @@ public class Character extends Entity implements Serializable {
         wallRight = new WallCharacter(this, Angles.Ang225, Angles.Ang315, 2);
     }
 
-    public double getAngCharacter(){return this.angCharacter;}
-
-    public double getHealth(){return this.health;}
-
-    public void setAngCharacter(double angle){
-        this.angCharacter = angle;
+    public Point getXY() {
+        return xy;
     }
+
+    public double getX() {
+        return xy.getX();
+    }
+
+    public double getY() {
+        return xy.getY();
+    }
+
+    public void setX(double x){
+        xy.setX(x);
+    }
+
+    public void setY(double y){
+        xy.setY(y);
+    }
+
+    public double getAng() {
+        return this.ang;
+    }
+
+    public void setAng(double ang) {
+        this.ang = ang;
+    }
+
+    public double getHealth() {
+        return this.health;}
+
 
     public void setHealth(double health){this.health = health;}
 
@@ -55,9 +78,13 @@ public class Character extends Entity implements Serializable {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Character copy(){
         Character temp = new Character(this.getName());
-        temp.setAngCharacter(this.angCharacter);
+        temp.setAng(this.ang);
         temp.setHealth(this.getHealth());
         temp.setX(this.getX());
         temp.setY(this.getY());
@@ -83,6 +110,11 @@ public class Character extends Entity implements Serializable {
     public void updateFrom(Character character){
         setX(character.getX());
         setY(character.getY());
-        this.angCharacter = (character.angCharacter);
+        this.ang = (character.ang);
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException{
+        return super.clone();
     }
 }

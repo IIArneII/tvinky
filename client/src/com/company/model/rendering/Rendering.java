@@ -1,23 +1,13 @@
 package com.company.model.rendering;
 
-import com.company.model.client.Client;
-import com.company.model.entity.Character;
-import com.company.model.map.Map;
-import com.company.model.map.Wall;
+import com.company.model.game.Character;
 import com.company.model.map.WallPoint;
 import com.company.model.math.Angles;
 import com.company.model.math.RayCasting;
 import com.company.model.math.Section;
 import com.company.model.game.Game;
 
-import java.util.ArrayList;
-
 public class Rendering extends Thread {
-
-    public static final int Width = 800;
-    public static final int Height = 600;
-    public static final int Width_Center = Width / 2;
-    public static final int Height_Center = Height / 2;
 
     private Character character;
     private Game game;
@@ -56,29 +46,32 @@ public class Rendering extends Thread {
     @Override
     public void run() {
         renderingLaunched = true;
-        double radX, radY, stepX, stepY, angRad;
+        double radX, radY, angRad;
         while (renderingLaunched) {
             if(!renderingOnPause){
-                try { Thread.currentThread().sleep(1); } catch (Exception e) {}
+                try { this.sleep(1); } catch (Exception e) {}
 
                 int[][] temp = new int[800][6];
                 double[] width = new double[800];
 
-                angRad = (character.getAngCharacter() - Angles.Ang30);
+                angRad = (character.getAng() - Angles.Ang30);
 
                 for (int rad = 0; rad < Angles.Ang60; rad++) {
                     radX = character.getX();
                     radY = character.getY();
 
-                    WallPoint distant = RayCasting.rayCasting(new Section(radX, radY, radX + Math.cos(Angles.converteDegreeToRadian(character.getAngCharacter() + Angles.Ang30 - rad)), radY + Math.sin(Angles.converteDegreeToRadian(character.getAngCharacter() + Angles.Ang30 - rad))), game.getMap().getWalls());
+                    WallPoint distant = RayCasting.rayCasting(new Section(radX, radY,
+                            radX + Math.cos(Angles.convert(character.getAng() + Angles.Ang30 - rad)),
+                            radY + Math.sin(Angles.convert(character.getAng() + Angles.Ang30 - rad))),
+                            game.getMap().getWalls());
 
-                    int heightWall = (int)(250 / (distant.getDistance() * Math.cos(Angles.converteDegreeToRadian(angRad) - Angles.converteDegreeToRadian(character.getAngCharacter()))));
+                    int heightWall = (int)(250 / (distant.getDistance() * Math.cos(Angles.convert(angRad) - Angles.convert(character.getAng()))));
 
                     temp[rad][0] = rad;
-                    temp[rad][1] = Height_Center - heightWall;
-                    temp[rad][2] = Height_Center + heightWall;
-                    temp[rad][3] = Height;
-                    temp[rad][4] = distant.getColor();
+                    temp[rad][1] = 300 - heightWall;
+                    temp[rad][2] = 300 + heightWall;
+                    temp[rad][3] = 600;
+                    temp[rad][4] = 0;
                     temp[rad][5] = distant.getTextureID();
                     width[rad] = distant.getTextureK();
 
@@ -86,8 +79,7 @@ public class Rendering extends Thread {
                 }
                 this.screen.setScreen(temp, width);
             }
-            else try { Thread.currentThread().sleep(10);} catch (Exception e) {}
+            else try { this.sleep(10);} catch (Exception e) {}
         }
-        System.out.println("Поток отрисовки в модели завершился");
     }
 }

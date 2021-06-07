@@ -1,25 +1,24 @@
 package com.company.model.game;
 
-import com.company.model.entity.Character;
 import com.company.model.map.Map;
 
 import java.io.Serializable;
 import java.util.HashMap;
 
-public class Game implements Serializable {
+public class Game implements Serializable, Cloneable {
     private Map map;
     private HashMap<String, Character> entityDynamicList;
-    private String nameCharacter;
+    private Character character;
 
     public Game(Character character){
-        nameCharacter = character.getName();
+        this.character = character;
         this.map = new Map();
         this.entityDynamicList = new HashMap<>();
         this.entityDynamicList.put(character.getName(), character);
     }
 
     public Game(){
-        nameCharacter = "";
+        character = new Character();
         this.map = new Map();
         this.entityDynamicList = new HashMap<>();
     }
@@ -29,6 +28,10 @@ public class Game implements Serializable {
     }
 
     public Map getMap(){return this.map;}
+
+    public Character getCharacter() {
+        return character;
+    }
 
     public void addCharacter(Character character){
         entityDynamicList.put(character.getName(), character);
@@ -46,7 +49,7 @@ public class Game implements Serializable {
 
     public void updateFrom(Game game){
         HashMap<String, Character> temp = (HashMap<String, Character>)entityDynamicList.clone();
-        temp.remove(nameCharacter);
+        temp.remove(character.getName());
         for(java.util.Map.Entry<String, Character> entry: game.entityDynamicList.entrySet()){
             if(!entityDynamicList.containsKey(entry.getValue().getName())){
                 addCharacter(entry.getValue());
@@ -70,5 +73,10 @@ public class Game implements Serializable {
             temp.entityDynamicList.put(entry.getKey(), entry.getValue().copy());
         }
         return temp;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException{
+        return super.clone();
     }
 }

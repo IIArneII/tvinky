@@ -20,11 +20,11 @@ public class RayCasting {
                 if(lA > lB) {
                     double l = new Section(temp.getA(), new Point(q1, q2)).length();
                     double k = (l / walls.get(i).getTextureWidth()) - (int)(l / walls.get(i).getTextureWidth());
-                    wallPoints.add(new WallPoint(lA, walls.get(i).getColor(), walls.get(i).getTextureID(), k));
+                    wallPoints.add(new WallPoint(lA, walls.get(i).getTextureID(), k));
                 }
             }
         }
-        WallPoint min = new WallPoint(1000, 0, 0, 0);
+        WallPoint min = new WallPoint(1000, 0, 0);
         for(int i = 0; i < wallPoints.size(); i++){
             if(wallPoints.get(i).getDistance() < min.getDistance()) min = wallPoints.get(i);
         }

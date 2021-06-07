@@ -1,7 +1,7 @@
 package com.company.model.listeners;
 
 public class Event {
-    boolean event;
+    private boolean event;
 
     public Event(){
         event = false;

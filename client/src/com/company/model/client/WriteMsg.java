@@ -8,17 +8,14 @@ import java.net.Socket;
 
 public class WriteMsg extends Thread {
     private boolean launched;
-    Connection connectionServer;
-    Socket socket;
-    ObjectOutputStream writeMsg;
-    Game game;
+    private Socket socket;
+    private ObjectOutputStream out;
+    private Game game;
 
-    public WriteMsg(Connection connectionServer, Socket socket, Game game) {
-        System.out.println("WriteMsg");
+    public WriteMsg(Socket socket, Game game) {
         try {
-            this.connectionServer = connectionServer;
             this.socket = socket;
-            writeMsg = new ObjectOutputStream(socket.getOutputStream());
+            out = new ObjectOutputStream(socket.getOutputStream());
             this.game = game;
             launched = false;
         } catch (Exception e) {
@@ -32,8 +29,8 @@ public class WriteMsg extends Thread {
         launched = true;
         try {
             while (launched) {
-                Thread.currentThread().sleep(1);
-                write(new Message("character", connectionServer.client.getCharacter().copy()));
+                this.sleep(1);
+                write(new Message("character", game.getCharacter().copy()));
             }
         }
         catch (Exception e) {
@@ -46,11 +43,10 @@ public class WriteMsg extends Thread {
                 System.out.println("Ошибка при закрытии сокета: " + e.getMessage());
             }
         }
-        System.out.println("Врайт месселж завершился");
     }
 
     synchronized public void write(Message message) throws Exception{
-        writeMsg.writeObject(message);
+        out.writeObject(message);
     }
 
     public void setLaunched(boolean launched) {

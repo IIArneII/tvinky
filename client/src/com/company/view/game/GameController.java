@@ -4,11 +4,9 @@ import java.io.File;
 import com.company.model.Adapter;
 import com.company.model.rendering.Screen;
 import com.company.view.Info;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -103,7 +101,8 @@ public class GameController{
         }
         renderingLaunched = false;
         renderingOnPause = false;
-        adapter = new Adapter(Info.name, Info.ip, Info.port);
+        if(!Info.name.equals("") && !Info.ip.equals("")) adapter = new Adapter(Info.name, Info.ip, Info.port);
+        else adapter = new Adapter();
         adapter.startClient();
         new Rendering("Rendering", this);
     }
@@ -280,16 +279,5 @@ class Rendering implements Runnable{
             else try {t.sleep(10);} catch (Exception e){}
         }
         System.out.println("Поток отрисовки котроллера завершился");
-    }
-}
-
-class Palette{
-    public static Color getColor(int n) {
-        if (n == 0) return Color.RED;
-        if (n == 1) return Color.GREEN;
-        if (n == 2) return Color.BLUE;
-        if (n == 3) return Color.BLUEVIOLET;
-        if (n == 4) return Color.BISQUE;
-        return Color.RED;
     }
 }

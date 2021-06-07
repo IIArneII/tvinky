@@ -1,8 +1,8 @@
 package com.company.model.server;
 
 import com.company.model.Message;
-import com.company.model.Shot;
-import com.company.model.entity.Character;
+import com.company.model.game.Character;
+import com.company.model.game.Shot;
 
 import java.io.ObjectInputStream;
 import java.net.Socket;
@@ -59,7 +59,7 @@ public class ReadMsgServer extends Thread{
                 if(message.getType().equals("shot")){
                     Shot shot = (Shot) message.getObject();
                     System.out.println(shot.getSection().getA().getX() + "   " + shot.getSection().getA().getY());
-                    connectionClient.server.getProcess().addShot(shot);
+                    //connectionClient.server.getProcess().addShot(shot);
                 }
             }
         }
