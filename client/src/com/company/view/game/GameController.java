@@ -1,9 +1,11 @@
 package com.company.view.game;
 
 import java.io.File;
+
 import com.company.model.Adapter;
 import com.company.model.rendering.Screen;
 import com.company.view.Info;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

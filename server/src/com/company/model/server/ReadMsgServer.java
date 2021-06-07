@@ -26,27 +26,20 @@ public class ReadMsgServer extends Thread{
     @Override
     public void run(){
         try {
-            //Message message = new Message("game", connectionClient.server.getGame().copy());
-
-//            connectionClient.writeMsgServer.writeMsg(message);
-//
-//            message = (Message) readMsg.readObject();
-//            Character character = (Character)message.getObject();
-//            System.out.println("Получен персонаж" + character.getName());
-//            connectionClient.server.getGame().getEntityDynamicList().put(character.getName(), character);
-//            connectionClient.server.writeMsgAll(new Message("addCharacter", message.getObject()));
-//
-//            message = (Message) readMsg.readObject();
-            Message message = new Message();
-            Character character = new Character();
-            //if(message.getType().equals("info") & message.getComment().equals("yes")){
-                //connectionClient.writeMsgServer.start();
+            Message message;
+            Character character;
 
             message = (Message) readMsg.readObject();
             if(message.getType().equals("character")){
                 character = (Character) message.getObject();
                 connectionClient.server.getGame().getEntityDynamicList().put(character.getName(), character);
                 connectionClient.name = character.getName();
+                try {
+                    connectionClient.server.getDb().DataInput(character.getName());
+                }
+                catch (Exception e){
+                    System.out.println("Ошибка при запросе к базе данных: " + e.getMessage());
+                }
             }
 
             while (true){
@@ -59,7 +52,6 @@ public class ReadMsgServer extends Thread{
                 if(message.getType().equals("shot")){
                     Shot shot = (Shot) message.getObject();
                     System.out.println(shot.getCharacter().getX() + "   " + shot.getSection().getA().getY());
-                    //connectionClient.server.getProcess().addShot(shot);
                 }
             }
         }

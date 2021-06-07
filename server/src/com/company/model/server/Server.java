@@ -12,16 +12,17 @@ public class Server{
     private ServerSocket serverSocket;
     private ArrayList<ConnectionClient> connections;
     private Game game;
-    //private GameProcess process;
-    public static boolean ConnectDataBase;
+    private DataBase db;
+    public boolean ConnectDataBase;
 
     public Server() {
         System.out.println("Server");
         try {
+            //novi48001
+            db = new DataBase("jdbc:postgresql://localhost:5432/Tvinky", "postgres", "123456789");
             connections = new ArrayList<>();
             serverSocket = new ServerSocket(1111);
             game = new Game();
-            //process = new GameProcess(game, this);
         }
         catch (Exception e) {
             System.out.println("Ошибка при создании Server: " + e.getMessage());
@@ -29,11 +30,6 @@ public class Server{
     }
 
     public void start(){
-        try {
-            DataBase.ConnectionWithDataBase();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         System.out.println("Server.run()");
         try {
             //process.start();
@@ -51,6 +47,10 @@ public class Server{
 
     public Game getGame() {
         return game;
+    }
+
+    public DataBase getDb() {
+        return db;
     }
 
     public ArrayList<ConnectionClient> getConnections() {
