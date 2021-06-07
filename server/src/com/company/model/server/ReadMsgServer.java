@@ -58,7 +58,7 @@ public class ReadMsgServer extends Thread{
                 }
                 if(message.getType().equals("shot")){
                     Shot shot = (Shot) message.getObject();
-                    System.out.println(shot.getSection().getA().getX() + "   " + shot.getSection().getA().getY());
+                    System.out.println(shot.getCharacter().getX() + "   " + shot.getSection().getA().getY());
                     //connectionClient.server.getProcess().addShot(shot);
                 }
             }
