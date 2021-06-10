@@ -1,9 +1,12 @@
 package com.company.model.math;
 
+import com.company.model.game.Character;
 import com.company.model.map.Wall;
 import com.company.model.map.WallPoint;
+import javafx.scene.layout.Border;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RayCasting {
     public static WallPoint rayCasting(Section section, ArrayList<Wall> walls){
@@ -29,5 +32,15 @@ public class RayCasting {
             if(wallPoints.get(i).getDistance() < min.getDistance()) min = wallPoints.get(i);
         }
         return min;
+    }
+
+    public boolean rayCastingShot(Section section, Character characters){
+        ArrayList<Wall> walls = new ArrayList<>();
+        walls.add(characters.getWallBehind());
+        walls.add(characters.getWallFront());
+        walls.add(characters.getWallLeft());
+        walls.add(characters.getWallRight());
+        rayCasting(section, walls);
+        return true;
     }
 }

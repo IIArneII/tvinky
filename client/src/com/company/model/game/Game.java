@@ -48,6 +48,7 @@ public class Game implements Serializable, Cloneable {
     }
 
     public void updateFrom(Game game){
+        map = game.map;
         HashMap<String, Character> temp = (HashMap<String, Character>)entityDynamicList.clone();
         temp.remove(character.getName());
         for(java.util.Map.Entry<String, Character> entry: game.entityDynamicList.entrySet()){
@@ -73,6 +74,10 @@ public class Game implements Serializable, Cloneable {
             temp.entityDynamicList.put(entry.getKey(), entry.getValue().copy());
         }
         return temp;
+    }
+
+    public void shotProcess(Shot shot){
+        System.out.println(shot.getClass().getName());
     }
 
     @Override

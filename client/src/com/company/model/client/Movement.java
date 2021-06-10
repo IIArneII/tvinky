@@ -10,10 +10,12 @@ import com.company.model.math.Angles;
 import com.company.model.map.Map;
 import com.company.model.game.Character;
 import com.company.model.math.Section;
+import com.company.model.game.Game;
 
 public class Movement {
     private Character character;
     private Map map;
+    private Game game;
     private Connection connection;
 
     private Listener backForthListener;
@@ -37,7 +39,7 @@ public class Movement {
     private boolean turnLeft;
     private boolean shot;
 
-    public Movement(Character character, Map map, Connection connection){
+    public Movement(Character character, Game game, Connection connection){
         back = false;
         forth = false;
         right = false;
@@ -47,7 +49,8 @@ public class Movement {
         shot = false;
 
         this.character = character;
-        this.map = map;
+        this.map = game.getMap();
+        this.game = game;
         this.connection = connection;
 
         backForthEvent = new Event();
@@ -148,7 +151,9 @@ public class Movement {
                     character.getX() + Math.cos(Angles.convert(character.getAng())),
                     character.getY() + Math.sin(Angles.convert(character.getAng())));
             map.addWall(new Wall(section, 1, 1, 1));
-            if(connection != null) connection.write(new Message("shot", new Shot(section, character.copy())));
+            Shot shot = new Shot(section, character.copy());
+            game.shotProcess(shot);
+            if(connection != null) connection.write(new Message("shot", shot));
         }
         catch (Exception e){
             System.out.println("Ошибка при отправке выстрела на сервер: " + e.getMessage());

@@ -75,6 +75,10 @@ public class Game implements Serializable, Cloneable {
         return temp;
     }
 
+    public void shotProcess(Shot shot){
+        System.out.println(shot.getClass().getName());
+    }
+
     @Override
     public Object clone() throws CloneNotSupportedException{
         return super.clone();

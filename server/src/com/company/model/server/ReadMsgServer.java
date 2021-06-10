@@ -3,6 +3,7 @@ package com.company.model.server;
 import com.company.model.Message;
 import com.company.model.game.Character;
 import com.company.model.game.Shot;
+import com.company.model.map.Wall;
 
 import java.io.ObjectInputStream;
 import java.net.Socket;
@@ -51,7 +52,15 @@ public class ReadMsgServer extends Thread{
                 }
                 if(message.getType().equals("shot")){
                     Shot shot = (Shot) message.getObject();
-                    System.out.println(shot.getCharacter().getX() + "   " + shot.getSection().getA().getY());
+                    new Thread(() -> {
+                        Wall wall = new Wall(shot.getSection(), 1, 1, 1);
+                        connectionClient.server.getGame().getMap().addWall(wall);
+                        try {
+                            Thread.currentThread().sleep(3000);
+                            connectionClient.server.getGame().getMap().getWalls().remove(wall);
+                        }
+                        catch (Exception e){}
+                    }).start();
                 }
             }
         }
