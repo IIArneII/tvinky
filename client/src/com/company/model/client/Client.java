@@ -27,7 +27,7 @@ public class Client {
         game = new Game(character);
         rendering = new Rendering(character, game);
         connection = new Connection(game, ip, port);
-        movement = new Movement(new Character(), game, connection);
+        movement = new Movement(character, game, connection);
     }
 
     public Game getGame() {

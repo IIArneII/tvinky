@@ -3,7 +3,7 @@ package com.company.model.server;
 import java.sql.*;
 
 public class DataBase {
-    Connection connection;
+    java.sql.Connection connection;
 
     public DataBase(String url, String user, String pass) throws Exception{
         Class.forName("org.postgresql.Driver");

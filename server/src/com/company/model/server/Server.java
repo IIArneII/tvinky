@@ -9,11 +9,10 @@ import java.util.ArrayList;
 
 public class Server{
 
-    private ServerSocket serverSocket;
-    private ArrayList<ConnectionClient> connections;
-    private Game game;
-    private DataBase db;
-    public boolean ConnectDataBase;
+    public static ArrayList<Connection> connections;
+    public static DataBase db;
+    public static Game game;
+    public static ServerSocket serverSocket;
 
     public Server() {
         System.out.println("Server");
@@ -32,12 +31,11 @@ public class Server{
     public void start(){
         System.out.println("Server.run()");
         try {
-            //process.start();
             while (true) {
                 Socket socket = serverSocket.accept();
-                System.out.println("Подключение клиента");
-                connections.add(new ConnectionClient(this, socket));
-                System.out.println(connections.size());
+                System.out.println("Подключение клиента: " + socket.getInetAddress().toString());
+                connections.add(new Connection(socket));
+                System.out.println("Подключений: " + connections.size());
             }
         }
         catch (Exception e){
@@ -45,32 +43,15 @@ public class Server{
         }
     }
 
-    public Game getGame() {
-        return game;
-    }
-
-    public DataBase getDb() {
-        return db;
-    }
-
-    public ArrayList<ConnectionClient> getConnections() {
-        return connections;
-    }
-
     synchronized public void writeMsgAll(Message message){
         for(int i = 0; i < connections.size(); i++){
             try {
-                connections.get(i).writeMsgServer.write(message);
+                connections.get(i).write(message);
             }
             catch (Exception e){
                 System.out.println("Ошибка при отправке сообщения всем клиентам: " + e.getMessage());
             }
         }
     }
-
-
-    /*public GameProcess getProcess() {
-        return process;
-    }*/
 }
 
