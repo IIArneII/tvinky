@@ -1,5 +1,6 @@
 package com.company.model.map;
 
+import com.company.model.math.Point;
 import com.company.model.math.Section;
 
 import java.io.Serializable;
@@ -42,6 +43,8 @@ public class Wall implements Serializable {
     public void setTextureWidth(double textureWidth) {
         this.textureWidth = textureWidth;
     }
+
+    public void setB(Point b){this.section.setB(b);}
 
     public Section getSection() {
         return section;

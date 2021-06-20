@@ -14,7 +14,8 @@ public class Map implements Serializable, Cloneable {
 
     public int isWall(double x, double y){
         double v1 = (x - 5) * (x - 5) + (y - 5) * (y - 5);
-        if(v1 > 500) return 1;
+
+        if(v1 > 100) return 1;
         return 0;
     }
 

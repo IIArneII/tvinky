@@ -5,10 +5,11 @@ import com.company.model.game.Shot;
 import com.company.model.listeners.Event;
 import com.company.model.listeners.Listener;
 import com.company.model.listeners.Realize;
-import com.company.model.map.Wall;
+import com.company.model.map.*;
 import com.company.model.math.Angles;
-import com.company.model.map.Map;
 import com.company.model.game.Character;
+import com.company.model.math.Point;
+import com.company.model.math.RayCasting;
 import com.company.model.math.Section;
 import com.company.model.game.Game;
 
@@ -147,12 +148,22 @@ public class Movement {
 
     public void shot(){
         try {
-            Section section = new Section(character.getX(), character.getY(),
-                    character.getX() + Math.cos(Angles.convert(character.getAng())),
+            Section section = new Section(character.getX(), character.getY(), character.getX() + Math.cos(Angles.convert(character.getAng())),
                     character.getY() + Math.sin(Angles.convert(character.getAng())));
-            //map.addWall(new Wall(section, 1, 1, 1));
-            Shot shot = new Shot(section, character.copy());
-            game.shotProcess(shot);
+            WallPoint point = RayCasting.rayCasting(section, map.getWalls());
+            System.out.println(point.getDistance());
+
+            if(point.getClass() == WallPoint.class)
+            {
+
+            }
+            else if(point.getClass() == WallPointCharacter.class){
+
+                Character character = ((WallPointCharacter) point).getCharacter();
+                character.setHealth(character.getHealth() - 20);
+                System.out.println(character.getHealth());
+            }
+
             if(connection != null) connection.write(new Message("shot", shot));
         }
         catch (Exception e){
