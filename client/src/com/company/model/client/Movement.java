@@ -150,7 +150,7 @@ public class Movement {
             Section section = new Section(character.getX(), character.getY(),
                     character.getX() + Math.cos(Angles.convert(character.getAng())),
                     character.getY() + Math.sin(Angles.convert(character.getAng())));
-            map.addWall(new Wall(section, 1, 1, 1));
+            //map.addWall(new Wall(section, 1, 1, 1));
             Shot shot = new Shot(section, character.copy());
             game.shotProcess(shot);
             if(connection != null) connection.write(new Message("shot", shot));

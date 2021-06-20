@@ -108,6 +108,7 @@ public class Character implements Serializable, Cloneable {
     }
 
     public void updateFrom(Character character){
+        System.out.println(character.getName());
         setX(character.getX());
         setY(character.getY());
         this.ang = (character.ang);

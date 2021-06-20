@@ -69,19 +69,7 @@ public class Connection {
                 }
                 if(message.getType().equals("shot")){
                     Shot shot = (Shot) message.getObject();
-                    new Thread(() -> {
-                        Wall wall = new Wall(shot.getSection(), 1, 1, 1);
-                        Server.game.getMap().addWall(wall);
-                        try {
-                            Thread.currentThread().sleep(3000);
-                            Server.game.getMap().getWalls().remove(wall);
-                            Character temp = Server.game.getEntityDynamicList().get(PlayerName).copy();
-                            temp.setX(0);
-                            temp.setY(0);
-                            write(new Message("changeXY", temp));
-                        }
-                        catch (Exception e){}
-                    }).start();
+                    System.out.println("shot");
                 }
             }
         }
