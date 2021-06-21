@@ -1,6 +1,9 @@
 package com.company.model.game;
 
 import com.company.model.map.Map;
+import com.company.model.map.WallPoint;
+import com.company.model.map.WallPointCharacter;
+import com.company.model.math.RayCasting;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -47,6 +50,10 @@ public class Game implements Serializable, Cloneable {
         }
     }
 
+    public void updateCharacter(Character character){
+        entityDynamicList.get(character.getName()).updateFrom(character);
+    }
+
     public void updateFrom(Game game){
         HashMap<String, Character> temp = (HashMap<String, Character>)entityDynamicList.clone();
         temp.remove(character.getName());
@@ -73,6 +80,27 @@ public class Game implements Serializable, Cloneable {
             temp.entityDynamicList.put(entry.getKey(), entry.getValue().copy());
         }
         return temp;
+    }
+
+    public Character shotProcessing(Shot shot){
+        WallPoint point = RayCasting.rayCasting(shot.getSection(), map.getWalls());
+        Character character = null;
+        if(point.getClass() == WallPointCharacter.class)
+        {
+            character = ((WallPointCharacter) point).getCharacter();
+            character.setHealth(character.getHealth() - 20);
+            System.out.println(character.getHealth());
+            System.out.println(character.getName());
+            if(character.getHealth() <= 0){
+                character.setHealth(100);
+                character.setX(0);
+                character.setY(0);
+            }
+        }
+        else{
+
+        }
+        return character;
     }
 
     @Override

@@ -1,20 +1,21 @@
 package com.company.model.map;
 
-public class WallPoint {
-    protected double distance;
-    protected int textureID;
-    protected double textureK;
+import com.company.model.game.Character;
 
-    public WallPoint(){
-        distance = 0;
-        textureID = 0;
-        textureK = 0;
+public class WallPointCharacter extends WallPoint{
+    private Character character;
+
+    public WallPointCharacter(){
+        this.distance = 0;
+        this.textureID = 0;
+        this.textureK = 0;
     }
 
-    public WallPoint(double distance, int textureID, double textureK){
+    public WallPointCharacter(double distance, int textureID, double textureK, Character character){
         this.distance = distance;
         this.textureID = textureID;
         this.textureK = textureK;
+        this.character = character;
     }
 
     public void setTextureID(int textureID) {
@@ -40,4 +41,6 @@ public class WallPoint {
     public void setDistance(double distance) {
         this.distance = distance;
     }
+
+    public Character getCharacter() { return character; }
 }

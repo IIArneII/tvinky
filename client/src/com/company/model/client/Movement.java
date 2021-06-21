@@ -148,23 +148,10 @@ public class Movement {
 
     public void shot(){
         try {
-            Section section = new Section(character.getX(), character.getY(), character.getX() + Math.cos(Angles.convert(character.getAng())),
+            Section section = new Section(character.getX(), character.getY(),
+                    character.getX() + Math.cos(Angles.convert(character.getAng())),
                     character.getY() + Math.sin(Angles.convert(character.getAng())));
-            WallPoint point = RayCasting.rayCasting(section, map.getWalls());
-            System.out.println(point.getDistance());
-
-            if(point.getClass() == WallPoint.class)
-            {
-
-            }
-            else if(point.getClass() == WallPointCharacter.class){
-
-                Character character = ((WallPointCharacter) point).getCharacter();
-                character.setHealth(character.getHealth() - 20);
-                System.out.println(character.getHealth());
-            }
-
-            if(connection != null) connection.write(new Message("shot", shot));
+            if(connection != null) connection.write(new Message("shot", new Shot(section, character)));
         }
         catch (Exception e){
             System.out.println("Ошибка при отправке выстрела на сервер: " + e.getMessage());

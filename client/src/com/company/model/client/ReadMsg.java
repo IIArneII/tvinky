@@ -41,6 +41,7 @@ public class ReadMsg extends Thread{
                     game.updateFrom(gameTemp);
                 }
                 if(message.getType().equals("changeXY")){
+                    System.out.println("changeXY");
                     Character character = (Character)message.getObject();
                     game.getEntityDynamicList().get(character.getName()).updateFrom(character);
                 }

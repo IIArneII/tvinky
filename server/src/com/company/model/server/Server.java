@@ -43,10 +43,21 @@ public class Server{
         }
     }
 
-    synchronized public void writeMsgAll(Message message){
+    synchronized public static void writeMsgAll(Message message){
         for(int i = 0; i < connections.size(); i++){
             try {
                 connections.get(i).write(message);
+            }
+            catch (Exception e){
+                System.out.println("Ошибка при отправке сообщения всем клиентам: " + e.getMessage());
+            }
+        }
+    }
+
+    synchronized public static void writeMsgOne(Message  message, String name){
+        for(int i = 0; i < connections.size(); i++){
+            try {
+                if(connections.get(i).getPlayerName().equals(name)) connections.get(i).write(message);
             }
             catch (Exception e){
                 System.out.println("Ошибка при отправке сообщения всем клиентам: " + e.getMessage());

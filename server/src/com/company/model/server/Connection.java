@@ -8,16 +8,17 @@ import com.company.model.map.Wall;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.HashMap;
 
 public class Connection {
     private Socket socket;
     private ObjectInputStream in;
     private ObjectOutputStream out;
-    private String PlayerName;
+    private String playerName;
 
     public Connection(Socket socket) {
         try {
-            PlayerName = "";
+            playerName = "";
             this.socket = socket;
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
@@ -50,8 +51,9 @@ public class Connection {
             }
             if(message.getType().equals("character")){
                 character = (Character) message.getObject();
-                Server.game.getEntityDynamicList().put(character.getName(), character);
-                PlayerName = character.getName();
+                Server.game.addCharacter(character);
+                //Server.game.getEntityDynamicList().put(character.getName(), character);
+                playerName = character.getName();
                 try {
                     Server.db.DataInput(character.getName());
                 }
@@ -65,11 +67,14 @@ public class Connection {
                 message = (Message) in.readObject();
                 if(message.getType().equals("character")){
                     character = (Character) message.getObject();
-                    Server.game.getEntityDynamicList().put(character.getName(), character);
+                    //Server.game.getEntityDynamicList().put(character.getName(), character);
+                    Server.game.updateCharacter(character);
                 }
                 if(message.getType().equals("shot")){
                     Shot shot = (Shot) message.getObject();
-                    System.out.println("shot");
+                    character = Server.game.shotProcessing(shot);
+
+                    if(character != null) Server.writeMsgOne(new Message("changeXY", character.copy()), playerName);
                 }
             }
         }
@@ -112,8 +117,12 @@ public class Connection {
     }
 
     public void disconnection(){
-        Server.game.getEntityDynamicList().remove(PlayerName);
+        Server.game.getEntityDynamicList().remove(playerName);
         Server.connections.remove(this);
         System.out.println("Разрыв соединения с клиентом");
+    }
+
+    public String getPlayerName() {
+        return playerName;
     }
 }
