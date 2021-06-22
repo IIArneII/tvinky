@@ -87,13 +87,9 @@ public class Game implements Serializable, Cloneable {
         WallPoint point = RayCasting.rayCasting(shot.getSection(), map.getWalls());
         Character character = null;
 
-        System.out.println(map.getWalls().get(1).getSection().getA().getX());
-        System.out.println(point.getDistance());
-        System.out.println(point.getClass().getName());
-
         if(point.getClass() == WallPointCharacter.class)
         {
-            character = ((WallPointCharacter) point).getCharacter();
+            character = ((WallPointCharacter) point).getCharacter().copy();
             character.setHealth(character.getHealth() - 20);
             System.out.println(character.getHealth());
             System.out.println(character.getName());

@@ -8,6 +8,6 @@ public class ClientInfo {
     public ClientInfo(String ip, String name){
         this.ip = ip;
         this.name = name;
-        timeOut = 10000;
+        timeOut = 0;
     }
 }

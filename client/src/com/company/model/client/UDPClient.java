@@ -13,22 +13,29 @@ public class UDPClient extends Thread{
     DatagramSocket socket;
     int port;
     Game game;
+    boolean launched;
 
     public UDPClient(Game game, String ip, int port) throws Exception{
         address = InetAddress.getByName(ip);
         socket = new DatagramSocket();
         this.port = port;
         this.game = game;
+        launched = false;
     }
 
     @Override
     public void run(){
+        launched = true;
         try {
-            while (true){
-                String msg = getInfo().toJSONString();
-                byte[] buffer = msg.getBytes(StandardCharsets.UTF_8);
-                DatagramPacket request = new DatagramPacket(buffer, buffer.length, address, port);
-                socket.send(request);
+            String msg = getInfo().toJSONString();
+            byte[] buffer = msg.getBytes(StandardCharsets.UTF_8);
+            DatagramPacket request = new DatagramPacket(buffer, buffer.length, address, port);
+            socket.send(request);
+            this.sleep(100);
+
+            while (launched){
+                String msg1 = getInfo().toJSONString();
+                write(msg1);
                 this.sleep(1);
             }
         }
@@ -37,10 +44,15 @@ public class UDPClient extends Thread{
         }
     }
 
-    private JSONObject getInfo(){
+    public void write(String msg) throws Exception{
+        byte[] buffer = msg.getBytes(StandardCharsets.UTF_8);
+        DatagramPacket request = new DatagramPacket(buffer, buffer.length, address, port);
+        socket.send(request);
+    }
+
+    public JSONObject getInfo(){
         JSONObject json = new JSONObject();
         json.put("name", game.getCharacter().getName());
-        //json.put("ip", );
         json.put("type", "characterInfo");
         JSONObject game = new JSONObject();
         JSONObject characters = new JSONObject();

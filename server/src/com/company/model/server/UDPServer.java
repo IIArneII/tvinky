@@ -11,7 +11,12 @@ public class UDPServer {
     int port;
     public static DatagramSocket serverSocket;
     public static HashMap<String, ClientInfo> clients;
-    UDPServerWrite serverWrite;
+    public static UDPServerWrite serverWrite;
+    public static TimeOut timeOut;
+
+    synchronized public static HashMap<String, ClientInfo> getClients(){
+        return clients;
+    }
 
     public UDPServer(int port) throws Exception{
         this.port = port;
@@ -19,11 +24,13 @@ public class UDPServer {
         clients = new HashMap<>();
         game = new Game();
         serverWrite = new UDPServerWrite(port);
+        timeOut = new TimeOut();
     }
 
     public void run(){
         System.out.println("Сервер запущен");
         serverWrite.start();
+        timeOut.start();
         while (true){
             try {
                 byte[] buffer = new byte[1000 * 32];

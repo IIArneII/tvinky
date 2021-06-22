@@ -12,11 +12,13 @@ import java.nio.charset.StandardCharsets;
 public class UDPServerWrite extends Thread{
     DatagramSocket socket;
     int port;
+    int clientPort;
 
     public UDPServerWrite(int port) throws Exception{
         System.out.println("UDPServerWrite");
         socket = new DatagramSocket();
         this.port = port;
+        clientPort = 1112;
     }
 
     @Override
@@ -26,9 +28,7 @@ public class UDPServerWrite extends Thread{
             while (true){
                 for(java.util.Map.Entry<String, ClientInfo> entry: UDPServer.clients.entrySet()){
                     String msg = getInfo().toJSONString();
-                    byte[] buffer = msg.getBytes(StandardCharsets.UTF_8);
-                    DatagramPacket request = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(entry.getValue().ip), 1112);
-                    socket.send(request);
+                    write(entry.getValue(), msg);
                 }
                 this.sleep(1);
             }
@@ -36,6 +36,12 @@ public class UDPServerWrite extends Thread{
         catch (Exception e){
             System.out.println("Ошибка: " + e.getMessage());
         }
+    }
+
+    public void write(ClientInfo client, String msg) throws Exception{
+        byte[] buffer = msg.getBytes(StandardCharsets.UTF_8);
+        DatagramPacket request = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(client.ip), clientPort);
+        socket.send(request);
     }
 
     private JSONObject getInfo(){

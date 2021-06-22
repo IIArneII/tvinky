@@ -12,6 +12,7 @@ import com.company.model.math.Point;
 import com.company.model.math.RayCasting;
 import com.company.model.math.Section;
 import com.company.model.game.Game;
+import org.json.simple.JSONObject;
 
 public class Movement {
     private Character character;
@@ -148,10 +149,14 @@ public class Movement {
 
     public void shot(){
         try {
-            Section section = new Section(character.getX(), character.getY(),
-                    character.getX() + Math.cos(Angles.convert(character.getAng())),
-                    character.getY() + Math.sin(Angles.convert(character.getAng())));
-            if(connection != null) connection.write(new Message("shot", new Shot(section, character)));
+            System.out.println("Выстрел");
+//            Section section = new Section(character.getX(), character.getY(),
+//                    character.getX() + Math.cos(Angles.convert(character.getAng())),
+//                    character.getY() + Math.sin(Angles.convert(character.getAng())));
+//            if(connection != null) connection.write(new Message("shot", new Shot(section, character)));
+            JSONObject json = Client.udpClient.getInfo();
+            json.put("type", "shot");
+            Client.udpClient.write(json.toJSONString());
         }
         catch (Exception e){
             System.out.println("Ошибка при отправке выстрела на сервер: " + e.getMessage());

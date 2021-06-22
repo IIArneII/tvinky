@@ -11,8 +11,9 @@ public class Client {
     private Rendering rendering;
     private Connection connection;
     private boolean isConnection;
-    private UDPClient udpClient;
+    public static UDPClient udpClient;
     private UDPClientRead udpClientRead;
+    public static TimeOut timeOut;
 
     public Client(){
         isConnection = false;
@@ -21,6 +22,7 @@ public class Client {
         rendering = new Rendering(character, game);
         connection = null;
         movement = new Movement(character, game, connection);
+        timeOut = new TimeOut(this);
     }
 
     public Client(String name, String ip, int port){
@@ -37,6 +39,7 @@ public class Client {
             System.out.println("Ошибка: " + e.getMessage());
         }
         movement = new Movement(character, game, connection);
+        timeOut = new TimeOut(this);
     }
 
     public Game getGame() {
@@ -67,8 +70,9 @@ public class Client {
         movement.start();
         rendering.start();
         if(isConnection){
-            udpClient.start(); //connection.start();
+            udpClient.start();
             udpClientRead.start();
+            timeOut.start();
         }
     }
 
@@ -80,6 +84,11 @@ public class Client {
     public void stop(){
         movement.stop();
         rendering.setLaunched(false);
-        if(isConnection) connection.stop();
+        timeOut.launched = false;
+        if(isConnection){
+            connection.stop();
+            udpClient.launched = false;
+            udpClientRead.launched = false;
+        }
     }
 }
