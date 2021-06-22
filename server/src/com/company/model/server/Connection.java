@@ -50,12 +50,11 @@ public class Connection {
                 write(new Message("check", ""));
             }
             if(message.getType().equals("character")){
-                character = (Character) message.getObject();
-                Server.game.addCharacter(character);
-                //Server.game.getEntityDynamicList().put(character.getName(), character);
-                playerName = character.getName();
+                Character c = (Character) message.getObject();
+                Server.game.addCharacter(c);
+                playerName = c.getName();
                 try {
-                    Server.db.DataInput(character.getName());
+                    Server.db.DataInput(c.getName());
                 }
                 catch (Exception e){
                     System.out.println("Ошибка при запросе к базе данных: " + e.getMessage());
@@ -67,14 +66,13 @@ public class Connection {
                 message = (Message) in.readObject();
                 if(message.getType().equals("character")){
                     character = (Character) message.getObject();
-                    //Server.game.getEntityDynamicList().put(character.getName(), character);
                     Server.game.updateCharacter(character);
                 }
                 if(message.getType().equals("shot")){
                     Shot shot = (Shot) message.getObject();
                     character = Server.game.shotProcessing(shot);
 
-                    if(character != null) Server.writeMsgOne(new Message("changeXY", character.copy()), playerName);
+                    if(character != null) Server.writeMsgOne(new Message("changeXY", character.copy()), character.getName());
                 }
             }
         }

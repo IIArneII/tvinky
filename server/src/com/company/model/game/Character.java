@@ -40,6 +40,17 @@ public class Character implements Serializable, Cloneable {
         wallRight = new WallCharacter(this, Angles.Ang225, Angles.Ang315, 2);
     }
 
+    public Character(String name, double x, double y, double ang, double health){
+        xy = new Point(x, y);
+        this.ang = ang;
+        this.health = health;
+        this.name = name;
+        wallFront = new WallCharacter(this, -Angles.Ang45, Angles.Ang45, 0);
+        wallLeft = new WallCharacter(this, Angles.Ang45, Angles.Ang135, 2);
+        wallBehind = new WallCharacter(this, Angles.Ang135, Angles.Ang225, 2);
+        wallRight = new WallCharacter(this, Angles.Ang225, Angles.Ang315, 2);
+    }
+
     public Point getXY() {
         return xy;
     }

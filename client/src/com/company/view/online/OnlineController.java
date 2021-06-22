@@ -97,13 +97,13 @@ public class OnlineController{
                 @Override
                 public void run(){
                     try {
-                        Socket socket = new Socket(ipField.getText(), 1111);
-                        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-                        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-                        out.writeObject(new Message("check", ""));
-                        System.out.println("Проверка");
-                        in.readObject();
-                        socket.close();
+//                        Socket socket = new Socket(ipField.getText(), 1111);
+//                        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+//                        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+//                        out.writeObject(new Message("check", ""));
+//                        System.out.println("Проверка");
+//                        in.readObject();
+                        //socket.close();
                         Platform.runLater(new Runnable() {
                             public void run() {
                                 try {

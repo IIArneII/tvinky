@@ -11,6 +11,8 @@ public class Client {
     private Rendering rendering;
     private Connection connection;
     private boolean isConnection;
+    private UDPClient udpClient;
+    private UDPClientRead udpClientRead;
 
     public Client(){
         isConnection = false;
@@ -26,7 +28,14 @@ public class Client {
         character = new Character(name);
         game = new Game(character);
         rendering = new Rendering(character, game);
-        connection = new Connection(game, ip, port);
+        //connection = new Connection(game, ip, port);
+        try {
+            udpClient = new UDPClient(game, ip, port);
+            udpClientRead = new UDPClientRead(game, ip, port);
+        }
+        catch (Exception e){
+            System.out.println("Ошибка: " + e.getMessage());
+        }
         movement = new Movement(character, game, connection);
     }
 
@@ -57,7 +66,10 @@ public class Client {
     public void start(){
         movement.start();
         rendering.start();
-        if(isConnection) connection.start();
+        if(isConnection){
+            udpClient.start(); //connection.start();
+            udpClientRead.start();
+        }
     }
 
     public void pause(boolean pause){
