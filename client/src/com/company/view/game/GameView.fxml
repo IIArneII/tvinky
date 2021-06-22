@@ -26,9 +26,10 @@
                 fx:id="menuContinueBtn" onAction="#clickMenuContinueBtn"/>
         <Button text="Выход" GridPane.rowIndex="2" GridPane.columnIndex="1" maxWidth="Infinity" visible="false"
                 fx:id="menuExitBtn" onAction="#clickMenuExitBtn"/>
-        <Pane fx:id="pane">
+        <Pane fx:id="pane" onMouseMoved="#mouseMove" onMouseEntered="#mouseEnter">
             <Button fx:id="btn" onKeyPressed="#btnOnKeyPressed" focusTraversable="true" onKeyReleased="#btnOnKeyReleased"
                     style="-fx-background-color: #9990;"/>
+
         </Pane>
     </children>
 </GridPane>
