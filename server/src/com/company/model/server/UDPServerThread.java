@@ -19,7 +19,8 @@ public class UDPServerThread extends Thread{
         JSONObject json = (JSONObject) JSONValue.parse(msg);
         if(!UDPServer.clients.containsKey((String) json.get("name"))){
             UDPServer.clients.put((String) json.get("name"),
-                    new ClientInfo((String) json.get("ip"), (String) json.get("name")));
+                    new ClientInfo(packet.getAddress().toString().substring(1), (String) json.get("name")));
+            System.out.println("Новый клиент: " + (String) json.get("ip"));
             UDPServer.game.addCharacter(new Character((String) json.get("name")));
         }
         else{

@@ -14,6 +14,7 @@ public class UDPServerWrite extends Thread{
     int port;
 
     public UDPServerWrite(int port) throws Exception{
+        System.out.println("UDPServerWrite");
         socket = new DatagramSocket();
         this.port = port;
     }
@@ -21,14 +22,15 @@ public class UDPServerWrite extends Thread{
     @Override
     public void run() {
         try {
+            System.out.println("UDPServerWrite start");
             while (true){
                 for(java.util.Map.Entry<String, ClientInfo> entry: UDPServer.clients.entrySet()){
                     String msg = getInfo().toJSONString();
                     byte[] buffer = msg.getBytes(StandardCharsets.UTF_8);
-                    DatagramPacket request = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(entry.getValue().ip), port);
+                    DatagramPacket request = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(entry.getValue().ip), 1112);
                     socket.send(request);
                 }
-                this.sleep(1000);
+                this.sleep(1);
             }
         }
         catch (Exception e){

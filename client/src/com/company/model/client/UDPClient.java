@@ -29,7 +29,7 @@ public class UDPClient extends Thread{
                 byte[] buffer = msg.getBytes(StandardCharsets.UTF_8);
                 DatagramPacket request = new DatagramPacket(buffer, buffer.length, address, port);
                 socket.send(request);
-                this.sleep(1000);
+                this.sleep(1);
             }
         }
         catch (Exception e){
@@ -40,7 +40,7 @@ public class UDPClient extends Thread{
     private JSONObject getInfo(){
         JSONObject json = new JSONObject();
         json.put("name", game.getCharacter().getName());
-        json.put("ip", address.getHostAddress());
+        //json.put("ip", );
         json.put("type", "characterInfo");
         JSONObject game = new JSONObject();
         JSONObject characters = new JSONObject();
