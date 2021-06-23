@@ -81,6 +81,15 @@ public class Adapter {
         //client.getMovement().setTurnRightLeftEvent(false);
     }
 
+    public void mouseMoving(double deltaX){
+        client.getMovement().setMouseMovement(true);
+        client.getMovement().setMouseMovementEvent(true, deltaX);
+    }
+
+    public void mouseMovingStop(){
+        client.getMovement().setMouseMovement(false);
+    }
+
     public void pressLeft(){
         client.getMovement().setTurnLeft(true);
         client.getMovement().setTurnRightLeftEvent(true);
@@ -99,6 +108,16 @@ public class Adapter {
     public void pressShotReleased(){
         client.getMovement().setShot(false);
         client.getMovement().setShotEvent(false);
+    }
+
+    public void pressShift(){
+        client.getMovement().setShiftEvent(true);
+        client.getMovement().setShift(true);
+    }
+
+    public void pressShiftReleased(){
+        client.getMovement().setShiftEvent(false);
+        client.getMovement().setShift(false);
     }
 
     public void setName(String name){

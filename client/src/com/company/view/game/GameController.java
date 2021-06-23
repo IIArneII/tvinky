@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -31,6 +32,10 @@ public class GameController{
     Adapter adapter;
 
     private boolean renderingLaunched;
+
+    private double xStart;
+
+    private double xEnd;
 
     private boolean renderingOnPause;
 
@@ -73,6 +78,8 @@ public class GameController{
         }
         catch (Exception e){}
 
+        xStart = 0;
+        xEnd = 0;
         final int count = 800;
         lineSky = new Line[count];
         textureWall = new ImageView[count];
@@ -183,6 +190,26 @@ public class GameController{
     }
 
     @FXML
+    void mouseMove(MouseEvent mouseEvent) {
+        xEnd = mouseEvent.getSceneX();
+        adapter.mouseMoving(xStart - xEnd);
+        try {
+            Thread.sleep(1);
+        }
+        catch (Exception e){
+
+        }
+        adapter.mouseMovingStop();
+        xStart = xEnd;
+    }
+
+    @FXML
+    void mouseEnter(){
+        xStart = xEnd;
+    }
+
+
+    @FXML
     void btnOnKeyPressed(KeyEvent event){
         if(event.getCode() == KeyCode.W){
             adapter.pressW();
@@ -194,11 +221,9 @@ public class GameController{
         if(event.getCode() == KeyCode.A){
             adapter.pressA();
         }
-
         if(event.getCode() == KeyCode.D){
             adapter.pressD();
         }
-
         if(event.getCode() == KeyCode.RIGHT){
             adapter.pressRight();
         }
@@ -207,6 +232,9 @@ public class GameController{
         }
         if(event.getCode() == KeyCode.SPACE){
             adapter.pressShot();
+        }
+        if(event.getCode() == KeyCode.SHIFT){
+            adapter.pressShift();
         }
         if(event.getCode() == KeyCode.ESCAPE){
             renderingOnPause = true;
@@ -242,6 +270,9 @@ public class GameController{
         }
         if(event.getCode() == KeyCode.SPACE){
             adapter.pressShotReleased();
+        }
+        if(event.getCode() == KeyCode.SHIFT){
+            adapter.pressShiftReleased();
         }
     }
 

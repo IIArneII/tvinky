@@ -4,6 +4,7 @@ import com.company.model.Message;
 import com.company.model.game.Shot;
 import com.company.model.listeners.Event;
 import com.company.model.listeners.Listener;
+import com.company.model.listeners.MouseEvent;
 import com.company.model.listeners.Realize;
 import com.company.model.map.*;
 import com.company.model.math.Angles;
@@ -24,11 +25,15 @@ public class Movement {
     private Listener rightLeftListiner;
     private Listener turnRightLeftListiner;
     private Listener shotListener;
+    private Listener mouseMovementListener;
+    private Listener shiftListener;
 
     private Event backForthEvent;
     private Event rightLeftEvent;
     private Event turnRightLeftEvent;
     private Event shotEvent;
+    private Event mouseMovementEvent;
+    private Event shiftEvent;
 
     private boolean launched;
     private boolean pause;
@@ -39,6 +44,8 @@ public class Movement {
     private boolean left;
     private boolean turnRight;
     private boolean turnLeft;
+    private boolean mouseMovement;
+    private boolean shift;
     private boolean shot;
 
     public Movement(Character character, Game game, Connection connection){
@@ -48,6 +55,8 @@ public class Movement {
         left = false;
         turnLeft = false;
         turnRight = false;
+        mouseMovement = false;
+        shift = false;
         shot = false;
 
         this.character = character;
@@ -58,12 +67,21 @@ public class Movement {
         backForthEvent = new Event();
         rightLeftEvent = new Event();
         turnRightLeftEvent = new Event();
+        mouseMovementEvent = new MouseEvent();
+        shiftEvent = new Event();
         shotEvent = new Event();
 
         launched = false;
         pause = false;
 
         this.backForthListener = new Listener(backForthEvent, new Realize() {
+            @Override
+            public void make() {
+                backForth();
+            }
+        });
+
+        this.shiftListener = new Listener(shiftEvent, new Realize() {
             @Override
             public void make() {
                 backForth();
@@ -84,6 +102,11 @@ public class Movement {
             }
         });
 
+        this.mouseMovementListener = new Listener(mouseMovementEvent, new Realize() {
+            @Override
+            public void make() { turnWithMouse(); }
+        });
+
         this.shotListener = new Listener(shotEvent, new Realize() {
             @Override
             public void make() {
@@ -93,7 +116,18 @@ public class Movement {
     }
 
     public void backForth(){
-        if(forth){
+
+        if(forth && (left || right)){
+            double posCharacterXPrev = character.getX();
+            double posCharacterYPrev = character.getY();
+            character.setX(character.getX() + Math.cos(Angles.convert(character.getAng())) /380);
+            character.setY(character.getY() + Math.sin(Angles.convert(character.getAng())) /380);
+            if(map.isWall(character.getX(), character.getY()) > 0){
+                character.setX(posCharacterXPrev);
+                character.setY(posCharacterYPrev);
+            }
+        }
+        else if(forth){
             double posCharacterXPrev = character.getX();
             double posCharacterYPrev = character.getY();
             character.setX(character.getX() + Math.cos(Angles.convert(character.getAng())) /360);
@@ -103,7 +137,29 @@ public class Movement {
                 character.setY(posCharacterYPrev);
             }
         }
-        if(back){
+
+        if(forth && shift){
+            double posCharacterXPrev = character.getX();
+            double posCharacterYPrev = character.getY();
+            character.setX(character.getX() + 3 * Math.cos(Angles.convert(character.getAng())) /360);
+            character.setY(character.getY() + 3 * Math.sin(Angles.convert(character.getAng())) /360);
+            if(map.isWall(character.getX(), character.getY()) > 0){
+                character.setX(posCharacterXPrev);
+                character.setY(posCharacterYPrev);
+            }
+        }
+
+        if(back && (left || right)){
+            double posCharacterXPrev = character.getX();
+            double posCharacterYPrev = character.getY();
+            character.setX(character.getX() - Math.cos(Angles.convert(character.getAng())) /380);
+            character.setY(character.getY() - Math.sin(Angles.convert(character.getAng())) /380);
+            if(map.isWall(character.getX(), character.getY()) > 0){
+                character.setX(posCharacterXPrev);
+                character.setY(posCharacterYPrev);
+            }
+        }
+        else if(back){
             double posCharacterXPrev = character.getX();
             double posCharacterYPrev = character.getY();
             character.setX(character.getX() - Math.cos(Angles.convert(character.getAng())) /360);
@@ -113,10 +169,21 @@ public class Movement {
                 character.setY(posCharacterYPrev);
             }
         }
+
     }
 
     public void rightLeft(){
-        if(left){
+        if(left && (back || forth)){
+            double posCharacterXPrev = character.getX();
+            double posCharacterYPrev = character.getY();
+            character.setX(character.getX() - Math.cos(Angles.convert(character.getAng() - Angles.Ang90)) /380);
+            character.setY(character.getY() - Math.sin(Angles.convert(character.getAng() - Angles.Ang90)) /380);
+            if(map.isWall(character.getX(), character.getY()) > 0){
+                character.setX(posCharacterXPrev);
+                character.setY(posCharacterYPrev);
+            }
+        }
+        else if(left){
             double posCharacterXPrev = character.getX();
             double posCharacterYPrev = character.getY();
             character.setX(character.getX() - Math.cos(Angles.convert(character.getAng() - Angles.Ang90)) /360);
@@ -126,7 +193,18 @@ public class Movement {
                 character.setY(posCharacterYPrev);
             }
         }
-        if(right){
+
+        if(right && (back || forth)){
+            double posCharacterXPrev = character.getX();
+            double posCharacterYPrev = character.getY();
+            character.setX(character.getX() + Math.cos(Angles.convert(character.getAng()  - Angles.Ang90)) /380);
+            character.setY(character.getY() + Math.sin(Angles.convert(character.getAng() - Angles.Ang90)) /380);
+            if(map.isWall(character.getX(), character.getY()) > 0){
+                character.setX(posCharacterXPrev);
+                character.setY(posCharacterYPrev);
+            }
+        }
+        else if(right){
             double posCharacterXPrev = character.getX();
             double posCharacterYPrev = character.getY();
             character.setX(character.getX() + Math.cos(Angles.convert(character.getAng()  - Angles.Ang90)) /360);
@@ -145,6 +223,14 @@ public class Movement {
         if(turnRight){
             character.setAng(character.getAng() - 0.3 * (Angles.Ang6/8));
         }
+    }
+
+    public void turnWithMouse(){
+        if(mouseMovement){
+           double deltaX = ((MouseEvent) mouseMovementEvent).getDeltaX();
+            character.setAng(character.getAng() + deltaX * 0.79 * (Angles.Ang6/10));
+        }
+
     }
 
     public void shot(){
@@ -179,6 +265,7 @@ public class Movement {
 
     public void stop(){
         this.launched = false;
+        mouseMovementListener.setLaunched(false);
         backForthListener.setLaunched(false);
         rightLeftListiner.setLaunched(false);
         turnRightLeftListiner.setLaunched(false);
@@ -191,6 +278,7 @@ public class Movement {
 
     public void setPause(boolean pause) {
         this.pause = pause;
+        mouseMovementListener.setPause(pause);
         backForthListener.setPause(pause);
         rightLeftListiner.setPause(pause);
         turnRightLeftListiner.setPause(pause);
@@ -201,12 +289,21 @@ public class Movement {
         backForthEvent.setEvent(event);
     }
 
+    public void setShiftEvent(boolean event){
+        shiftEvent.setEvent(event);
+    }
+
     public void setRightLeftEvent(boolean event){
         rightLeftEvent.setEvent(event);
     }
 
     public void setTurnRightLeftEvent(boolean event){
         turnRightLeftEvent.setEvent(event);
+    }
+
+    public void setMouseMovementEvent(boolean event, double deltaX){
+        ((MouseEvent) mouseMovementEvent).setDeltaX(deltaX);
+        mouseMovementEvent.setEvent(event);
     }
 
     public void setShotEvent(boolean event){
@@ -219,6 +316,10 @@ public class Movement {
 
     public void setForth(boolean forth) {
         this.forth = forth;
+    }
+
+    public void setShift(boolean shift){
+        this.shift = shift;
     }
 
     public void setShot(boolean shot) {
@@ -237,12 +338,13 @@ public class Movement {
         this.turnLeft = turnLeft;
     }
 
-    public void setTurnRight(boolean turnRight) {
-        this.turnRight = turnRight;
-    }
+    public void setTurnRight(boolean turnRight) { this.turnRight = turnRight; }
+
+    public void setMouseMovement(boolean mouseMovement) {this.mouseMovement = mouseMovement; }
 
     public void start(){
         launched = true;
+        mouseMovementListener.start();
         backForthListener.start();
         rightLeftListiner.start();
         turnRightLeftListiner.start();
