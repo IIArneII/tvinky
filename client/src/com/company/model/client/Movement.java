@@ -228,7 +228,7 @@ public class Movement {
     public void turnWithMouse(){
         if(mouseMovement){
            double deltaX = ((MouseEvent) mouseMovementEvent).getDeltaX();
-            character.setAng(character.getAng() + deltaX * 0.79 * (Angles.Ang6/10));
+            character.setAng(character.getAng() + deltaX * 0.4 * (Angles.Ang6/10));
         }
 
     }

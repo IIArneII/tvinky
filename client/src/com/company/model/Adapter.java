@@ -1,7 +1,9 @@
 package com.company.model;
 
 import com.company.model.client.Client;
+import com.company.model.client.Movement;
 import com.company.model.rendering.Screen;
+import javafx.application.Platform;
 
 public class Adapter {
 
@@ -81,14 +83,28 @@ public class Adapter {
         //client.getMovement().setTurnRightLeftEvent(false);
     }
 
-    public void mouseMoving(double deltaX){
-        client.getMovement().setMouseMovement(true);
-        client.getMovement().setMouseMovementEvent(true, deltaX);
+    public void mouseMoving(double deltaX) {
+        Movement mov = client.getMovement();
+        mov.setMouseMovement(true);
+        mov.setMouseMovementEvent(true, deltaX);
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            Platform.runLater(() -> {
+                mov.setMouseMovement(false);
+            });
+        }).start();
     }
 
-    public void mouseMovingStop(){
-        client.getMovement().setMouseMovement(false);
-    }
+
+   // public void mouseMovingStop(){
+    //    client.getMovement().setMouseMovement(false);
+    //}
 
     public void pressLeft(){
         client.getMovement().setTurnLeft(true);

@@ -19,7 +19,7 @@ public class Character implements Serializable, Cloneable {
     private WallCharacter wallRight;
 
     public Character(){
-        xy = new Point(0, 0);
+        xy = new Point(6, 2);
         this.ang = 0;
         this.health = 100;
         this.name = "player";
@@ -30,7 +30,7 @@ public class Character implements Serializable, Cloneable {
     }
 
     public Character(String name){
-        xy = new Point(0, 0);
+        xy = new Point(6, 2);
         this.ang = 0;
         this.health = 100;
         this.name = name;

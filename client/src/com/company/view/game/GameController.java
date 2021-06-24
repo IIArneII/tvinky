@@ -9,6 +9,7 @@ import com.company.view.Info;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -88,8 +89,8 @@ public class GameController{
             lineSky[i] = new Line();
             textureWall[i] = new ImageView();
             lineLand[i] = new Line();
-            lineSky[i].setStroke(Color.CYAN);
-            lineLand[i].setStroke(Color.GREY);
+            lineSky[i].setStroke(Color.DARKSLATEGREY);
+            lineLand[i].setStroke(Color.BLACK);
             lineSky[i].setStrokeWidth(1);
             lineLand[i].setStrokeWidth(1);
 
@@ -153,6 +154,7 @@ public class GameController{
         Scene theScene = menuExitBtn.getScene();
         Parent theRoot = FXMLLoader.load(getClass().getResource("../main/MainView.fxml"));
         theScene.setRoot(theRoot);
+
     }
 
     @FXML
@@ -191,23 +193,22 @@ public class GameController{
 
     @FXML
     void mouseMove(MouseEvent mouseEvent) {
+        btn.getScene().setCursor(Cursor.NONE);
+
+        int width = (int) javafx.stage.Screen.getPrimary().getBounds().getWidth();
+        int height = (int) javafx.stage.Screen.getPrimary().getBounds().getHeight();
+
         xEnd = mouseEvent.getSceneX();
         adapter.mouseMoving(xStart - xEnd);
-        try {
-            Thread.sleep(1);
-        }
-        catch (Exception e){
-
-        }
-        adapter.mouseMovingStop();
         xStart = xEnd;
+
+        //new Robot().mouseMove(width / 2, height / 2);
     }
 
     @FXML
-    void mouseEnter(){
+    void mouseEnter() {
         xStart = xEnd;
     }
-
 
     @FXML
     void btnOnKeyPressed(KeyEvent event){
@@ -237,6 +238,7 @@ public class GameController{
             adapter.pressShift();
         }
         if(event.getCode() == KeyCode.ESCAPE){
+            pane.getScene().setCursor(Cursor.DEFAULT);
             renderingOnPause = true;
             adapter.pause(true);
             gridPane.getChildren().remove(pane);
