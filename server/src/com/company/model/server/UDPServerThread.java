@@ -54,6 +54,7 @@ public class UDPServerThread extends Thread{
                         json1.put("type", "changeHP");
                         args.put("hp", character.getHealth());
                         json1.put("args", args);
+                        msg1 = json1.toJSONString();
                     }
                     if(character.getHealth() >= 100){
                         JSONObject json1 = new JSONObject();
@@ -63,12 +64,13 @@ public class UDPServerThread extends Thread{
                         args.put("x", character.getX());
                         args.put("y", character.getY());
                         json1.put("args", args);
+                        msg1 = json1.toJSONString();
                     }
                     try {
                         UDPServer.serverWrite.write(UDPServer.getClients().get(character.getName()), msg1);
                     }
                     catch (Exception e){
-                        System.out.println("Ошибка: " + e.getMessage());
+                        e.printStackTrace();
                     }
                 }
             }

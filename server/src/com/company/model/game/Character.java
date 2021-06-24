@@ -122,6 +122,7 @@ public class Character implements Serializable, Cloneable {
         setX(character.getX());
         setY(character.getY());
         this.ang = (character.ang);
+        this.health = character.health;
     }
 
     @Override
