@@ -249,7 +249,7 @@ public class Movement {
         }
         finally {
             try {
-                Thread.currentThread().sleep(1000);
+                Thread.currentThread().sleep(500);
             }
             catch (Exception e){}
         }

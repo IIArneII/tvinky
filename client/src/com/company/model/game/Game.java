@@ -93,8 +93,28 @@ public class Game implements Serializable, Cloneable {
             System.out.println(character.getName());
             if(character.getHealth() <= 0){
                 character.setHealth(100);
-                character.setX(0);
-                character.setY(0);
+                int rnd = (int) (Math.random() * 6);
+                System.out.println(rnd);
+                switch (rnd){
+                    case 0:
+                        character.setX(6);
+                        character.setY(2);
+                    case 1:
+                        character.setX(-20);
+                        character.setY(-2);
+                    case 2:
+                        character.setX(-20);
+                        character.setY(12);
+                    case 3:
+                        character.setX(4);
+                        character.setY(15);
+                    case 4:
+                        character.setX(-11);
+                        character.setY(4);
+                    case 5:
+                        character.setX(7);
+                        character.setY(10);
+                }
             }
         }
         else{

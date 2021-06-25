@@ -19,7 +19,22 @@ public class Character implements Serializable, Cloneable {
     private WallCharacter wallRight;
 
     public Character(){
-        xy = new Point(0, 0);
+        int rnd = (int) (Math.random() * 6);
+        System.out.println(rnd);
+        switch (rnd){
+            case 0:
+                xy = new Point(6, 2);
+            case 1:
+                xy = new Point(-20, -2);
+            case 2:
+                xy = new Point(-20, 12);
+            case 3:
+                xy = new Point(4, 15);
+            case 4:
+                xy = new Point(-11, 4);
+            case 5:
+                xy = new Point(7, 10);
+        }
         this.ang = 0;
         this.health = 100;
         this.name = "player";
@@ -30,7 +45,22 @@ public class Character implements Serializable, Cloneable {
     }
 
     public Character(String name){
-        xy = new Point(0, 0);
+        int rnd = (int) (Math.random() * 6);
+        System.out.println(rnd);
+        switch (rnd){
+            case 0:
+                xy = new Point(6, 2);
+            case 1:
+                xy = new Point(-20, -2);
+            case 2:
+                xy = new Point(-20, 12);
+            case 3:
+                xy = new Point(4, 15);
+            case 4:
+                xy = new Point(-11, 4);
+            case 5:
+                xy = new Point(7, 10);
+        }
         this.ang = 0;
         this.health = 100;
         this.name = name;
