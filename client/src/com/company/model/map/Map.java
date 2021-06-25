@@ -10,14 +10,53 @@ public class Map implements Serializable, Cloneable {
         walls = new ArrayList<>();
 
         //при создании визуальных стен ставить координаты 0.55 больше или меньше
-        walls.add(new Wall(7.55, 0, 7.55, 4.4, 0, 3, 1));// v1
+        walls.add(new Wall(9, -1, 9, 11.55, 0, 15, 1));// v1
 
-        walls.add(new Wall(12, 0.1, -16.1, 0.1, 0, 3, 1)); //низ v2
-        walls.add(new Wall(12, 4.4, -16.1, 4.4, 0, 3, 1)); //верх v2
+        walls.add(new Wall(3.7, 3.05, 3.7, 5.3, 0, 16, 1));// v2
+        walls.add(new Wall(3.7, 3.05, 3.3, 3.05, 0, 0, 0.39));// v2
+        walls.add(new Wall(3.3, 3.05, 3.3, 5.725, 0, 16, 1));// v2
 
-        walls.add(new Wall(3.575, 1.4, 3.575, 4.401, 0, 3, 1)); // v3
-        walls.add(new Wall(2.475, 1.4, 2.475, 4.401, 0, 3, 1)); // v3
-        walls.add(new Wall(3.575, 1.4, 2.475, 1.4, 0, 3, 1)); // v3
+        walls.add(new Wall(9, -1, -15.2, -1, 0, 15, 1));// v3
+
+        walls.add(new Wall(4.834, 5.1, 4.834, 8.4, 0, 16, 1.4));// v4
+        walls.add(new Wall(4.834, 5.1, 3.7, 5.275 , 0, 16, 1.2));// v4
+        walls.add(new Wall(4.834, 8.4, -1, 10.3 , 0, 16, 1.1));// v4
+        walls.add(new Wall(3.3, 5.725, -1, 7.11, 0, 16, 1));// v4
+        walls.add(new Wall(-1, 7.11, -1, 10.3, 0, 3, 1));// v4
+
+        walls.add(new Wall(-5.768, 5.659, -5.768, 9.058, 0, 3, 1));// v5
+        walls.add(new Wall(-5.768, 5.659, -12.494, 5.072, 0, 17, 1));// v5
+        walls.add(new Wall(-5.768, 9.058, -12.494, 8.47, 0, 17, 1));// v5
+        walls.add(new Wall(-12.494, 5.072, -12.494, 8.47, 0, 17, 1));// v5
+
+        walls.add(new Wall(-8.8, 3.05, -8.8, 5.432, 0, 17, 1));// v6
+        walls.add(new Wall(-8.8, 3.05, -9.2, 3.05, 0, 18, 0.45));// v6
+        walls.add(new Wall(-9.2, 3.05, -9.2, 5.4, 0, 17, 1));// v6
+
+        walls.add(new Wall(-15.2, -1, -15.2, -3.3, 0, 15, 1));// v7
+
+        walls.add(new Wall(-15.2, -3.3, -22.05, -3.3, 0, 5, 1));// v8
+
+        walls.add(new Wall(-22.05, 4.55, -19.05, 7.55, 0, 9, 1));// v9
+        walls.add(new Wall(-21.05, 8.45, -22.05, 9.45, 0, 11, 1));// v9
+
+        walls.add(new Wall(-19.05, 7.55, -17.55, 7.55, 0, 9, 1));// v10
+        walls.add(new Wall(-17.55, 7.55, -17.55, 8.45, 0, 23, 1));// v10
+        walls.add(new Wall(-17.55, 8.45, -21.05, 8.45, 0, 9, 1));// v10
+
+        walls.add(new Wall(-22.05, -3.3, -22.05, 4.55, 0, 15, 1));// v11
+        walls.add(new Wall(-22.05, 9.45, -22.05, 13.05, 0, 11, 1));// v11
+        walls.add(new Wall(-19.05, 16.05, -5.95, 16.05, 0, 11, 1));// v11
+        walls.add(new Wall(-2.05, 16.05, 6.55, 16.05, 0, 11, 1));// v11
+
+        walls.add(new Wall(6.55, 16.05, 6.55, 11.55, 0, 11, 1));// v12
+        walls.add(new Wall(9, 11.55, 6.55, 11.55, 0, 15, 1));// v12
+
+        walls.add(new Wall(-2.05, 16.05, -2.05, 14.05, 0, 13, 1));// v13
+        walls.add(new Wall(-2.05, 14.05, -5.95, 14.05, 0, 20, 1));// v13
+        walls.add(new Wall(-5.95, 14.05, -5.95, 16.05, 0, 13, 1));// v13
+
+        walls.add(new Wall(-22.05, 13.05, -19.05, 16.05, 0, 22, 1));// v14
     }
 
     public int isWall(double x, double y){
