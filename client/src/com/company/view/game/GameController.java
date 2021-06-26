@@ -20,6 +20,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.robot.Robot;
 import javafx.scene.shape.Line;
 import javafx.scene.input.KeyCode;
 import javafx.application.Platform;
@@ -62,6 +63,9 @@ public class GameController{
     GridPane gridPane;
 
     @FXML
+    ImageView imageView;
+
+    @FXML
     public void initialize(){
         try {
             textures = new ArrayList<>();
@@ -78,7 +82,8 @@ public class GameController{
             }
         }
         catch (Exception e){}
-
+        btn.setMaxSize(0,0);
+        btn.setMinSize(0,0);
         xStart = 0;
         xEnd = 0;
         final int count = 800;
@@ -194,14 +199,10 @@ public class GameController{
     void mouseMove(MouseEvent mouseEvent) {
         btn.getScene().setCursor(Cursor.NONE);
 
-        int width = (int) javafx.stage.Screen.getPrimary().getBounds().getWidth();
-        int height = (int) javafx.stage.Screen.getPrimary().getBounds().getHeight();
-
         xEnd = mouseEvent.getSceneX();
         adapter.mouseMoving(xStart - xEnd);
         xStart = xEnd;
 
-        //new Robot().mouseMove(width / 2, height / 2);
     }
 
     @FXML

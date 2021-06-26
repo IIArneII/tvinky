@@ -95,21 +95,27 @@ public class Game implements Serializable, Cloneable {
                     case 0:
                         character.setX(6);
                         character.setY(2);
+                        break;
                     case 1:
                         character.setX(-20);
                         character.setY(-2);
+                        break;
                     case 2:
                         character.setX(-20);
                         character.setY(12);
+                        break;
                     case 3:
                         character.setX(4);
                         character.setY(15);
+                        break;
                     case 4:
                         character.setX(-11);
                         character.setY(4);
+                        break;
                     case 5:
                         character.setX(7);
                         character.setY(10);
+                        break;
                 }
             }
         }

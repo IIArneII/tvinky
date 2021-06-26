@@ -4,6 +4,7 @@ import com.company.model.client.Client;
 import com.company.model.client.Movement;
 import com.company.model.rendering.Screen;
 import javafx.application.Platform;
+import javafx.scene.robot.Robot;
 
 public class Adapter {
 
@@ -95,11 +96,13 @@ public class Adapter {
         new Thread(() -> {
             try {
                 Thread.sleep(1);
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
             Platform.runLater(() -> {
+
                 mov.setMouseMovement(false);
             });
         }).start();

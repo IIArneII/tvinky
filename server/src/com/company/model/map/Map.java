@@ -29,9 +29,9 @@ public class Map implements Serializable, Cloneable {
         walls.add(new Wall(-5.768, 9.058, -12.494, 8.47, 0, 17, 1));// v5
         walls.add(new Wall(-12.494, 5.072, -12.494, 8.47, 0, 17, 1));// v5
 
-        walls.add(new Wall(-8.8, 3.05, -8.8, 5.432, 0, 17, 1));// v6
-        walls.add(new Wall(-8.8, 3.05, -9.2, 3.05, 0, 18, 0.45));// v6
-        walls.add(new Wall(-9.2, 3.05, -9.2, 5.4, 0, 17, 1));// v6
+        walls.add(new Wall(-8.8, 2.9, -8.8, 5.432, 0, 17, 1));// v6
+        walls.add(new Wall(-8.8, 2.9, -9.2, 2.9, 0, 18, 0.45));// v6
+        walls.add(new Wall(-9.2, 2.9, -9.2, 5.4, 0, 17, 1));// v6
 
         walls.add(new Wall(-15.2, -1, -15.2, -3.3, 0, 15, 1));// v7
 

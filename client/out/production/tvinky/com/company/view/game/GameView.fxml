@@ -5,11 +5,19 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.shape.Line?>
 
+<?import javafx.scene.image.ImageView?>
 <GridPane stylesheets="@../Style.css" xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="com.company.view.game.GameController" fx:id="gridPane">
+    <ImageView fx:id="imageView" fitHeight="30.0" fitWidth="30.0" layoutX="400" layoutY="300" >
+        <image>
+            <Image url="@../../../../../images/aim.png" />
+        </image>
+    </ImageView>
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES"/>
         <ColumnConstraints hgrow="SOMETIMES"/>
@@ -29,7 +37,6 @@
         <Pane fx:id="pane" onMouseMoved="#mouseMove" onMouseEntered="#mouseEnter">
             <Button fx:id="btn" onKeyPressed="#btnOnKeyPressed" focusTraversable="true" onKeyReleased="#btnOnKeyReleased"
                     style="-fx-background-color: #9990;"/>
-
         </Pane>
     </children>
 </GridPane>

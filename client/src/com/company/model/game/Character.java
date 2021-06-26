@@ -22,16 +22,22 @@ public class Character implements Serializable, Cloneable {
         switch (rnd){
             case 0:
                 xy = new Point(6, 2);
+                break;
             case 1:
                 xy = new Point(-20, -2);
+                break;
             case 2:
                 xy = new Point(-20, 12);
+                break;
             case 3:
                 xy = new Point(4, 15);
+                break;
             case 4:
                 xy = new Point(-11, 4);
+                break;
             case 5:
                 xy = new Point(7, 10);
+                break;
         }
         this.ang = 0;
         this.health = 100;
@@ -47,16 +53,22 @@ public class Character implements Serializable, Cloneable {
         switch (rnd){
             case 0:
                 xy = new Point(6, 2);
+                break;
             case 1:
                 xy = new Point(-20, -2);
+                break;
             case 2:
                 xy = new Point(-20, 12);
+                break;
             case 3:
                 xy = new Point(4, 15);
+                break;
             case 4:
                 xy = new Point(-11, 4);
+                break;
             case 5:
                 xy = new Point(7, 10);
+                break;
         }
         this.ang = 0;
         this.health = 100;
