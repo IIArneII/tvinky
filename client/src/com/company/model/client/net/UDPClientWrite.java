@@ -40,6 +40,9 @@ public class UDPClientWrite extends Thread{
         catch (Exception e){
             System.out.println("Ошибка: " + e.getMessage());
         }
+        finally {
+            socket.close();
+        }
     }
 
     public void write(String msg) throws Exception{

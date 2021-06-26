@@ -3,17 +3,12 @@ package com.company.model.client.net;
 import com.company.model.client.Client;
 import com.company.model.game.Character;
 import com.company.model.game.Game;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
-import org.json.simple.parser.JSONParser;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
-import java.util.Map;
 
 public class UDPClientRead extends Thread{
     private DatagramSocket socket;
@@ -38,7 +33,6 @@ public class UDPClientRead extends Thread{
                 byte[] buffer = new byte[1000 * 32];
                 DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
                 socket.receive(packet);
-                System.out.println("Получил пакет");
                 String msg = new String(packet.getData(), 0, packet.getLength());
                 JSONObject json = (JSONObject) JSONValue.parse(msg);
 
@@ -67,10 +61,17 @@ public class UDPClientRead extends Thread{
         catch (Exception e){
             System.out.println("Ошибка: " + e.getMessage());
         }
+        finally {
+            socket.close();
+        }
     }
 
     public boolean isLaunched() {
         return launched;
+    }
+
+    public void closeSocket(){
+        socket.close();
     }
 
     public void setLaunched(boolean launched) {
