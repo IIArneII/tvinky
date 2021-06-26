@@ -1,13 +1,17 @@
-package com.company.model.client;
+package com.company.model.client.net;
+
+import com.company.model.client.Client;
+import com.company.model.listeners.Realize;
 
 public class TimeOut extends Thread{
     public static int timeout = 0;
     public static final int MAX_TIME = 5;
-    public boolean launched;
-    private Client client;
+    private boolean launched;
+    private Realize r;
 
-    public TimeOut(Client client){
-        this.client = client;
+    public TimeOut(Realize r){
+        this.r = r;
+        launched = false;
     }
 
     @Override
@@ -18,11 +22,19 @@ public class TimeOut extends Thread{
                 timeout++;
                 if(timeout > MAX_TIME){
                     System.out.println("Превышено время ожидания сервера");
-                    client.stop();
+                    r.make();
                 }
                 sleep(1000);
             }
             catch (Exception e){}
         }
+    }
+
+    public boolean isLaunched() {
+        return launched;
+    }
+
+    public void setLaunched(boolean launched) {
+        this.launched = launched;
     }
 }

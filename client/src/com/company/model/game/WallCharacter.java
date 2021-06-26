@@ -1,6 +1,7 @@
-package com.company.model.map;
+package com.company.model.game;
 
 import com.company.model.game.Character;
+import com.company.model.map.Wall;
 import com.company.model.math.Angles;
 import com.company.model.math.Point;
 import com.company.model.math.Section;

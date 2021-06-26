@@ -1,5 +1,9 @@
 package com.company.model.client;
 
+import com.company.model.client.net.TimeOut;
+import com.company.model.client.net.UDPClientRead;
+import com.company.model.client.net.UDPClientWrite;
+import com.company.model.listeners.Realize;
 import com.company.model.rendering.Rendering;
 import com.company.model.game.Character;
 import com.company.model.game.Game;
@@ -9,37 +13,44 @@ public class Client {
     private Character character;
     private Movement movement;
     private Rendering rendering;
-    private Connection connection;
     private boolean isConnection;
-    public static UDPClient udpClient;
-    private UDPClientRead udpClientRead;
+    private boolean isStart;
+    public static UDPClientWrite udpClientWrite;
+    public static UDPClientRead udpClientRead;
     public static TimeOut timeOut;
 
     public Client(){
+        isStart = true;
         isConnection = false;
         character = new Character("player");
         game = new Game(character);
         rendering = new Rendering(character, game);
-        connection = null;
-        movement = new Movement(character, game, connection);
-        timeOut = new TimeOut(this);
+        movement = new Movement(character, game);
+        timeOut = null;
+        udpClientRead = null;
+        udpClientWrite = null;
     }
 
-    public Client(String name, String ip, int port){
+    public Client(String name, String serverIP, int serverPort, int clientPort){
+        isStart = true;
         isConnection = true;
         character = new Character(name);
         game = new Game(character);
         rendering = new Rendering(character, game);
-        //connection = new Connection(game, ip, port);
         try {
-            udpClient = new UDPClient(game, ip, port);
-            udpClientRead = new UDPClientRead(game, ip, port);
+            udpClientWrite = new UDPClientWrite(game, serverIP, serverPort);
+            udpClientRead = new UDPClientRead(game, clientPort);
         }
         catch (Exception e){
             System.out.println("Ошибка: " + e.getMessage());
         }
-        movement = new Movement(character, game, connection);
-        timeOut = new TimeOut(this);
+        movement = new Movement(character, game);
+        timeOut = new TimeOut(new Realize() {
+            @Override
+            public void make() {
+                isStart = false;
+            }
+        });
     }
 
     public Game getGame() {
@@ -66,11 +77,15 @@ public class Client {
         return rendering;
     }
 
+    public boolean isStart() {
+        return isStart;
+    }
+
     public void start(){
         movement.start();
         rendering.start();
         if(isConnection){
-            udpClient.start();
+            udpClientWrite.start();
             udpClientRead.start();
             timeOut.start();
         }
@@ -82,13 +97,14 @@ public class Client {
     }
 
     public void stop(){
+        isStart = false;
         movement.stop();
         rendering.setLaunched(false);
-        timeOut.launched = false;
         if(isConnection){
-            connection.stop();
-            udpClient.launched = false;
-            udpClientRead.launched = false;
+            timeOut.setLaunched(false);
+            udpClientWrite.setLaunched(false);
+            udpClientRead.setLaunched(false);
+            udpClientRead.closeSocket();
         }
     }
 }

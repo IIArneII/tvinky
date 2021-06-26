@@ -1,13 +1,11 @@
 package com.company.model.math;
 
-import com.company.model.game.Character;
 import com.company.model.map.Wall;
-import com.company.model.map.WallCharacter;
+import com.company.model.game.WallCharacter;
 import com.company.model.map.WallPoint;
-import com.company.model.map.WallPointCharacter;
+import com.company.model.game.WallPointCharacter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class RayCasting
 {

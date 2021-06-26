@@ -13,6 +13,7 @@ public class UDPServer {
     public static HashMap<String, ClientInfo> clients;
     public static UDPServerWrite serverWrite;
     public static TimeOut timeOut;
+    public static DataBase db;
 
     synchronized public static HashMap<String, ClientInfo> getClients(){
         return clients;
@@ -25,6 +26,7 @@ public class UDPServer {
         game = new Game();
         serverWrite = new UDPServerWrite(port);
         timeOut = new TimeOut();
+        db = new DataBase("jdbc:postgresql://localhost:5432/Tvinky", "postgres", "123456789");
     }
 
     public void run(){
@@ -36,7 +38,7 @@ public class UDPServer {
                 byte[] buffer = new byte[1000 * 32];
                 DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
                 serverSocket.receive(packet);
-                new UDPServerThread(packet).start();
+                new UDPServerRead(packet).start();
             }
             catch (Exception e){
                 System.out.println("Ошибка: " + e.getMessage());

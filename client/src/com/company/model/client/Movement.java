@@ -1,7 +1,5 @@
 package com.company.model.client;
 
-import com.company.model.Message;
-import com.company.model.game.Shot;
 import com.company.model.listeners.Event;
 import com.company.model.listeners.Listener;
 import com.company.model.listeners.MouseEvent;
@@ -9,9 +7,6 @@ import com.company.model.listeners.Realize;
 import com.company.model.map.*;
 import com.company.model.math.Angles;
 import com.company.model.game.Character;
-import com.company.model.math.Point;
-import com.company.model.math.RayCasting;
-import com.company.model.math.Section;
 import com.company.model.game.Game;
 import org.json.simple.JSONObject;
 
@@ -19,7 +14,6 @@ public class Movement {
     private Character character;
     private Map map;
     private Game game;
-    private Connection connection;
 
     private Listener backForthListener;
     private Listener rightLeftListiner;
@@ -48,7 +42,7 @@ public class Movement {
     private boolean shift;
     private boolean shot;
 
-    public Movement(Character character, Game game, Connection connection){
+    public Movement(Character character, Game game){
         back = false;
         forth = false;
         right = false;
@@ -62,7 +56,6 @@ public class Movement {
         this.character = character;
         this.map = game.getMap();
         this.game = game;
-        this.connection = connection;
 
         backForthEvent = new Event();
         rightLeftEvent = new Event();
@@ -236,13 +229,9 @@ public class Movement {
     public void shot(){
         try {
             System.out.println("Выстрел");
-//            Section section = new Section(character.getX(), character.getY(),
-//                    character.getX() + Math.cos(Angles.convert(character.getAng())),
-//                    character.getY() + Math.sin(Angles.convert(character.getAng())));
-//            if(connection != null) connection.write(new Message("shot", new Shot(section, character)));
-            JSONObject json = Client.udpClient.getInfo();
+            JSONObject json = Client.udpClientWrite.getInfo();
             json.put("type", "shot");
-            Client.udpClient.write(json.toJSONString());
+            Client.udpClientWrite.write(json.toJSONString());
         }
         catch (Exception e){
             System.out.println("Ошибка при отправке выстрела на сервер: " + e.getMessage());

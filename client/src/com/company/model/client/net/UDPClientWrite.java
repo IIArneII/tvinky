@@ -1,4 +1,4 @@
-package com.company.model.client;
+package com.company.model.client.net;
 
 import com.company.model.game.Game;
 import org.json.simple.JSONObject;
@@ -8,17 +8,17 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.nio.charset.StandardCharsets;
 
-public class UDPClient extends Thread{
-    InetAddress address;
-    DatagramSocket socket;
-    int port;
-    Game game;
-    boolean launched;
+public class UDPClientWrite extends Thread{
+    private InetAddress address;
+    private DatagramSocket socket;
+    private int serverPort;
+    private Game game;
+    private boolean launched;
 
-    public UDPClient(Game game, String ip, int port) throws Exception{
+    public UDPClientWrite(Game game, String ip, int serverPort) throws Exception{
         address = InetAddress.getByName(ip);
         socket = new DatagramSocket();
-        this.port = port;
+        this.serverPort = serverPort;
         this.game = game;
         launched = false;
     }
@@ -28,9 +28,7 @@ public class UDPClient extends Thread{
         launched = true;
         try {
             String msg = getInfo().toJSONString();
-            byte[] buffer = msg.getBytes(StandardCharsets.UTF_8);
-            DatagramPacket request = new DatagramPacket(buffer, buffer.length, address, port);
-            socket.send(request);
+            write(msg);
             this.sleep(100);
 
             while (launched){
@@ -46,8 +44,16 @@ public class UDPClient extends Thread{
 
     public void write(String msg) throws Exception{
         byte[] buffer = msg.getBytes(StandardCharsets.UTF_8);
-        DatagramPacket request = new DatagramPacket(buffer, buffer.length, address, port);
+        DatagramPacket request = new DatagramPacket(buffer, buffer.length, address, serverPort);
         socket.send(request);
+    }
+
+    public void setLaunched(boolean launched) {
+        this.launched = launched;
+    }
+
+    public boolean isLaunched() {
+        return launched;
     }
 
     public JSONObject getInfo(){

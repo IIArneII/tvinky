@@ -1,5 +1,6 @@
-package com.company.model.client;
+package com.company.model.client.net;
 
+import com.company.model.client.Client;
 import com.company.model.game.Character;
 import com.company.model.game.Game;
 import org.json.simple.JSONArray;
@@ -15,14 +16,14 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class UDPClientRead extends Thread{
-    DatagramSocket socket;
-    int port;
-    Game game;
-    boolean launched;
+    private DatagramSocket socket;
+    private int clientPort;
+    private Game game;
+    private boolean launched;
 
-    public UDPClientRead(Game game, String ip, int port) throws Exception{
-        socket = new DatagramSocket(1112);
-        this.port = port;
+    public UDPClientRead(Game game, int clientPort) throws Exception{
+        this.clientPort = clientPort;
+        socket = new DatagramSocket(clientPort);
         this.game = game;
         launched = false;
     }
@@ -32,10 +33,12 @@ public class UDPClientRead extends Thread{
         launched = true;
         try {
             while (launched){
+
                 Client.timeOut.timeout = 0;
                 byte[] buffer = new byte[1000 * 32];
                 DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
                 socket.receive(packet);
+                System.out.println("Получил пакет");
                 String msg = new String(packet.getData(), 0, packet.getLength());
                 JSONObject json = (JSONObject) JSONValue.parse(msg);
 
@@ -66,6 +69,14 @@ public class UDPClientRead extends Thread{
         }
     }
 
+    public boolean isLaunched() {
+        return launched;
+    }
+
+    public void setLaunched(boolean launched) {
+        this.launched = launched;
+    }
+
     private Game getGame(JSONObject json){
         Game game = new Game();
         JSONObject g = (JSONObject)json.get("game");
@@ -82,12 +93,6 @@ public class UDPClientRead extends Thread{
                     (Double)j.get("hp"));
             game.addCharacter(character);
         }
-
-//        (Double)((JSONObject)(((JSONObject)(((JSONObject)(j.get("game"))).get("characters"))).get(j.get("name")))).get("x"),
-//        (Double)((JSONObject)(((JSONObject)(((JSONObject)(j.get("game"))).get("characters"))).get(j.get("name")))).get("y"),
-//        (Double)((JSONObject)(((JSONObject)(((JSONObject)(j.get("game"))).get("characters"))).get(j.get("name")))).get("angle"),
-//        (Double)((JSONObject)(((JSONObject)(((JSONObject)(j.get("game"))).get("characters"))).get(j.get("name")))).get("hp"));
-
         return game;
     }
 }

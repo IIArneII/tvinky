@@ -1,8 +1,9 @@
-package com.company.model.map;
+package com.company.model.game;
 
 import com.company.model.game.Character;
+import com.company.model.map.WallPoint;
 
-public class WallPointCharacter extends WallPoint{
+public class WallPointCharacter extends WallPoint {
     private Character character;
 
     public WallPointCharacter(){

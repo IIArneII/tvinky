@@ -2,7 +2,6 @@ package com.company.model.game;
 
 import com.company.model.map.Map;
 import com.company.model.map.WallPoint;
-import com.company.model.map.WallPointCharacter;
 import com.company.model.math.RayCasting;
 
 import java.io.Serializable;
@@ -89,12 +88,9 @@ public class Game implements Serializable, Cloneable {
         {
             character = ((WallPointCharacter) point).getCharacter();
             character.setHealth(character.getHealth() - 20);
-            System.out.println(character.getHealth());
-            System.out.println(character.getName());
             if(character.getHealth() <= 0){
                 character.setHealth(100);
                 int rnd = (int) (Math.random() * 6);
-                System.out.println(rnd);
                 switch (rnd){
                     case 0:
                         character.setX(6);

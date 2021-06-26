@@ -111,7 +111,7 @@ public class GameController{
         }
         renderingLaunched = false;
         renderingOnPause = false;
-        if(!Info.name.equals("") && !Info.ip.equals("")) adapter = new Adapter(Info.name, Info.ip, Info.port);
+        if(!Info.name.equals("") && !Info.ip.equals("")) adapter = new Adapter(Info.name, Info.ip, Info.serverPort, Info.clientPort);
         else adapter = new Adapter();
         adapter.startClient();
         new Rendering("Rendering", this);
@@ -154,7 +154,6 @@ public class GameController{
         Scene theScene = menuExitBtn.getScene();
         Parent theRoot = FXMLLoader.load(getClass().getResource("../main/MainView.fxml"));
         theScene.setRoot(theRoot);
-
     }
 
     @FXML
@@ -187,7 +186,7 @@ public class GameController{
             }
         }
         catch (Exception e){
-            System.out.println("Ошибка");
+            System.out.println("Ошибка" + e.getMessage());
         }
     }
 
@@ -285,6 +284,21 @@ public class GameController{
     public Line[] getLineLand(){
         return lineLand;
     }
+
+    public void backToMainMenu() throws Exception{
+        pane.getScene().setCursor(Cursor.DEFAULT);
+        renderingOnPause = true;
+        adapter.pause(true);
+        gridPane.getChildren().remove(pane);
+        pane.setVisible(false);
+        menuContinueBtn.setVisible(true);
+        menuExitBtn.setVisible(true);
+        adapter.stop();
+        renderingLaunched = false;
+        Scene theScene = menuExitBtn.getScene();
+        Parent theRoot = FXMLLoader.load(getClass().getResource("../main/MainView.fxml"));
+        theScene.setRoot(theRoot);
+    }
 }
 
 class Rendering implements Runnable{
@@ -299,7 +313,6 @@ class Rendering implements Runnable{
     }
 
     public void run(){
-        System.out.println("Start thread: " + t.getName());
         controller.setRenderingLaunched(true);
         while (controller.isRenderingLaunched()){
             if(!controller.isRenderingOnPause()){
@@ -310,9 +323,18 @@ class Rendering implements Runnable{
                         try { controller.drawLines(screen); } catch (Exception e){}
                     }
                 });
+                if (!controller.adapter.isStart()){
+                    controller.setRenderingLaunched(false);
+                    Platform.runLater(new Runnable() {
+                        public void run() {
+                            try {
+                                controller.backToMainMenu();
+                            } catch (Exception e){}
+                        }
+                    });
+                }
             }
             else try {t.sleep(10);} catch (Exception e){}
         }
-        System.out.println("Поток отрисовки котроллера завершился");
     }
 }

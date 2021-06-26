@@ -1,6 +1,5 @@
 package com.company.model.game;
 
-import com.company.model.map.WallCharacter;
 import com.company.model.math.Angles;
 import com.company.model.math.Point;
 
@@ -20,7 +19,6 @@ public class Character implements Serializable, Cloneable {
 
     public Character(){
         int rnd = (int) (Math.random() * 6);
-        System.out.println(rnd);
         switch (rnd){
             case 0:
                 xy = new Point(6, 2);
@@ -46,7 +44,6 @@ public class Character implements Serializable, Cloneable {
 
     public Character(String name){
         int rnd = (int) (Math.random() * 6);
-        System.out.println(rnd);
         switch (rnd){
             case 0:
                 xy = new Point(6, 2);

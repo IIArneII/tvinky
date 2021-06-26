@@ -1,6 +1,5 @@
 package com.company.view.online;
 
-import com.company.model.Message;
 import com.company.view.Info;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,9 +12,11 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.nio.charset.StandardCharsets;
+
 import javafx.application.Platform;
 
 public class OnlineController{
@@ -43,13 +44,12 @@ public class OnlineController{
 
     @FXML
     public void initialize(){
-        ipCorrect = false;
+        ipCorrect = true;
         loginCorrect = false;
     }
 
     @FXML
     private void writeLogin(KeyEvent event){
-        System.out.println(loginField.getText());
         if(loginField.getText().matches("^[a-z0-9]+")){
             loginCorrect = true;
             if(ipCorrect){
@@ -97,13 +97,28 @@ public class OnlineController{
                 @Override
                 public void run(){
                     try {
-//                        Socket socket = new Socket(ipField.getText(), 1111);
-//                        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-//                        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-//                        out.writeObject(new Message("check", ""));
-//                        System.out.println("Проверка");
-//                        in.readObject();
-                        //socket.close();
+                        DatagramSocket socket = new DatagramSocket(Info.clientPort);
+                        byte[] buffer = new byte[1000 * 32];
+                        DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+
+                        byte[] bufferSend = "{\"type\": \"check\"}".getBytes(StandardCharsets.UTF_8);
+                        DatagramPacket request = new DatagramPacket(bufferSend, bufferSend.length, InetAddress.getByName(ipField.getText()), Info.serverPort);
+                        socket.send(request);
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Thread.currentThread().sleep(3000);
+                                    socket.close();
+                                }
+                                catch (Exception e){}
+                            }
+                        }).start();
+
+                        socket.receive(packet);
+                        if(!socket.isClosed()) socket.close();
+
                         Platform.runLater(new Runnable() {
                             public void run() {
                                 try {

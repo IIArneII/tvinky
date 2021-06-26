@@ -13,12 +13,16 @@ public class Adapter {
         client = new Client();
     }
 
-    public Adapter(String name, String ip, int port){
-        client = new Client(name, ip, port);
+    public Adapter(String name, String ip, int serverPort, int clientPort){
+        client = new Client(name, ip, serverPort, clientPort);
     }
 
     public void startClient(){
         client.start();
+    }
+
+    public boolean isStart(){
+        return client.isStart();
     }
 
     public void stop(){

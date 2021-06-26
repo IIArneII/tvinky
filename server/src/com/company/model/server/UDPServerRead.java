@@ -1,6 +1,5 @@
 package com.company.model.server;
 
-import com.company.model.Message;
 import com.company.model.game.Character;
 import com.company.model.game.Shot;
 import com.company.model.math.Angles;
@@ -10,10 +9,10 @@ import org.json.simple.JSONValue;
 
 import java.net.DatagramPacket;
 
-public class UDPServerThread extends Thread{
+public class UDPServerRead extends Thread{
     DatagramPacket packet;
 
-    public UDPServerThread(DatagramPacket packet){
+    public UDPServerRead(DatagramPacket packet){
         this.packet = packet;
     }
 
@@ -21,11 +20,25 @@ public class UDPServerThread extends Thread{
     public void run() {
         String msg = new String(packet.getData(), 0, packet.getLength());
         JSONObject json = (JSONObject) JSONValue.parse(msg);
-        if(!UDPServer.clients.containsKey((String) json.get("name"))){
+        if(json.get("type").equals("check")){
+            try {
+                UDPServer.serverWrite.write(new ClientInfo(packet.getAddress().toString().substring(1), "check"), "ok");
+            }
+            catch (Exception e){
+                System.out.println("Ошибка: " + e.getMessage());
+            }
+        }
+        else if(!UDPServer.clients.containsKey((String) json.get("name"))){
             UDPServer.clients.put((String) json.get("name"),
                     new ClientInfo(packet.getAddress().toString().substring(1), (String) json.get("name")));
-            System.out.println("Новый клиент: " + (String) json.get("name") + "   " + this.getName());
+            System.out.println("Новый клиент: " + (String) json.get("name"));
             UDPServer.game.addCharacter(new Character((String) json.get("name")));
+            try {
+                UDPServer.db.DataInput((String) json.get("name"));
+            }
+            catch (Exception e){
+                System.out.println("Оибка: " + e.getMessage());
+            }
         }
         else{
             UDPServer.clients.get((String)json.get("name")).timeOut = 0;
