@@ -77,6 +77,8 @@ public class Rendering extends Thread {
 
                     angRad++;
                 }
+                temp[400][1] = 250;
+                temp[400][2] = 350;
                 this.screen.setScreen(temp, width);
             }
             else try { this.sleep(10);} catch (Exception e) {}

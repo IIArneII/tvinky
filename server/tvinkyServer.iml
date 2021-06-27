@@ -17,7 +17,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="postgresql-42.2.20" level="project" />
-    <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="json-simple-1.1.1" level="project" />
   </component>
 </module>

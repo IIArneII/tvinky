@@ -34,7 +34,7 @@ public class UDPServerRead extends Thread{
             System.out.println("Новый клиент: " + (String) json.get("name"));
             UDPServer.game.addCharacter(new Character((String) json.get("name")));
             try {
-                UDPServer.db.DataInput((String) json.get("name"));
+                UDPServer.db.dataInput((String) json.get("name"));
             }
             catch (Exception e){
                 System.out.println("Оибка: " + e.getMessage());
@@ -78,6 +78,12 @@ public class UDPServerRead extends Thread{
                         args.put("y", character.getY());
                         json1.put("args", args);
                         msg1 = json1.toJSONString();
+                        try {
+                            UDPServer.db.dataKill((String)json.get("name"), character.getName());
+                        }
+                        catch (Exception e){
+                            System.out.println("Ошибка при раоте с БД: " + e.getMessage());
+                        }
                     }
                     try {
                         UDPServer.serverWrite.write(UDPServer.getClients().get(character.getName()), msg1);

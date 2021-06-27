@@ -10,7 +10,7 @@ public class DataBase {
         connection = DriverManager.getConnection(url, user, pass);
     }
 
-    public void DataInput(String UserLogin) throws SQLException, ClassNotFoundException {
+    public void dataInput(String UserLogin) throws SQLException, ClassNotFoundException {
         //мы проверяем, если ли уже такой пользователь и после добавляем в базу данных
         Statement create = connection.createStatement();
         ResultSet count = create.executeQuery("select count(*) from \"players\" where login = '" + UserLogin + "' ");
@@ -24,4 +24,8 @@ public class DataBase {
         }
     }
 
+    public void dataKill(String killer, String murdered) throws SQLException, ClassNotFoundException {
+        Statement create = connection.createStatement();
+        create.executeUpdate("INSERT INTO \"kill\" (id, killer, murdered) VALUES (nextval('killp'), '" + killer + "', '" + murdered + "')");
+    }
 }
