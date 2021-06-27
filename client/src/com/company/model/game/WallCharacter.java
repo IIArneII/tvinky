@@ -14,7 +14,7 @@ public class WallCharacter extends Wall implements Serializable {
     private int angleB;
 
     public WallCharacter(Character character, int angleA, int angleB, int texture){
-        super(character.getX(), character.getY(), character.getX() + 0.5, character.getY(), 1, texture, 1);
+        super(character.getX(), character.getY(), character.getX() + 0.5, character.getY(), 1, texture, 0.2);
         this.angleA = angleA;
         this.angleB = angleB;
         this.character = character;
