@@ -42,10 +42,10 @@ public class Character implements Serializable, Cloneable {
         this.ang = 0;
         this.health = 100;
         this.name = "player";
-        wallFront = new WallCharacter(this, -Angles.Ang45, Angles.Ang45, 0);
-        wallLeft = new WallCharacter(this, Angles.Ang45, Angles.Ang135, 2);
-        wallBehind = new WallCharacter(this, Angles.Ang135, Angles.Ang225, 2);
-        wallRight = new WallCharacter(this, Angles.Ang225, Angles.Ang315, 2);
+        wallFront = new WallCharacter(this, -Angles.Ang45, Angles.Ang45, 25);
+        wallLeft = new WallCharacter(this, Angles.Ang45, Angles.Ang135, 27);
+        wallBehind = new WallCharacter(this, Angles.Ang135, Angles.Ang225, 26);
+        wallRight = new WallCharacter(this, Angles.Ang225, Angles.Ang315, 27);
     }
 
     public Character(String name){
@@ -73,10 +73,10 @@ public class Character implements Serializable, Cloneable {
         this.ang = 0;
         this.health = 100;
         this.name = name;
-        wallFront = new WallCharacter(this, -Angles.Ang45, Angles.Ang45, 0);
-        wallLeft = new WallCharacter(this, Angles.Ang45, Angles.Ang135, 2);
-        wallBehind = new WallCharacter(this, Angles.Ang135, Angles.Ang225, 2);
-        wallRight = new WallCharacter(this, Angles.Ang225, Angles.Ang315, 2);
+        wallFront = new WallCharacter(this, -Angles.Ang45, Angles.Ang45, 25);
+        wallLeft = new WallCharacter(this, Angles.Ang45, Angles.Ang135, 27);
+        wallBehind = new WallCharacter(this, Angles.Ang135, Angles.Ang225, 26);
+        wallRight = new WallCharacter(this, Angles.Ang225, Angles.Ang315, 27);
     }
 
     public Character(String name, double x, double y, double ang, double health){
@@ -84,10 +84,10 @@ public class Character implements Serializable, Cloneable {
         this.ang = ang;
         this.health = health;
         this.name = name;
-        wallFront = new WallCharacter(this, -Angles.Ang45, Angles.Ang45, 0);
-        wallLeft = new WallCharacter(this, Angles.Ang45, Angles.Ang135, 2);
-        wallBehind = new WallCharacter(this, Angles.Ang135, Angles.Ang225, 2);
-        wallRight = new WallCharacter(this, Angles.Ang225, Angles.Ang315, 2);
+        wallFront = new WallCharacter(this, -Angles.Ang45, Angles.Ang45, 25);
+        wallLeft = new WallCharacter(this, Angles.Ang45, Angles.Ang135, 27);
+        wallBehind = new WallCharacter(this, Angles.Ang135, Angles.Ang225, 26);
+        wallRight = new WallCharacter(this, Angles.Ang225, Angles.Ang315, 27);
     }
 
     public Point getXY() {

@@ -87,7 +87,7 @@ public class Game implements Serializable, Cloneable {
         if(point.getClass() == WallPointCharacter.class)
         {
             character = ((WallPointCharacter) point).getCharacter();
-            character.setHealth(character.getHealth() - 20);
+            character.setHealth(character.getHealth() - Math.exp((-(point.getDistance())-13)/3) + 10);
             if(character.getHealth() <= 0){
                 character.setHealth(100);
                 int rnd = (int) (Math.random() * 6);

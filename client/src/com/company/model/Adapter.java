@@ -38,6 +38,10 @@ public class Adapter {
         return client.getRendering().getScreen();
     }
 
+    public double getHealth(){
+        return  client.getCharacter().getHealth();
+    }
+
     public void pressW(){
         client.getMovement().setForth(true);
         client.getMovement().setBackForthEvent(true);

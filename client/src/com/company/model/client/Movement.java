@@ -238,10 +238,18 @@ public class Movement {
         }
         finally {
             try {
-                Thread.currentThread().sleep(500);
+                character.getWallFront().setTextureID(30);
+                character.getWallLeft().setTextureID(29);
+                character.getWallBehind().setTextureID(28);
+                character.getWallRight().setTextureID(29);
+                Thread.currentThread().sleep(300);
             }
             catch (Exception e){}
         }
+        character.getWallFront().setTextureID(25);
+        character.getWallLeft().setTextureID(27);
+        character.getWallBehind().setTextureID(26);
+        character.getWallRight().setTextureID(27);
     }
 
     public boolean isLaunched() {

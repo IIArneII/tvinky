@@ -31,4 +31,9 @@ public class WallCharacter extends Wall implements Serializable {
     public Character getCharacter() {
         return character;
     }
+
+    @Override
+    public void setTextureID(int textureID) {
+        super.setTextureID(textureID);
+    }
 }

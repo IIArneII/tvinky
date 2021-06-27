@@ -13,6 +13,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -55,6 +56,9 @@ public class GameController{
 
     @FXML
     Button btn;
+
+    @FXML
+    ProgressBar progressBar;
 
     @FXML
     Pane pane;
@@ -321,7 +325,9 @@ class Rendering implements Runnable{
                 final Screen screen = controller.getAdapter().getScreen();
                 Platform.runLater(new Runnable() {
                     public void run() {
-                        try { controller.drawLines(screen); } catch (Exception e){}
+                        try {
+                            controller.progressBar.setProgress(controller.adapter.getHealth()/100);
+                            controller.drawLines(screen); } catch (Exception e){}
                     }
                 });
                 if (!controller.adapter.isStart()){

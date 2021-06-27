@@ -37,3 +37,11 @@
     -fx-border-radius: 0px;
     -fx-background-color: #078FEB;
 }
+
+.progress-bar {
+    -fx-accent: #ff0000;
+    -fx-box-border: #ff0000;
+    -fx-background-color: #ff0000;
+    -fx-border-radius: 10px;
+    -fx-border-color: #000000;
+}
